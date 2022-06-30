@@ -11,7 +11,7 @@ import { useLocation } from 'react-router-dom'
 // Header is by default shown on top to allow navigation to other pages
  const PersonalChat = ({username}) => {
 
- const socket = io.connect("http://localhost:3001");
+ const socket = io.connect("https://nusocial4.herokuapp.com/");
   const [clickedChat, setClickedChat] = useState("");
   const [isOnline, setIsOnline] = useState("offline");
 

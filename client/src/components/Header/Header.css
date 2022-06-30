@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+.header {
+    height: 80px;
+    width: 100%;
+    background-color    : #EF7C00;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+.headerLeft {
+    font-family: "Poppins", sans-serif;
+    font-weight: 1000;
+    cursor: pointer;
+    margin-top: -40px;
+    margin-left: 30px;
+    text-align: center;
+    width: 30%;
+    flex: 3;    
+    color: #1f3d85;
+}
+
+.searchBar{
+    width: 80%;
+    height: 30px;
+    background-color: white;
+    display:flex;
+    border-radius: 20px;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.searchInput {
+    font-size: 15px;
+    border: none;
+    width: 80%;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.searchInput:focus{
+    outline: none;
+}
+
+.headerCenter {
+    flex: 5;
+}
+
+.searchBar {
+    width: 50%;
+    height: 40px;
+    display: flex;
+    text-align: center;
+}
+
+.headerLinks {
+    display: flex;
+}
+
+.headerRight {
+    margin-right: 20px;
+    width: 30%;
+    flex: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.headerIcon {
+    display:flex;
+
+}
+
+.iconItem {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.iconBadge {
+    color: white;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    top: 20px;
+    right: -5px;
+    align-items: center;
+    display:flex;
+    justify-content: center;
+    position: absolute;
+}

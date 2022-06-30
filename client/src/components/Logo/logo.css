@@ -1,0 +1,18 @@
+.logo {
+    width: 80px;
+    cursor: pointer;
+    height: 80px;
+    padding-top: 20px;
+}
+
+.pageTitle {
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 100px;
+    margin-top: -45px;
+    align-items: center;
+    width: 100%;
+    color: #1f3d85;
+    font-size: calc(15px + 2vmin);
+    display: flex;
+}

@@ -75,7 +75,7 @@ const verifyChat = async (req, res) => {
     });
     await YourTable.sync();
     //look for friend existence
-    const friendsFound = await YourTable.count({ where: { friendUsername: info.chat, reqStatus: "confirm"}})
+    const friendsFound = await YourTable.count({ where: { friendUsername: info.chat, reqStatus: "pending"}})
     console.log(friendsFound);
     if(friendsFound !== 0) {
         //now give them a chatId 

@@ -19,19 +19,7 @@ const LaunchPage = () => {
   const [open, setOpen] = useState(true);
 
   const navigate = useNavigate();
-  /*
-  const serverLogin = async () => {
-    const data = {
-      username: username,
-      password: password,
-    };
-axios.post("http://localhost:8000/api/students/findStudent", data).then(response => {
-  setSentData(response.data);
-  console.log(response.data);
-  setOpen(true)
-  console.log(sentData);
-})};
-*/
+
   
 const serverLoginFetch = async() => {
   const data = {
@@ -46,7 +34,7 @@ const serverLoginFetch = async() => {
     },
     body: JSON.stringify(data),
   }
-fetch("http://localhost:8000/api/students/findStudent", settings).then(response => response.text()).then(data => {
+fetch("http://localhost:5000/api/students/findStudent", settings).then(response => response.text()).then(data => {
 setSentData(data);
 console.log(data);
 setOpen(true);
@@ -83,20 +71,7 @@ const [usernameReg, setUsernameReg] = useState("");
 const [nus_email, setnus_email]= useState("");
 const [passwordReg, setPasswordReg] = useState("");
 const [sentDataReg, setSentDataReg]  = useState("");
-/*
-const addStudent = async () => {
-  const data = {
-    username: usernameReg,
-    nus_email: nus_email,
-    password: passwordReg,
-  };
 
-axios.post("http://localhost:8000/api/students/addStudent", data).then(response => {
-setSentDataReg(response.data);
-console.log(response.data);
-})
-};
-*/
 const addStudentFetch = async() => {
   const data = {
     username: usernameReg,
@@ -111,7 +86,7 @@ const addStudentFetch = async() => {
     },
     body: JSON.stringify(data),
   }
-fetch("http://localhost:8000/api/students/addStudent", settings).then(response => response.text()).then(data => {
+fetch("http://localhost:5000/api/students/addStudent", settings).then(response => response.text()).then(data => {
 setSentDataReg(data);
 console.log(data);
 })

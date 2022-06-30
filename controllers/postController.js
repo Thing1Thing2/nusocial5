@@ -10,6 +10,15 @@ const Post = db.posts
 // 1. create product
 
 const addPost = async (req, res) => {
+    /*
+    const PostsTable = sequelize.define(postsTableName, {
+        body: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        }
+    })
+    await PostsTable.sync();
+    */
 
     let info = {
         sender_nusocial_id: req.body.sender_nusocial_id,

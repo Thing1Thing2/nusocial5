@@ -20,9 +20,9 @@ const Post = ({post}) => {
       }
       const sendMessage = async() => {
         if (comment !== "") {
-
             const messageData = {
-                comment: comment
+                sender_nusocial_id: "sender_id",
+                body: comment
                 };
               const settings = {
                 method: "POST",

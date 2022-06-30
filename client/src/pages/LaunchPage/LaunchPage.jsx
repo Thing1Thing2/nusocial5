@@ -34,7 +34,7 @@ const serverLoginFetch = async() => {
     },
     body: JSON.stringify(data),
   }
-fetch("http://localhost:5000/api/students/findStudent", settings).then(response => response.text()).then(data => {
+fetch("https://nusocial4.herokuapp.com/api/students/findStudent", settings).then(response => response.text()).then(data => {
 setSentData(data);
 console.log(data);
 setOpen(true);

@@ -86,7 +86,7 @@ const addStudentFetch = async() => {
     },
     body: JSON.stringify(data),
   }
-fetch("http://localhost:5000/api/students/addStudent", settings).then(response => response.text()).then(data => {
+fetch("https://nusocial4.herokuapp.com/api/students/addStudent", settings).then(response => response.text()).then(data => {
 setSentDataReg(data);
 console.log(data);
 })

@@ -82,7 +82,7 @@ const findStudent = async (req, res) => {
     let student = await Student.findOne({ where: { username: username}}).then(async stu => {
         console.log("Stu is: " + stu);
         if(stu) {
-            if( await bcrypt.compare(password, stu.password)){
+            if( password === stu.password){
                 stu.update({
                     online: true
                   })

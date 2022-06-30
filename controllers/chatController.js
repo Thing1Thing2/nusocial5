@@ -81,7 +81,6 @@ const verifyChat = async (req, res) => {
         //now give them a chatId 
     let chatId = yourUsername + info.chat;
     YourTable.update({ chatId : chatId },{ where : { friendUsername : info.chat}});
-    res.status(200).send(student)
         const Chat = sequelize.define(chatId, {
             username: {
                 type: DataTypes.STRING,

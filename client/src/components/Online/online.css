@@ -1,0 +1,34 @@
+.rightBarFriend {
+    display: flex;
+    min-height: 60px;
+    line-height: 60px;
+    border-bottom: 3px solid #f5f5f5;
+}
+
+.rightBarAvatarContainer {
+    margin-top: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.rightBarAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.rightBarOnline{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: limegreen;
+    position: absolute;
+    top: -2px;
+    right: 0;
+    border: 2px solid white;
+}
+
+.rightBarUsername {
+    margin-left: 20px;
+}

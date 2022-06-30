@@ -1,0 +1,123 @@
+.chat {
+    flex: 0.65;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat_header {
+    padding: 20px;
+    display: flex;
+    align-items: top;
+    border-bottom: 1px solid lightgray;
+    background-color: #7E9FE8;
+}
+
+.chat_headerInfo {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.chat_headerInfo > h3 {
+    margin-bottom: 3px;
+    font-weight: 500;
+}
+
+.chat_headerInfo > p {
+    color: #003D7C;
+}
+
+.chat_headerRight {
+    display: flex;
+    justify-content: space-between;
+    min-width: 100px;
+}
+
+.chat_body{
+    flex: 1;
+    background-image: url("https://images.unsplash.com/photo-1607499699372-7bb722dff7e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Ymx1ZSUyMGJhY2tncm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60");
+    background-repeat: repeat;
+    background-position: center;
+    padding: 30px;
+    overflow: scroll;
+}
+
+.chat_msg {
+    position: relative;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    background-color: white;
+    margin-bottom: 30px;
+}
+
+.chat_name{
+    position: absolute;
+    top: -15px;
+    font-weight: 800;
+    font-size: xx-small;
+    color: white;
+}
+
+.chat_timeStamp {
+    margin-left: 10px;
+    font-size: xx-small;
+}
+
+.chat_reciever {
+    margin-left: auto;
+    background-color: #7E9FE8;
+}
+
+.chat_footer{ 
+    display: flex;
+   
+    justify-content: space-between;
+    align-items: center;
+    height: 62px;
+    border-top: 1px solid lightgray;
+}
+
+
+.chat_footer >  input {
+
+    display: flex;
+    flex: 1;
+    border-radius: 30px;
+    padding: 10px;
+    border: none;
+}
+
+.chat_footer >  button {
+    display: none;
+}
+
+.chat_footer > .MuiSvgIcon-root {
+    padding: 1px;
+    color: gray;
+
+}
+
+
+.message_other {
+    margin-right: auto;
+    background-color: white;
+    position: relative;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    margin-bottom: 30px;
+}
+
+.message {
+    margin-left: auto;
+    background-color: #7E9FE8;
+    position: relative;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    margin-bottom: 30px;
+    }
+    

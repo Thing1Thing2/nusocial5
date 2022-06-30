@@ -1,0 +1,7 @@
+.personalchat_body {
+   display: flex;
+   background-color: #ededed;
+
+   height: 90vh;
+}
+

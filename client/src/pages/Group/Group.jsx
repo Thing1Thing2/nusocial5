@@ -10,7 +10,7 @@ const Group = () => {
   return (
     <div >
         <div className="groupHeader">
-        <Header title = {location.state.group} showHeaderCenter={true} showHeaderRight={true} link = "/home"/>
+        <Header title = {location.state.group} showHeaderCenter={true} showHeaderRight={true} link = "/home" username = {location.state.username}/>
         </div>
         <div className="groupBody">
     

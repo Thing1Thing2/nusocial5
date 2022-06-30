@@ -20,13 +20,25 @@ const Post = ({post}) => {
       }
       const sendMessage = async() => {
         if (comment !== "") {
-          const messageData = {
-          comment: comment
-          };
 
-          setCommentsList((list) => [...list, messageData]);
-          setComment("");
-          setComments(comments + 1);
+            const messageData = {
+                comment: comment
+                };
+              const settings = {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(messageData),
+              }
+            fetch("https://nusocial4.herokuapp.com/api/posts/addPost", settings).then(response => response.text()).then(data => {
+                setCommentsList((list) => [...list, messageData]);
+                setComment("");
+                setComments(comments + 1)
+          });
+
+          
         }
       }
       
@@ -69,7 +81,7 @@ const Post = ({post}) => {
                         </div>
                         <div className="commentBubble">
                             <div className="commentName">Samoyed Hoang</div>
-                            <p>{comment.comment}</p>
+                            <p>{comment}</p>
                         </div>
                     </div>
                 )

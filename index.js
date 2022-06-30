@@ -50,7 +50,7 @@ app.use('/api/posts', postRouter)
 const friendsListRouter = require('./routes/friendsListRouter.js')
 app.use('/api/friends', friendsListRouter)
 //static Images Folder
-app.use('/ProfilePics', express.static('../client/ProfilePics'))
+app.use('/ProfilePics', express.static('/ProfilePics'))
 
 
 

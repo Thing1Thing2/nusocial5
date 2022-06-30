@@ -26,6 +26,7 @@ const path = require('path')
 // create main Model
 const Student = db.students
 const Chat = db.chats
+const Post = db.posts;
 
 // main work
 
@@ -63,6 +64,14 @@ const student = await Student.create(info)
     }
 });
 await FriendsTable.sync();
+const postsTableName = info.username + "posts";
+const PostsTable = sequelize.define(postsTableName, {
+    body: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }
+})
+await PostsTable.sync();
 }
 
 

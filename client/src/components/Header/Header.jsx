@@ -80,7 +80,7 @@ const handleSelect = (e) => {
       </div>
       <div className="iconItem">
      
-        <Chat fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/personalChat", {state:location.state.username})}/>
+        <Chat fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/personalChat", {state:{username: location.state.username}})}/>
           <DoubleArrowTwoToneIcon htmlColor='#1f3d85' onClick = {() => navigate("/quicklinks", {state:{username: location.state.username}})} />
       
         <span className="iconBadge">3</span>
@@ -96,6 +96,7 @@ const handleSelect = (e) => {
     )}
     value = {selected}
     sx={{autoWidth:true}}
+    onChange = {handleSelect}
   >
     <MenuItem value="My Profile" >My Profile</MenuItem>
     <MenuItem value="Log Out">Log Out</MenuItem>

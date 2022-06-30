@@ -79,7 +79,26 @@ const verifyChat = async (req, res) => {
     console.log(friendsFound);
     if(friendsFound !== 0) {
         //now give them a chatId 
+
+        const friendTable = info.chat + "friends";
+    const FriendTable = sequelize.define(friendsTable, {
+        friendUsername: {
+            type: DataTypes.STRING,
+        }, 
+        reqStatus:{
+            type : DataTypes.STRING,
+        },
+        chatId: {
+            type: DataTypes.STRING,
+            unique: true,
+        }
+    });
+    await FriendsTable.sync();
+    const chatIdExists = await FriendTable.count({ where: { friendUsername: info.chat, chatId: info.chat + yourUsername}})
     let chatId = yourUsername + info.chat;
+    if (chatIdExists !== 0) {
+        chatId = info.chat + yourUsername;
+    } 
     YourTable.update({ chatId : chatId },{ where : { friendUsername : info.chat}});
         const Chat = sequelize.define(chatId, {
             username: {

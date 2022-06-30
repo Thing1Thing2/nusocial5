@@ -42,9 +42,14 @@ const addFriend = async (req, res) => {
         }
     });
     await YourTable.sync();
+    const friendExists = await YourTable.count({ where: { friendUsername: info.friendUsername}})
+    if(friendExists !== 0) {
     const friendReq = await YourTable.create(info)
     res.status(200).send(friendReq)
     console.log(friendReq)
+    } else {
+        res.status("friend request already sent");
+    }
     let infoFriend = {
         friendUsername: yourUsername,
         reqStatus: "pending",
@@ -63,8 +68,11 @@ const addFriend = async (req, res) => {
         }
     });
     await FriendTable.sync();
-    const friendFriendReq = await FriendTable.create(infoFriend)
-    console.log(friendFriendReq)
+    const youExist = await FriendTable.count({ where: { friendUsername: infoFriend.friendUsername}})
+    if(youExist !== 0) {
+        const friendFriendReq = await FriendTable.create(infoFriend)
+        console.log(friendFriendReq)
+    }   
 }
 
 // 2. get all products

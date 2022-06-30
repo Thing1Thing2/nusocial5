@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 // image Upload
 const multer = require('multer')
 const path = require('path')
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 
 // create main Model
 const Student = db.students
@@ -35,7 +35,7 @@ const addStudent = async (req, res) => {
     console.log(req.body);
     console.log(req);
     var password = req.body.password;
-    password = await bcrypt.hash(password, 10);
+    //password = await bcrypt.hash(password, 10);
     let info = {
         username: req.body.username,
         nus_email: req.body.nus_email,

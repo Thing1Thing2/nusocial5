@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 const LaunchPage = () => {
-  const container = document.querySelector(".container");
+  const container = document.querySelector("container");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [sentData, setSentData] = useState("");

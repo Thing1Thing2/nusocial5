@@ -10,7 +10,7 @@ const Profile = () => {
   return (
     <div className="profile">
         <div className="profileHeader">
-        <Header title = "Profile" showHeaderCenter={true} showHeaderRight={true} link = "/home"/>
+        <Header title = "Profile" showHeaderCenter={true} showHeaderRight={true} link = "/home" username = {location.state.username}/>
         </div>
         <div className="profileBody">
     

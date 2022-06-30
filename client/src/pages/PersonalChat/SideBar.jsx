@@ -33,7 +33,7 @@ function SideBar({socket, getClickedChat, isOnline, username}) {
       body: JSON.stringify(data),
     }
       console.log("in is online");
-      fetch("http://localhost:8000/api/students/isOnline",settings ).then(response =>response.text()).then( data => {
+      fetch("https://nusocial4.herokuapp.com/home/api/students/isOnline",settings ).then(response =>response.text()).then( data => {
         console.log("response in isOnline chatBar: " + data);
         isOnline(data);
     });
@@ -87,7 +87,7 @@ const addChatToLeftBarFetch = (chat)=> {
       },
       body: JSON.stringify(data),
     }
-    fetch("http://localhost:8000/api/chats/verifyChat", settings).then(response => response.text()).then(response => {
+    fetch("https://nusocial4.herokuapp.com/api/chats/verifyChat", settings).then(response => response.text()).then(response => {
       console.log("responsedata " + response);
      if(response === "passed"){
       if(!chats.includes(chat)) {

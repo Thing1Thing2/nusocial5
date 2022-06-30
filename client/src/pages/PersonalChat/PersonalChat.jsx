@@ -3,7 +3,7 @@ import './personalChat.css'
 import SideBar from './SideBar'
 import ChatBar from './ChatBar'
 import Header from '../../components/Header/Header'
-//import io from "socket.io-client"
+import io from "socket.io-client"
 import { useLocation } from 'react-router-dom'
 
 //SideBar contains contacts 
@@ -11,12 +11,12 @@ import { useLocation } from 'react-router-dom'
 // Header is by default shown on top to allow navigation to other pages
  const PersonalChat = ({username}) => {
 
- // const socket = io.connect("http://localhost:3001");
+ const socket = io.connect("http://localhost:3001");
   const [clickedChat, setClickedChat] = useState("");
   const [isOnline, setIsOnline] = useState("offline");
 
   const location = useLocation();
-  /*
+  
 
   const getClickedChat = (chat) => {
     setClickedChat(chat);
@@ -27,15 +27,15 @@ import { useLocation } from 'react-router-dom'
     setIsOnline(online);
     console.log("Now in personalchat online status: " + online)
   }
-  */
+  
   return (  
     <div className = "PersonalChat">
     <div className = "personalchat">
-  <Header title = "Chat"  showHeaderCenter={true} showHeaderRight = {true} link = "/home" username = "username"/>
+  <Header title = "Chat"  showHeaderCenter={true} showHeaderRight = {true} link = "/home" username = {location.state.username}/>
     <div className = "personalchat_body">
     {console.log(clickedChat)}
-      <SideBar />
-      <ChatBar  />
+    <SideBar socket = {socket} getClickedChat = {getClickedChat} isOnline = {getIsOnline} username = {location.state.username} />
+      <ChatBar socket = {socket} username = {location.state.username} chat = {clickedChat.toString()} isOnline = {isOnline} />
       </div>
       </div>
     </div>

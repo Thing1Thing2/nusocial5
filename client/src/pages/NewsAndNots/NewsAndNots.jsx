@@ -19,7 +19,7 @@ const NewsAndNots = () => {
       },
       body: JSON.stringify(data),
     }
-fetch("http://localhost:8000/api/friends/addFriend", settings).then(response => response.text()).then(data => {
+fetch("https://nusocial4.herokuapp.com/api/friends/addFriend", settings).then(response => response.text()).then(data => {
   console.log(data);
 })};
 

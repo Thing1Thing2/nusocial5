@@ -25,7 +25,7 @@ const clickedMenu = () => {
   const [showPicker, setShowPicker] = useState(false);
 
 
-/*
+
   const sendMessageFetch = async () => {
     if (input !== "") {
       const messageData = {
@@ -53,7 +53,7 @@ const clickedMenu = () => {
 
     try{
       await socket.emit("send_message", messageData);
-      fetch("http://localhost:8000/api/chats/addMsg", settings).then((res) => res.text())
+      fetch("https://nusocial4.herokuapp.com/api/chats/addMsg", settings).then((res) => res.text())
       .then(msg => console.log(msg));
       setInput("");
     } catch (err) {
@@ -61,7 +61,7 @@ const clickedMenu = () => {
     }
   }
 }
-*/
+
 
   const sendMessage = async() => {
     if (input !== "") {
@@ -85,13 +85,13 @@ const onEmojiClick = (event, emojiObj) => {
   setInput(prevInput => prevInput + emojiObj.emoji);
   setShowPicker(false);
 }
-/*
+
     useEffect(() => {
       socket.on("receive_message", (data) => {
         setInputs((list) => [...list, data]);
       });
     }, [socket]);
-*/
+
  return (
     <div className = "chat">
     <div className = "chat_header">
@@ -153,7 +153,7 @@ const onEmojiClick = (event, emojiObj) => {
             setInput(event.target.value);
           }}
       onKeyPress = { (event) => {
-      event.key === 'Enter' && sendMessage();
+      event.key === 'Enter' && sendMessageFetch();
     }}
     /> 
    

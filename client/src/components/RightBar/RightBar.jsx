@@ -7,7 +7,7 @@ import React from 'react';
 
 
 const RightBar = ({username}) => {
-  /*
+  
   const sendFriendRequest = async (friendUsername) => {
     const data = {
       friendUsername: friendUsername,
@@ -21,10 +21,10 @@ const RightBar = ({username}) => {
       },
       body: JSON.stringify(data),
     }
-  fetch("http://localhost:8000/api/friends/addFriend", settings).then(response => response.text()).then(data => {
+  fetch("https://nusocial4.herokuapp.com/api/friends/addFriend", settings).then(response => response.text()).then(data => {
   console.log(data);
   })};
-  */
+  
 
   const addProfilePicture = event => {
     const fileField = document.querySelector('input[type="file"]');
@@ -35,7 +35,7 @@ const RightBar = ({username}) => {
       method: "POST",
       body: formData,
     }
-  fetch("http://localhost:8000/api/students/addProfilePicture", settings).then(response => response.text()).then(data => {
+  fetch("https://nusocial4.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.text()).then(data => {
   console.log(data);
   
   }).catch(error => {

@@ -30,7 +30,7 @@ if (error.response) {
   console.log(error.response.headers);
 }})}*/
 
-/*
+
 const logoutFetch = () => {
   const data = {
     username: location.state.username,
@@ -43,7 +43,7 @@ const logoutFetch = () => {
     },
     body: JSON.stringify(data),
   }
-fetch("http://localhost:8000/api/students/logoutStudent", settings).then(response => response.text()).then(data => {
+fetch("https://nusocial4.herokuapp.com/api/students/logoutStudent", settings).then(response => response.text()).then(data => {
   console.log(data)
 })
 }
@@ -51,7 +51,7 @@ fetch("http://localhost:8000/api/students/logoutStudent", settings).then(respons
 const handleSelect = (e) => {
   e.target.value === "My Profile"? navigate("/profile", {state:{username: location.state.username}})
   : e.target.value === "Log Out"? logoutFetch(): setSelected("")}
-  */
+  
 
   return (
     <div className="header">
@@ -71,17 +71,17 @@ const handleSelect = (e) => {
         {showHeaderRight && <div className="headerRight">
     <div className="headerIcon">
       <div className="iconItem">
-        <Home fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/home", {state:{username: "username"}})}/>
+        <Home fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/home", {state:{username: location.state.username}})}/>
       </div>
       <div className="iconItem">
    
-        <Notifications fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/newsandnots", {state:{username: "username"}})}/>
+        <Notifications fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/newsandnots", {state:{username: location.state.username}})}/>
         <span className="iconBadge">4</span>
       </div>
       <div className="iconItem">
      
-        <Chat fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/personalChat", {state:"username"})}/>
-          <DoubleArrowTwoToneIcon htmlColor='#1f3d85' onClick = {() => navigate("/quicklinks", {state:{username: "username"}})} />
+        <Chat fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/personalChat", {state:location.state.username})}/>
+          <DoubleArrowTwoToneIcon htmlColor='#1f3d85' onClick = {() => navigate("/quicklinks", {state:{username: location.state.username}})} />
       
         <span className="iconBadge">3</span>
       </div>

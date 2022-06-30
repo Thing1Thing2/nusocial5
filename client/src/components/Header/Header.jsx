@@ -45,6 +45,9 @@ const logoutFetch = () => {
   }
 fetch("https://nusocial4.herokuapp.com/api/students/logoutStudent", settings).then(response => response.text()).then(data => {
   console.log(data)
+  if (data === "successfully logout"){
+    navigate("/");
+  }
 })
 }
 

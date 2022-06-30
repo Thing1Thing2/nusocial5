@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './header.css';
+import './Header.css';
 import { Chat, Home, Notifications, Search } from "@mui/icons-material";
 import { Avatar } from '@mui/material';
 import Logo from "../Logo/Logo";

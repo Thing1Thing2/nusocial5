@@ -20,6 +20,8 @@ const Post = ({post}) => {
       }
       const sendMessage = async() => {
         if (comment !== "") {
+            setCommentsList((list) => [...list, messageData]);
+                setComments(comments + 1)
             const messageData = {
                 sender_nusocial_id: "sender_id",
                 body: comment
@@ -33,9 +35,7 @@ const Post = ({post}) => {
                 body: JSON.stringify(messageData),
               }
             fetch("https://nusocial4.herokuapp.com/api/posts/addPost", settings).then(response => response.text()).then(data => {
-                setCommentsList((list) => [...list, messageData]);
                 setComment("");
-                setComments(comments + 1)
           });
 
           

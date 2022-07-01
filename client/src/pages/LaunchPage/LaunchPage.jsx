@@ -90,7 +90,6 @@ fetch("https://nusocial4.herokuapp.com/api/students/addStudent", settings).then(
 setSentDataReg(data);
 console.log(data);
 })
-
 }
 const register = (e) => {
   if (e.keyCode === 13) {

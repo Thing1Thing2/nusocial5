@@ -21,7 +21,7 @@ const RightBar = ({username}) => {
       },
       body: JSON.stringify(data),
     }
-  fetch("https://nusocial4.herokuapp.com/api/friends/addFriend", settings).then(response => response.text()).then(data => {
+  fetch("https://nusocial5.herokuapp.com/api/friends/addFriend", settings).then(response => response.text()).then(data => {
   console.log(data);
   })};
   
@@ -35,7 +35,7 @@ const RightBar = ({username}) => {
       method: "POST",
       body: formData,
     }
-  fetch("https://nusocial4.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.text()).then(data => {
+  fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.text()).then(data => {
   console.log(data);
   
   }).catch(error => {
@@ -50,7 +50,7 @@ const RightBar = ({username}) => {
        <input type="file" id="myFile" name="filename" />
   <input type="submit" onClick = {addProfilePicture} />
         <div className="containerTitle">
-          Suggestions For Yous
+          Suggestions For You
         </div>
         {FriendSuggestion.map((u) => (
           <div className="friendSuggestionRequest">

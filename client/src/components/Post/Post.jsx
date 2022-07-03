@@ -34,7 +34,7 @@ const Post = ({post}) => {
                 },
                 body: JSON.stringify(messageData),
               }
-            fetch("https://nusocial4.herokuapp.com/api/posts/addPost", settings).then(response => response.text()).then(data => {
+            fetch("https://nusocial5.herokuapp.com/api/posts/addPost", settings).then(response => response.text()).then(data => {
                 setComment("");
           });
 

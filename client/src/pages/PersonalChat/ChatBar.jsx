@@ -53,7 +53,7 @@ const clickedMenu = () => {
 
     try{
       await socket.emit("send_message", messageData);
-      fetch("https://nusocial4.herokuapp.com/api/chats/addMsg", settings).then((res) => res.text())
+      fetch("https://nusocial5.herokuapp.com/api/chats/addMsg", settings).then((res) => res.text())
       .then(msg => console.log(msg));
       setInput("");
     } catch (err) {
@@ -61,26 +61,7 @@ const clickedMenu = () => {
     }
   }
 }
-
-
-  const sendMessage = async() => {
-    if (input !== "") {
-      const messageData = {
-        chat: chat,
-        author: username,
-        message: input,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
-      };
-
-    setInputs((list) => [...list, messageData]);
-      setInput("");
-    }
-  }
   
-
 const onEmojiClick = (event, emojiObj) => {
   setInput(prevInput => prevInput + emojiObj.emoji);
   setShowPicker(false);

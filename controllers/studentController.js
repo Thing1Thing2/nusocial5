@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 // image Upload
 const multer = require('multer')
 const path = require('path')
-//const bcrypt = require("bcrypt");
+
 
 // create main Model
 const Student = db.students
@@ -33,25 +33,47 @@ const Post = db.posts;
 // 1. create student
 
 const addStudent = async (req, res) => {
-    console.log(req.body);
-    console.log(req);
-    var password = req.body.password;
-    //password = await bcrypt.hash(password, 10);
+    console.log(req.body.password);
+    password = req.body.password;
     let info = {
         username: req.body.username,
         nus_email: req.body.nus_email,
-        password:password,
+        password: req.body.password,
         friendTable: req.body.username + "friends",
     }
-const student = await Student.create(info)
-.then(function(item){
-    res.status(200).send("successfully registered")
-  }).catch(function (err) {
-    res.status(200).send("error occured")
-    console.log(err);
-  });
+    try {
+    await Student.findOne({where: {username: info.username}}).then(async stu => {
+        if (stu) {
+            res.status(200).send("username is taken");
+        } else {
+            await Student.findOne({where: {nus_email: info.nus_email}}).then(async stu => {
+                if (stu) {
+                    res.status(200).send("You cannot create more than once account with the same email");
+                } else {
+                    Student.create(info).then(function(item){
+                        res.status(200).send("successfully registered")
+                      }).catch(err=> {
+                        res.status(200).send(err);
+                    });
+                }
+            })
+        }
+    }
+     )
+} catch (err) {
+    res.send(200).send("error adding student");
+    console.log("error adding student: " + err);
+}
+}
 
-  const FriendsTable = sequelize.define(info.friendTable, {
+// 2. Create Friends table on register
+
+const friendsTable = async (req, res) => {
+    let info = {
+        username: req.body.username,
+    }
+    const tableName = info.username + "friends";
+  const FriendsTable = sequelize.define(tableName, {
     friendUsername: {
         type: DataTypes.STRING,
     }, 
@@ -60,38 +82,150 @@ const student = await Student.create(info)
     },
     chatId: {
         type: DataTypes.STRING,
-        unique: true,
-    }
-});
-await FriendsTable.sync();
-const postsTableName = info.username + "posts";
-const PostsTable = sequelize.define(postsTableName, {
-    body: {
+    },
+    sentBy: {
         type: DataTypes.STRING,
-        allowNull: false,
     }
 })
-await PostsTable.sync();
+await FriendsTable.sync();
+}
+
+// 3. Create Photos table on register
+
+const photosTable = async (req, res) => {
+    let info = {
+        username: req.body.username,
+    }
+    const tableName = info.username + "photos";
+  const PhotosTable = sequelize.define(tableName, {
+    image: {
+        type: DataTypes.STRING,
+    }, 
+    at:{
+        type : DataTypes.STRING,
+    }
+})
+await PhotosTable.sync();
+}
+
+// 4. Create Links table on register
+const linksTable = async (req, res) => {
+    let info = {
+        username: req.body.username,
+    }
+    const tableName = info.username + "links";
+  const LinksTable = sequelize.define(tableName, {
+    link: {
+        type: DataTypes.STRING,
+    },
+    image: {
+        type: DataTypes.STRING,
+    } ,
+    at:{
+        type : DataTypes.STRING,
+    }
+})
+await LinksTable.sync();
 }
 
 
+// 5. Create News and Nots table on register
+const newsandNotsTable = async (req, res) => {
+    let info = {
+        username: req.body.username,
+    }
+    const tableName = info.username + "newsandnots";
+  const NewsAndNotsTable = sequelize.define(tableName, {
+    origin: {
+        type: DataTypes.STRING,
+         // news can be created by a group or notification obtained from website so indicate origin 
+         // group id if group posted this news
+         // web url if got news from url
+         // as an extension: user can add a reminder for themselves
+    },
+    image: {
+        type: DataTypes.STRING, //only for news
+    }, 
+    body:{
+        type : DataTypes.STRING, 
+    }, 
+    type : {
+        type: DataTypes.STRING, //either news or notification
+    }, 
+    link : {
+        type: DataTypes.STRING,
+    }
+})
+await NewsAndNotsTable.sync();
+}
+// news has body and image, notification has body and link
 
-// 2. get all students
 
-const getAllStudents = async (req, res) => {
-    let students = await Student.findAll({})
-    res.status(200).send(students)
+// 6. Create Posts table on register
+
+const postsTable = async (req, res) => {
+    let info = {
+        username: req.body.username,
+    }
+    const postsTableName = info.username + "posts";
+    const PostsTable = sequelize.define(postsTableName, {
+        body: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        }
+    })
+    await PostsTable.sync();
+}
+ 
+
+
+
+// 7. Create Comments table on register
+const commentsTable = async (req, res) => {
+    let info = {
+        username: req.body.username,
+    }
+    const tableName = info.username + "comments";
+    const CommentsTable = sequelize.define(tableName, {
+        postId: {
+            type: DataTypes.STRING,
+        }, 
+        body:{
+            type : DataTypes.STRING,
+        },
+    })
+    await CommentsTable.sync();
 }
 
-// 3. get single student based on id and password
+// 8. Create Groups table on register
+const groupsTable = async (req, res) => {
+    let info = {
+        username: req.body.username,
+    }
+    const tableName = info.username + "groups";
+    const GroupsTable = sequelize.define(tableName, {
+        groupId: {
+            type: DataTypes.STRING,
+        }, 
+        membershipStatus:{
+            type : DataTypes.STRING,//member or admin
+        }
+    })
+    await GroupsTable.sync();
+}
+
+// 9. get single student based on id and password
 
 const findStudent = async (req, res) => {
+    console.log("in find student");
     let username = req.body.username
     let password = req.body.password
-    let student = await Student.findOne({ where: { username: username}}).then(async stu => {
+    console.log(req.body);
+    await Student.findOne({ where: { username: username}}).then(async stu => {
         console.log("Stu is: " + stu);
         if(stu) {
-            if( password === stu.password){
+            console.log("in password compare");
+            if(password === stu.password){
                 stu.update({
                     online: true
                   })
@@ -101,15 +235,15 @@ const findStudent = async (req, res) => {
             }
             } 
             else {
-                res.status(200).send("Incorrect userid");
+                res.status(200).send("This User id does not exist");
             }
-    })     
-        console.log(student);
+    }).catch(err=> 
+        res.status(200).send(err));     
     
 }
 
 
-// 3. get single student based on id and password
+// 10. Logout student
 
 const logoutStudent = async (req, res) => {
     let username = req.body.username
@@ -122,31 +256,7 @@ const logoutStudent = async (req, res) => {
       });   
 }
 
-// 4. update Product
-
-const updateStudent = async (req, res) => {
-
-    let id = req.params.id
-
-    const student = await Student.update(req.body, { where: { id: id }})
-
-    res.status(200).send(student)
-}
-
-// 5. delete product by id
-
-const deleteStudent = async (req, res) => {
-
-    let id = req.params.id
-    
-    await Student.destroy({ where: { id: id }} )
-
-    res.status(200).send('Student is deleted !')
-
-}
-
-
-// 7. connect one to many relation Product and Reviews
+// 11. 
 
 const getStudentChats =  async (req, res) => {
 
@@ -173,17 +283,17 @@ if(!req.file) {
 } else {
     console.log(req.file);
     console.log(req.body);
-    console.log("username is " + req.username);
+    console.log(req.body.username);
     res.send(req.body.username + "ProfilePic");
 }
 }
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'ProfilePics')
+        cb(null, '../server/client/src/ProfilePics')
     },
     filename: (req, file, cb) => {
-        const imageName = req.body.username + "ProfilePic";
+        const imageName = req.body.username + "ProfilePic.jpg";
         cb(null, imageName)
         let info = {
            profilePicture : imageName,
@@ -224,17 +334,39 @@ const isOnline = async (req, res) => {
       });   
 }
 
+// 5. delete product by id
+
+const deleteStudent = async (req, res) => {
+
+    let id = req.params.id
+    
+    await Student.destroy({ where: { id: id }} )
+
+    res.status(200).send('Student is deleted !')
+
+}
+
+const getAllStudents = async (req, res) => {
+    let students = await Student.findAll({attributes: ['username']})
+    res.status(200).send(students)
+}
 
 module.exports = {
     addStudent,
-    getAllStudents,
+    friendsTable,
+    linksTable,
+    commentsTable,
+    newsandNotsTable,
+    photosTable,
+    postsTable,
+    groupsTable,
     logoutStudent,
     findStudent,
-    updateStudent,
     deleteStudent,
     getStudentChats,
     upload,
     isOnline,
-    addProfilePicture
-    
+    addProfilePicture,
+    getAllStudents
 }
+

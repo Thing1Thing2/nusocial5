@@ -12,25 +12,6 @@ const Header = ({link, title,showHeaderCenter, showHeaderRight, username}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [selected, setSelected]= useState("");
-  /*
-  const logOut = () => {
-    const data = {
-    username: location.state.username
-};
-axios.post("http://localhost:8000/api/students/logoutStudent", data).then(response => {
-   console.log(response.data);
-navigate("/")
-}).catch(
-  function (error) {
-if (error.response) {
-  // The request was made and the server responded with a status code
-  // that falls out of the range of 2xx
-  console.log(error.response.data);
-  console.log(error.response.status);
-  console.log(error.response.headers);
-}})}*/
-
-
 const logoutFetch = () => {
   const data = {
     username: location.state.username,
@@ -43,7 +24,7 @@ const logoutFetch = () => {
     },
     body: JSON.stringify(data),
   }
-fetch("https://nusocial4.herokuapp.com/api/students/logoutStudent", settings).then(response => response.text()).then(data => {
+fetch("https://nusocial5.herokuapp.com/api/students/logoutStudent", settings).then(response => response.text()).then(data => {
   console.log(data)
   if (data === "successfully logout"){
     navigate("/");

@@ -47,16 +47,10 @@ const friendsRouter = require('./routes/friendsRouter.js')
 app.use('/api/friends', friendsRouter)
 const personalNewsAndNotsRouter = require('./routes/personalNewsAndNotsRouter.js')
 app.use('/api/personalnewsandnots', personalNewsAndNotsRouter)
-const postsRouter = require('./routes/postsRouter.js')
-app.use('/api/posts', postsRouter)
 
 //static Images Folder
 app.use('/ProfilePics', express.static('/client/src/ProfilePics'))
-app.use('/PostsPics', express.static('/client/src/PostsPics'))
-const friendsRouter = require('./routes/friendsRouter.js')
-app.use('/api/friends', friendsRouter)
-const personalNewsAndNotsRouter = require('./routes/personalNewsAndNotsRouter.js')
-app.use('/api/personalnewsandnots', personalNewsAndNotsRouter)
+
 
 //static Images Folder
 app.use('/ProfilePics', express.static('/client/src/ProfilePics'))

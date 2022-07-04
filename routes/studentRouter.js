@@ -1,9 +1,9 @@
-const personalNewsAndNotsController =  require('../controllers/personalNewsAndNotsController.js');
+const studentController =  require('../controllers/studentController.js');
 
 
-const personalNewsAndNotsRouter = require("express").Router();
+const router = require("express").Router();
 
-
-personalNewsAndNotsRouter.post("/addNews",personalNewsAndNotsController.addPersonalNewsAndNots);
-
-module.exports = personalNewsAndNotsRouter;
+router.post("/findStudent", studentController.findStudent);
+router.post("/addStudent",studentController.addStudent);
+router.post("/logoutStudent",studentController.logoutStudent);
+module.exports = router;

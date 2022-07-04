@@ -21,7 +21,7 @@ const RightBar = ({username}) => {
       },
       body: JSON.stringify(data),
     }
-  fetch("https://nusocial5.herokuapp.com//api/friends/addFriend", settings).then(response => response.json()).then(data => {
+  fetch("https://nusocial5.herokuapp.com/api/friends/addFriend", settings).then(response => response.json()).then(data => {
   console.log(data)});
 
 }

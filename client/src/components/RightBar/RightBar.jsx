@@ -84,8 +84,8 @@ useEffect(() => {
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">
-       <input type="file" id="myFile" name="filename" />
-  <input type="submit" onClick = {addProfilePicture} />
+       <input type="file" id="myFile" name="filename" placeholder="upload profile picture" />
+  <input type="submit" onClick = {addProfilePicture} placeholder="upload image" />
   <input type="submit" placeholder="refresh feed" onClick = {getAllStudents} value = "refresh suggestion" />
         <div className="containerTitle">
           Suggestions For You

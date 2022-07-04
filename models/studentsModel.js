@@ -25,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false,
+        },
+        postsCount: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
         }
     }, {
         createdAt: "registeredAt",

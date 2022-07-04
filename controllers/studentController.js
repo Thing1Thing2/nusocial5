@@ -174,9 +174,9 @@ const addProfilePicture = async (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        var path = document.location.pathname;
-        console.log(path);
-        cb(null, '../client/src/ProfilePics')
+       
+        console.log(__dirname);
+        cb(null, '/client/src/ProfilePics')
 
     },
     filename: (req, file, cb) => {

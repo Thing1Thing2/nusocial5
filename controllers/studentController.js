@@ -3,7 +3,7 @@ const db = require('../models')
 // image Upload
 const multer = require('multer')
 const path = require('path');
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 // create main Model
 const Student = db.students

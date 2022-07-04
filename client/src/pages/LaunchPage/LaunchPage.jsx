@@ -89,6 +89,7 @@ function handleReg(e) {
 }
 
 function submitRegistrationForm(e) {
+  setOpenReg(false);
   e.preventDefault();
   const dataRegistration = {
     username: dataReg.username,

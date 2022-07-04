@@ -49,7 +49,7 @@ const personalNewsAndNotsRouter = require('./routes/personalNewsAndNotsRouter.js
 app.use('/api/personalnewsandnots', personalNewsAndNotsRouter)
 
 //static Images Folder
-app.use('/ProfilePics', express.static('/client/src/ProfilePics'))
+app.use('/ProfilePics', express.static('/ProfilePics'))
 
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.

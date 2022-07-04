@@ -36,7 +36,7 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
+server.listen(8000, () => {
   console.log("SERVER RUNNING");
 });
 

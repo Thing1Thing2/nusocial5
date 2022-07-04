@@ -148,7 +148,7 @@ if (msg === "successfully registered") {
             </div>
             <div className="inputField">
               <PersonIcon className="icon"/>
-              <input type="text" placeholder="Esername" id = "username" onChange = {(e) => handleReg(e)} onKeyDown =  {(e) => {if(e.key.toLowerCase() === "enter"){handleReg(e)}}} />
+              <input type="text" placeholder="Username" id = "username" onChange = {(e) => handleReg(e)} onKeyDown =  {(e) => {if(e.key.toLowerCase() === "enter"){handleReg(e)}}} />
             </div>
             <div className="inputField">
               <EmailIcon className="icon"/>

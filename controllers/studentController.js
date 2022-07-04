@@ -3,7 +3,7 @@ const db = require('../models')
 // image Upload
 const multer = require('multer')
 const path = require('path');
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 // create main Model
 const Student = db.students
@@ -160,6 +160,16 @@ const logoutStudent = async (req, res) => {
     }
 }
 
+const addProfilePicture = async (req, res) => {
+    if(!req.file) {
+        res.send("No file upload");
+    } else {
+        console.log(req.file);
+        console.log(req.body);
+        console.log("username is " + req.username);
+        res.send(req.body.username + "ProfilePic");
+    }
+    }
 
 
 const storage = multer.diskStorage({
@@ -187,7 +197,7 @@ const upload = multer({
         if(mimeType && extname) {
             return cb(null, true)
         }
-        cb('Give proper files formate to upload')
+        cb('Give proper files format to upload')
     }
 }).single('path')
 
@@ -196,6 +206,8 @@ const upload = multer({
 module.exports = {
     addStudent,
     logoutStudent,
-    findStudent
+    findStudent, 
+    addProfilePicture,
+    upload
 }
 

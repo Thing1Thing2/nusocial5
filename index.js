@@ -15,7 +15,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-      origin: "https://nusocial5.herokuapp.com",
+      origin: "http://localhost:3000",
       methods: ["GET", "POST"],
     },
   });
@@ -36,7 +36,7 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
+server.listen(8000, () => {
   console.log("SERVER RUNNING");
 });
 
@@ -47,9 +47,12 @@ const friendsRouter = require('./routes/friendsRouter.js')
 app.use('/api/friends', friendsRouter)
 const personalNewsAndNotsRouter = require('./routes/personalNewsAndNotsRouter.js')
 app.use('/api/personalnewsandnots', personalNewsAndNotsRouter)
+const postsRouter = require('./routes/postsRouter.js')
+app.use('/api/posts', postsRouter)
 
 //static Images Folder
 app.use('/ProfilePics', express.static('/client/src/ProfilePics'))
+app.use('/PostsPics', express.static('/client/src/PostsPics'))
 
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.
@@ -60,4 +63,5 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || 5000;
 app.listen(port);
 
-console.log(`NUSocial listening on ${port}`);
+console.log(`NUSocial server listening on ${port}`);
+

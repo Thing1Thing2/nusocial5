@@ -2,7 +2,7 @@ const db = require('../models')
 
 
 const {Op} = require("sequelize");
-const { personalnewsandnots } = require('../models');
+
 // create main Model
 const Student = db.students
 const Friends = db.friends;
@@ -37,8 +37,23 @@ const addFriend = async (req, res) => {
                             to: info.friend,
                             body: `${info.username} sent you a friend request`
                         }
-                        PersonalNewsAndNots.create(infoNews);
-                        res.status(200).send("successfully sent friend request"); 
+                          const settings = {
+                            method: "POST",
+                            headers: {
+                              Accept: "application/json",
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(infoNews),
+                          }
+                        fetch("https://nusocial5.herokuapp.com/api/personalnewsandnots/addNews", settings).then(response => response.text()).then(msg => {
+                        if (msg === "sent message") {
+                            res.status(200).send("successfully sent friend request"); 
+                        } else {
+                          res.status(200).send(msg);
+                        }
+                        })
+                        
+                        
                     }).catch(e => {console.log(e)
                     res.status(200).send("Error adding friend");})
                     }
@@ -60,16 +75,28 @@ const confirmFriend = async (req, res) => {
     if (friend) {
         if(friend.reqStatus === "pending") {
     friend.update({reqStatus: "confirm"}).then(async function(item){
-   
+        await PersonalNewsAndNots.destroy({ where: { from: friendName, to: username}} )
         const info = {
             from: username,
             to: friendName,
             body: `${username} confirmed your friend request`
         }
-    await PersonalNewsAndNots.create(info);
+      const settings = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(info),
+      }
+    fetch("https://nusocial5.herokuapp.com/api/personalnewsandnots/addNews", settings).then(response => response.text()).then(msg => {
+    if (msg === "sent message") {
+        res.status(200).send("confirmed friend") 
+    } else {
+      res.status(200).send(msg);
+    }
+    })
     
-    await PersonalNewsAndNots.destroy({ where: { from: friendName, to: username}} )
-    res.status(200).send("confirmed friend")
       }).catch(function (err) {
         res.status(200).send("error occured")
         console.log(err);

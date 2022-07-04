@@ -1,17 +1,17 @@
+import React, {useState, useEffect} from "react"
 import { Users, FriendSuggestion, Deadlines } from "../test-data/test-data";
 import './rightBar.css';
 import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
 
-import React from 'react';
-
 
 const RightBar = ({username}) => {
   
   const sendFriendRequest = async (friendUsername) => {
+    console.log("sendFriendRequest");
     const data = {
-      friendUsername: friendUsername,
-      yourUsername: username,
+      username: username,
+      friend: friendUsername,
     };
     const settings = {
       method: "POST",
@@ -21,9 +21,44 @@ const RightBar = ({username}) => {
       },
       body: JSON.stringify(data),
     }
-  fetch("https://nusocial5.herokuapp.com/api/friends/addFriend", settings).then(response => response.text()).then(data => {
-  console.log(data);
-  })};
+  fetch("https://nusocial5.herokuapp.com//api/friends/addFriend", settings).then(response => response.json()).then(data => {
+  console.log(data)});
+
+}
+  const [friendsSuggestion, setFriendsSuggestion] = useState([]);
+
+  const getAllStudents = async()=> {
+    const data = {
+      username: username
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+    const res = await fetch("https://nusocial5.herokuapp.com/api/friends/getAllStudentsNotFriends", settings);
+    const arr = await res.json();
+    console.log(arr);
+    let count = 0;
+    setFriendsSuggestion([]);
+    arr.forEach(stu => {
+      if(count <= 4){
+        count += 1;
+      setFriendsSuggestion((list) => [...list, stu]);
+      }
+    })
+  }
+
+  const tryRequire = (uid) => {
+    try{
+      require(`../../ProfilePics/${uid}ProfilePic.jpg`);
+    } catch(err){
+      return null;
+    }
+  };
   
 
   const addProfilePicture = event => {
@@ -35,35 +70,38 @@ const RightBar = ({username}) => {
       method: "POST",
       body: formData,
     }
-  fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.text()).then(data => {
+  fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.json()).then(data => {
   console.log(data);
-  
   }).catch(error => {
     console.error(error)
   })
 };
 
+useEffect(() => {
+  getAllStudents();
+}, []);
 
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">
        <input type="file" id="myFile" name="filename" />
   <input type="submit" onClick = {addProfilePicture} />
+  <input type="submit" placeholder="refresh feed" onClick = {getAllStudents} value = "refresh suggestion" />
         <div className="containerTitle">
           Suggestions For You
         </div>
-        {FriendSuggestion.map((u) => (
+        {friendsSuggestion.map((u) => (
           <div className="friendSuggestionRequest">
             <div className="friendSuggestionLeft">
               <div className="friendSuggestionAvatar">
-                <Avatar src= {u.avatar} />
+                <Avatar src={tryRequire(u.username) === null? "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg": require(`../../ProfilePics/${u.username}ProfilePic.jpg`)} />
               </div>
               <div className="friendSuggestionName">
                 {u.username}
               </div>
             </div>
             <div className="friendSuggestionRight">
-              <button className="sendFriendRequest">Friend request</button>
+              <button className="sendFriendRequest" onClick = {() => sendFriendRequest(u.username)}>Friend request</button>
             </div>
           </div>
         ))}

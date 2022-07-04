@@ -6,9 +6,10 @@ import Logo from "../Logo/Logo";
 import DoubleArrowTwoToneIcon from '@mui/icons-material/DoubleArrowTwoTone';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const Header = ({link, title,showHeaderCenter, showHeaderRight, username}) => {
+
+const Header = ({link, title,showHeaderCenter, showHeaderRight, username, socket}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [selected, setSelected]= useState("");
@@ -24,9 +25,9 @@ const logoutFetch = () => {
     },
     body: JSON.stringify(data),
   }
-fetch("https://nusocial5.herokuapp.com/api/students/logoutStudent", settings).then(response => response.text()).then(data => {
+fetch("http://localhost:5000/api/students/logoutStudent", settings).then(response => response.text()).then(data => {
   console.log(data)
-  if (data === "successfully logout"){
+  if (data === "successfully logged out"){
     navigate("/");
   }
 })
@@ -36,11 +37,18 @@ const handleSelect = (e) => {
   e.target.value === "My Profile"? navigate("/profile", {state:{username: location.state.username}})
   : e.target.value === "Log Out"? logoutFetch(): setSelected("")}
   
+  const tryRequire = () => {
+    try{
+      require(`../../ProfilePics/${username}ProfilePic.jpg`);
+    } catch(err){
+      return null;
+    }
+  };
 
   return (
     <div className="header">
         <div className="headerLeft">
-          <Logo link = {link} title = {title} />
+          <Logo link = {link} title = {title} username = {location.state.username}/>
           </div>
         {showHeaderCenter &&   <div className="headerCenter">
   <div className="searchBar">
@@ -64,7 +72,7 @@ const handleSelect = (e) => {
       </div>
       <div className="iconItem">
      
-        <Chat fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/personalChat", {state:{username: location.state.username}})}/>
+        <Chat fontSize='large' htmlColor='#1f3d85' onClick = {() => navigate("/personalChat", {state:{username: location.state.username, socket: location.state.socket}})} />
           <DoubleArrowTwoToneIcon htmlColor='#1f3d85' onClick = {() => navigate("/quicklinks", {state:{username: location.state.username}})} />
       
         <span className="iconBadge">3</span>
@@ -74,7 +82,7 @@ const handleSelect = (e) => {
    
   <Select
     IconComponent={() => (
-      <Avatar src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg">
+      <Avatar src={tryRequire() === null? "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg": require(`../../ProfilePics/${username}ProfilePic.jpg`)}>
     3
     </Avatar>
     )}
@@ -87,7 +95,6 @@ const handleSelect = (e) => {
   </Select>
   
   </div>}  
-
     </div>
   )
 }

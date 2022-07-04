@@ -103,7 +103,7 @@ function submitRegistrationForm(e) {
     },
     body: JSON.stringify(dataRegistration),
   }
-fetch("https://nusocial5.herokuapp.com/api/students/findStudent", settings).then(response => response.text()).then(msg => {
+fetch("https://nusocial5.herokuapp.com/api/students/addStudent", settings).then(response => response.text()).then(msg => {
 if (msg === "successfully registered") {
   setAlertReg("success",msg );
 } else {

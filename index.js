@@ -51,10 +51,6 @@ app.use('/api/personalnewsandnots', personalNewsAndNotsRouter)
 //static Images Folder
 app.use('/ProfilePics', express.static('/client/src/ProfilePics'))
 
-
-//static Images Folder
-app.use('/ProfilePics', express.static('/client/src/ProfilePics'))
-
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {

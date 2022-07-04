@@ -174,7 +174,11 @@ const addProfilePicture = async (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
+        var location = window.location.pathname;
+        var directoryPath = location.substring(0, location.lastIndexOf("/")+1);
+        console.log(directoryPath);
         cb(null, '../client/src/ProfilePics')
+
     },
     filename: (req, file, cb) => {
         const imageName = req.body.username + "ProfilePic.jpg";
@@ -193,7 +197,6 @@ const upload = multer({
         const fileTypes = /jpeg|jpg|png|gif/
         const mimeType = fileTypes.test(file.mimetype)  
         const extname = fileTypes.test(path.extname(file.originalname))
-
         if(mimeType && extname) {
             return cb(null, true)
         }

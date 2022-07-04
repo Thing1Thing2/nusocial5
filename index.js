@@ -15,7 +15,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-      origin: "https://nusocial5.herokuapp.com/",
+      origin: "https://nusocial5.herokuapp.com",
       methods: ["GET", "POST"],
     },
   });
@@ -60,4 +60,4 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || 5000;
 app.listen(port);
 
-console.log(`Password generator listening on ${port}`);
+console.log(`NUSocial listening on ${port}`);

@@ -1,47 +1,34 @@
 module.exports = (sequelize, DataTypes) => {
     const Students = sequelize.define("students", {
         nus_email: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING, 
             allowNull: false,
-            unique: true,
-            isEmail: true,    
-            notEmpty: true,  
-        },
-        nusnet_id: {
-            type: DataTypes.STRING,
-            unique: true,
+            unique: true
         },
         username: {
             type: DataTypes.STRING,
             unique: true,
-            notEmpty: true,  
+            primaryKey: true,
+            allowNull:false
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false,
-            notEmpty: true,  
+            allowNull: false 
         }, 
         course_name: {
-            type: DataTypes.STRING,
-            notEmpty: true,  
+            type: DataTypes.STRING,  
         },
         year_of_study: {
             type: DataTypes.INTEGER,
-            isDecimal: true
         },
         online:{
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false,
-        },
-        friendTable: {
-            type: DataTypes.STRING,
-            unique: true,
-        }, 
-        profilePicture: {
-            type: DataTypes.STRING,
         }
+    }, {
+        createdAt: "registeredAt",
+        updatedAt: "modifiedAt"
     });
-
     return Students;
 };

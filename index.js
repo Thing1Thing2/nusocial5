@@ -15,7 +15,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-      origin: "https://nusocial4.herokuapp.com",
+      origin: "https://nusocial5.herokuapp.com/",
       methods: ["GET", "POST"],
     },
   });
@@ -36,25 +36,22 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
+server.listen(8000, () => {
   console.log("SERVER RUNNING");
 });
 
 // routers
 const router = require('./routes/studentRouter.js')
 app.use('/api/students', router)
-const chatRouter = require('./routes/chatRouter.js')
-app.use('/api/chats', chatRouter)
-const postRouter = require('./routes/postRouter.js')
-app.use('/api/posts', postRouter)
-const friendsListRouter = require('./routes/friendsListRouter.js')
-app.use('/api/friends', friendsListRouter)
+const friendsRouter = require('./routes/friendsRouter.js')
+app.use('/api/friends', friendsRouter)
+const personalNewsAndNotsRouter = require('./routes/personalNewsAndNotsRouter.js')
+app.use('/api/personalnewsandnots', personalNewsAndNotsRouter)
+
 //static Images Folder
-app.use('/ProfilePics', express.static('/ProfilePics'))
+app.use('/ProfilePics', express.static('/client/src/ProfilePics'))
 
-
-
-// The "catchall" handler: for any request that doesn't
+// The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));

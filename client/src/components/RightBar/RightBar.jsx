@@ -73,6 +73,7 @@ const RightBar = ({username}) => {
 
   
   const getProfilePicture = async (name) => {
+    let url;
     const data = {
       username: name,
     };
@@ -86,8 +87,9 @@ const RightBar = ({username}) => {
     }
   await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
     console.log(data)
-    return data;
+    url = data;
   })
+  return url;
   }
 
 useEffect(() => {

@@ -32,7 +32,7 @@ const NewsAndNots = () => {
     console.log(stu[2]);
     stu.forEach(stu => {
       pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
-      if(stu[0] === "sent") {
+      if(stu[0].toString() === "sent") {
           let data = {
             username: username,
           }
@@ -48,7 +48,7 @@ const NewsAndNots = () => {
       pic = data;
       setAllNews((list) => [...list, [stu,  "You sent " + stu[1] + " a friend request at" + stu[2], "View " + stu[1] + "'s profile", pic ]]);
     })
-        } else if (stu[0] === "received") {
+        } else if (stu[0].toString() === "received") {
            data = {
             username: stu[1]
           }

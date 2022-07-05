@@ -89,7 +89,7 @@ const RightBar = ({username}) => {
 
 useEffect(
 getAllStudents()
-, [])
+, [username, friendsSuggestion])
 
   return (
     <div className="rightBar">

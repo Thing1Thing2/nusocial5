@@ -89,9 +89,10 @@ const RightBar = ({username}) => {
 
   
 
-
-useEffect(() => {
-});
+useEffect(
+  getAllStudents(), // <- function that will run on every dependency update
+  [] // <-- empty dependency array
+) 
 
   return (
     <div className="rightBar">

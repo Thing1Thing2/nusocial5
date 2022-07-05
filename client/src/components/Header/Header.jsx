@@ -25,7 +25,7 @@ const logoutFetch = () => {
     },
     body: JSON.stringify(data),
   }
-fetch("http://localhost:5000/api/students/logoutStudent", settings).then(response => response.text()).then(data => {
+fetch("https://nusocial5.herokuapp.com/api/students/logoutStudent", settings).then(response => response.text()).then(data => {
   console.log(data)
   if (data === "successfully logged out"){
     navigate("/");
@@ -49,7 +49,7 @@ const handleSelect = (e) => {
       },
       body: JSON.stringify(data),
     }
-  await fetch("http://localhost:5000/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+  await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
     console.log(data)
     return data.profilePicURL;
   })

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react"
-import { Users, FriendSuggestion, Deadlines } from "../test-data/test-data";
+import { Users, Deadlines } from "../test-data/test-data";
 import './rightBar.css';
 import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 
 
@@ -11,7 +12,7 @@ const RightBar = ({username}) => {
     getAllStudents();
     getProfilePicture(username);
    };
-  
+  const location = useLocation();
   
   const sendFriendRequest = async (friendUsername) => {
     console.log("sendFriendRequest");
@@ -72,6 +73,7 @@ const RightBar = ({username}) => {
   }).catch(error => {
     console.log(error)
   })
+  location.reload(true);
 };
 
 

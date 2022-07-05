@@ -65,8 +65,8 @@ const RightBar = ({username, changeProfilePic}) => {
       body: formData,
     }
   fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.json()).then(data => {
-  console.log("DATA.URL" + data.url);
-  changeProfilePic(data.url)
+  console.log("DATA.URL" + data.profilePicURL);
+  changeProfilePic(data.profilePicURL)
   }).catch(error => {
     console.error(error)
   })
@@ -87,7 +87,7 @@ const RightBar = ({username, changeProfilePic}) => {
       body: JSON.stringify(data),
     }
   fetch("http://localhost:5000/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
-    console.log(data)
+    console.log(data.profilePicURL)
     return data.profilePicURL;
   })
   }

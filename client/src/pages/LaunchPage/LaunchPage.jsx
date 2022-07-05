@@ -63,8 +63,6 @@ function submitLoginForm(e) {
 
 //Registration handlers and variables
 
-
-
 const [msgReg, setMsgReg] = useState(""); //for setting Alert message
 const [openReg, setOpenReg] = useState(false);
 const [severityReg, setSeverityReg] = useState("error");

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { Users, Deadlines } from "../test-data/test-data";
+import { Users, Deadlines, FriendSuggestion } from "../test-data/test-data";
 import './rightBar.css';
 import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
@@ -30,6 +30,7 @@ const RightBar = ({username}) => {
 
   
       const getAllStudents = async()=> {
+        if (FriendSuggestion.length <= 0) {
         const data = {
           username: username
         };
@@ -69,6 +70,7 @@ const RightBar = ({username}) => {
           setFriendsSuggestion((list) => [...list, [stu, pic]]);
           }
         })
+      }
       } 
 
   
@@ -87,10 +89,9 @@ const RightBar = ({username}) => {
   })
 };
 useEffect(() => {
-  getAllStudents();
-}
+  getAllStudents();}
  
-, [getAllStudents, friendsSuggestion]);
+, []);
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">

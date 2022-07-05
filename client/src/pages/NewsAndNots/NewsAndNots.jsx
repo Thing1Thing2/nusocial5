@@ -10,10 +10,10 @@ const NewsAndNots = () => {
   const getAllPersonalNewsAndNots =  async () => {
     const username = await location.state.username;
     console.log(username);
-    const data = {
+    let data = {
       username: username,
     }
-    const settings = {
+    let settings = {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -25,27 +25,55 @@ const NewsAndNots = () => {
   let arr = await res.json();
   let buttonMsg;
   console.log(arr);
+  let pic;
   arr.forEach(stu => {
     setAllNews([]);
     stu.forEach(stu => {
+      pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
       console.log(stu.to + stu.from);
       if(stu.from === location.state.username) {
           buttonMsg = `View ${stu.to}'s profile`;
           stu.body = `You sent ${stu.to} a friend request`;
-        } else if (stu.to === location.state.username) {
-          stu.body = `Confirm ${stu.from}'s friend request`;  
-          buttonMsg = "Confirm";
-      } else {
-        buttonMsg = "Add button msg";
-      }
-      let pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
-    fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+          let data = {
+            username: username,
+          }
+          let settings = {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+          fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
       pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg"
       console.log(data)
       pic = data;
       setAllNews((list) => [...list, [stu, buttonMsg, pic ]]);
     })
-          
+        } else if (stu.to === location.state.username) {
+          stu.body = `Confirm ${stu.from}'s friend request`;  
+          buttonMsg = "Confirm";
+          data = {
+            username: stu.from
+          }
+          settings = {method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+          fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+      pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg"
+      console.log(data)
+      pic = data;
+      setAllNews((list) => [...list, [stu, buttonMsg, pic ]]);
+    })
+      } else {
+        buttonMsg = "Add button msg";
+        setAllNews((list) => [...list, [stu, buttonMsg, pic ]]);
+      }
       })
   })
   

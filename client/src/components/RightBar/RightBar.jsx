@@ -63,7 +63,6 @@ const RightBar = ({username}) => {
       body: formData,
     }
   await fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.json()).then(data => {
-
   }).catch(error => {
     console.log(error)
   })
@@ -99,7 +98,7 @@ useEffect(() => {
     <div className="rightBar">
       <div className="rightbarComponentContainer">
        <input type="file" id="myFile" name="filename" placeholder="upload profile picture" />
-  <input type="submit" onClick = {addProfilePicture} value="upload image" />
+  <input type="submit" onClick = {addProfilePicture} value="upload image"/>
   <input type="submit" placeholder="refresh feed" onClick = {getAllStudents} value = "refresh suggestion" />
         <div className="containerTitle">
           Suggestions For You

@@ -10,6 +10,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const Header = ({link, title,showHeaderCenter, showHeaderRight, username, socket}) => {
+  window.onload = () => {
+   getProfilePicture(username);
+  };
   const location = useLocation();
   const navigate = useNavigate();
   const [selected, setSelected]= useState("");
@@ -58,6 +61,7 @@ const handleSelect = (e) => {
   }
 
   const [profilePic, setProfilePic] = useState("http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg");
+  
   return (
     <div className="header">
         <div className="headerLeft">

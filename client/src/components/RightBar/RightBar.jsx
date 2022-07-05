@@ -54,7 +54,7 @@ const RightBar = ({username, changeProfilePic}) => {
 
   
 
-  const addProfilePicture = event => {
+  const addProfilePicture = async event => {
     const fileField = document.querySelector('input[type="file"]');
   const formData = new FormData();
   formData.append('username', username);
@@ -63,11 +63,11 @@ const RightBar = ({username, changeProfilePic}) => {
       method: "POST",
       body: formData,
     }
-  fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.json()).then(data => {
+  await fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.json()).then(data => {
   console.log("DATA.URL" + data.profilePicURL);
   changeProfilePic(data.profilePicURL)
   }).catch(error => {
-    console.error(error)
+    console.log(error)
   })
 };
 

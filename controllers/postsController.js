@@ -22,35 +22,37 @@ const addPost = async (req, res) => {
           imageURL = result.url;
           let username = req.body.username;
           let body = req.body.body;
-          let postsC = await Student.findOne({
+          await Student.findOne({
             attributes: ["postsCount"],
             where: { username: username },
+          }).then((postC) => {
+            if (postC) {
+              postsCountp1 = postC.postsCount + 1;
+              console.log("updatedPostsCount is : " + postsCountp1);
+              const title = req.body.title;
+              let info = {
+                from: username,
+                title: title,
+                postID: username + postsCountp1,
+                body: body,
+                image: imageURL,
+              };
+              Posts.create(info)
+                .then(async function (item) {
+                  postC.update({ postsCount: postsCountp1 });
+                  res.status(200).send("added post");
+                })
+                .catch(function (err) {
+                  res.status(200).send("error occured" + err + postsCountp1);
+                });
+            } else {
+              res
+                .status(200)
+                .send(
+                  "could not find information about your posts history to be able to update it"
+                );
+            }
           });
-          if (postsC) {
-            postsCountp1 = (await postsC.postsCount) + 1;
-            const title = req.body.title;
-            let info = {
-              from: username,
-              title: title,
-              postID: username + postsCountp1,
-              body: body,
-              image: imageURL,
-            };
-            Posts.create(info)
-              .then(async function (item) {
-                postsC.update({ postsCount: postsCountp1 });
-                res.status(200).send("added post");
-              })
-              .catch(function (err) {
-                res.status(200).send("error occured" + err);
-              });
-          } else {
-            res
-              .status(200)
-              .send(
-                "could not find information about your posts history to be able to update it"
-              );
-          }
         }
       );
     } else {

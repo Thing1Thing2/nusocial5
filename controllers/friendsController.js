@@ -89,7 +89,7 @@ const confirmFriend = async (req, res) => {
         },
         body: JSON.stringify(info),
       }
-    fetch("https://nusocial5.herokuapp.com/api/personalnewsandnots/addNews", settings).then(response => response.text()).then(msg => {
+    fetch("httpss://nusocial5.herokuapp.com/api/personalnewsandnots/addNews", settings).then(response => response.text()).then(msg => {
     if (msg === "sent message") {
         res.status(200).send("confirmed friend") 
     } else {

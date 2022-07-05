@@ -15,7 +15,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "https://nusocial5.herokuapp.com",
       methods: ["GET", "POST"],
     },
   });
@@ -49,7 +49,7 @@ const personalNewsAndNotsRouter = require('./routes/personalNewsAndNotsRouter.js
 app.use('/api/personalnewsandnots', personalNewsAndNotsRouter)
 
 //static Images Folder
-app.use('/ProfilePics', express.static('/ProfilePics'))
+app.use('/ProfilePics', express.static('client/src/ProfilePics'))
 
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.

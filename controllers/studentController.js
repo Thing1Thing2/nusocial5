@@ -161,6 +161,7 @@ const logoutStudent = async (req, res) => {
 }
 
 const addProfilePicture = async (req, res) => {
+    console.log(__dirname);
     if(!req.file) {
         res.send("No file upload");
     } else {
@@ -174,18 +175,13 @@ const addProfilePicture = async (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-       
         console.log(__dirname);
-        cb(null, '/ProfilePics')
+        cb(null, 'ProfilePics')
 
     },
     filename: (req, file, cb) => {
         const imageName = req.body.username + "ProfilePic.jpg";
         cb(null, imageName)
-        let info = {
-           profilePicture : imageName,
-        }
-        Student.update(info, { where : { username : req.body.username}});
     }
 })
 

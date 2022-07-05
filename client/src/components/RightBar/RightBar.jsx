@@ -43,11 +43,12 @@ const RightBar = ({username}) => {
     }
     const res = await fetch("https://nusocial5.herokuapp.com/api/friends/getAllStudentsNotFriends", settings);
     const arr = await res.json();
-    let count = 0;
+    let count = 1;
     setFriendsSuggestion([]);
     arr.forEach(stu => {
-      const pic = getProfilePicture(stu.username);
-      if(count <= 4){
+      getProfilePicture(stu.username, count);
+      const pic = `profilePic${count}`
+      if(count <= 5){
         count += 1;
       setFriendsSuggestion((list) => [...list, [stu, pic]]);
       }
@@ -70,9 +71,13 @@ const RightBar = ({username}) => {
   })
 };
 
-
+const [profilePic1, setProfilePic1] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
+const [profilePic2, setProfilePic2] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
+const [profilePic3, setProfilePic3] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
+const [profilePic4, setProfilePic4] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
+const [profilePic5, setProfilePic5] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
   
-  const getProfilePicture = async (name) => {
+  const getProfilePicture = async (name, count) => {
     let url;
     const data = {
       username: name,
@@ -89,7 +94,17 @@ const RightBar = ({username}) => {
     console.log(data)
     url = data;
   })
-  return url;
+  if (count === 1) {
+    setProfilePic1(url);
+  } else if (count === 2) {
+    setProfilePic2(url);
+  } else if (count === 3) {
+    setProfilePic3(url);
+  } else if (count === 4) {
+    setProfilePic4(url);
+  } else if (count === 5) {
+    setProfilePic5(url);
+  }
   }
 
 useEffect(() => {

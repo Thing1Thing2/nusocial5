@@ -2,6 +2,7 @@ const db = require('../models')
 
 
 const {Op} = require("sequelize");
+const { personalnewsandnots } = require('../models');
 
 // create main Model
 const Student = db.students
@@ -12,15 +13,17 @@ const PersonalNewsAndNots = db.personalnewsandnots;
 
 
 const addFriend = async (req, res) => {
+    let friend = req.body.friend;
+    let username = req.body.username;
     let info = {
-        username: req.body.username,
-        friend: req.body.friend,
+        username: username,
+        friend: friend,
         reqStatus: "pending",
-        chatId: req.body.username + req.body.friend + "Chat",
-        sentBy: req.body.username
+        chatId: username + friend + "Chat",
+        sentBy: username
     }
     try {
-    await Friends.findOne({where: {[Op.or]: [{username: info.username,friend:info.friend, reqStatus:"confirm" }, {username: info.friend,friend:info.username, reqStatus:"confirm" }]}}).then(async stu => {
+    await Friends.findOne({where: {[Op.or]: [{username: info.username,friend:info.friend, reqStatus:"pending" }, {username: info.friend,friend:info.username, reqStatus:"confirm" }]}}).then(async stu => {
         if (stu) {
                 res.status(200).send("Friend request already sent once");s
         } else {
@@ -33,28 +36,18 @@ const addFriend = async (req, res) => {
                     } else {
                     Friends.create(info).then(function(item) {
                         const infoNews = {
-                            from: info.username,
-                            to: info.friend,
-                            body: `${info.username} sent you a friend request`
+                            from: username,
+                            to: friend,
+                            body: username + "sent you a friend request"
                         }
-                          const settings = {
-                            method: "POST",
-                            headers: {
-                              Accept: "application/json",
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(infoNews),
-                          }
-                        fetch("https://nusocial5.herokuapp.com/api/personalnewsandnots/addNews", settings).then(response => response.text()).then(msg => {
-                        if (msg === "sent message") {
-                            res.status(200).send("successfully sent friend request"); 
-                        } else {
-                          res.status(200).send(msg);
-                        }
+                        PersonalNewsAndNots.create(infoNews).then(up => {
+                            res.status(200).send("added friend");
+                        }).catch(err => {
+                            console.log(err);
+                            res.status(200).send("err in updating personal news");
                         })
-                        
-                        
-                    }).catch(e => {console.log(e)
+                    }).catch(e => {
+                        console.log(e)
                     res.status(200).send("Error adding friend");})
                     }
                 }
@@ -63,7 +56,6 @@ const addFriend = async (req, res) => {
     }
     )
 } catch (err) {
-    res.status(200).send("error adding friend");
     console.log("error adding friend: " + err);
 }
 }

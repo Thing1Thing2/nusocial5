@@ -27,6 +27,9 @@ const NewsAndNots = () => {
   let pic;
   arr.forEach(stu => {
     console.log(stu);
+    console.log(stu[0]);
+    console.log(stu[1]);
+    console.log(stu[2]);
     stu.forEach(stu => {
       pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
       if(stu[0] === "sent") {

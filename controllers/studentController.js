@@ -174,7 +174,7 @@ const addProfilePicture = async (req, res, nexts) => {
     let username = req.body.username
    
     Student.update({profilePictureURL: result.url}, { where: { username: username}}).then(function(item){
-           res.send({
+           res.status(200).send({
         success: true,
         result
     })
@@ -188,7 +188,7 @@ const addProfilePicture = async (req, res, nexts) => {
         Student.findOne({ attributes: ['profilePictureURL'], where: {
             username: req.body.username
         }}).then(url => {
-            res.status(200).send(url);
+            res.status(200).send(url.profilePictureURL);
         }).catch(err=> {
             console.log(err);
             res.status(200).send("error occured");

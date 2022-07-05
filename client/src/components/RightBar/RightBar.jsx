@@ -8,8 +8,6 @@ import { useLocation } from "react-router-dom";
 
 
 const RightBar = ({username}) => {
-
-  const location = useLocation();
   
   const sendFriendRequest = async (friendUsername) => {
     console.log("sendFriendRequest");
@@ -70,7 +68,6 @@ const RightBar = ({username}) => {
   }).catch(error => {
     console.log(error)
   })
-  location.reload(true);
 };
 
 

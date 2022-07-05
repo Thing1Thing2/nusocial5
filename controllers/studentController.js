@@ -168,6 +168,7 @@ const logoutStudent = async (req, res) => {
 const addProfilePicture = async (req, res, nexts) => {
    const file = req.files.photo;
    let imageURL;
+   if(file) {
    cloudinary.uploader.upload(file.tempFilePath, function(err, result){
  
     imageURL = result.url;
@@ -182,6 +183,9 @@ const addProfilePicture = async (req, res, nexts) => {
         res.status(200).send("error occured")
       });   
    })
+} else {
+    res.status(200).send("send an image");
+}
     }
 
     const getProfilePicture = async (req, res) => {

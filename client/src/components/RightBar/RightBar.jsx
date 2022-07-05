@@ -42,7 +42,6 @@ const RightBar = ({username, changeProfilePic}) => {
     }
     const res = await fetch("https://nusocial5.herokuapp.com/api/friends/getAllStudentsNotFriends", settings);
     const arr = await res.json();
-    console.log(arr);
     let count = 0;
     setFriendsSuggestion([]);
     arr.forEach(stu => {
@@ -74,7 +73,7 @@ const RightBar = ({username, changeProfilePic}) => {
 
 
   
-  const getProfilePicture = (name) => {
+  const getProfilePicture = async (name) => {
     const data = {
       username: name,
     };
@@ -86,7 +85,7 @@ const RightBar = ({username, changeProfilePic}) => {
       },
       body: JSON.stringify(data),
     }
-  fetch("http://localhost:5000/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+  await fetch("http://localhost:5000/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
     console.log(data.profilePicURL)
     return data.profilePicURL;
   })

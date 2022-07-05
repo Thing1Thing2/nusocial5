@@ -37,7 +37,7 @@ const handleSelect = (e) => {
   e.target.value === "My Profile"? navigate("/profile", {state:{username: location.state.username}})
   : e.target.value === "Log Out"? logoutFetch(): setSelected("")}
 
-  const getProfilePicture = (name) => {
+  const getProfilePicture = async (name) => {
     const data = {
       username: name,
     };
@@ -49,7 +49,7 @@ const handleSelect = (e) => {
       },
       body: JSON.stringify(data),
     }
-  fetch("http://localhost:5000/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+  await fetch("http://localhost:5000/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
     console.log(data)
     return data.profilePicURL;
   })

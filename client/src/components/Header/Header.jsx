@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './Header.css';
 import { Chat, Home, Notifications, Search } from "@mui/icons-material";
 import { Avatar } from '@mui/material';
@@ -62,6 +62,9 @@ const handleSelect = (e) => {
 
   const [profilePic, setProfilePic] = useState("http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg");
   
+  useEffect(() => {
+    getProfilePicture(username);
+  });
   return (
     <div className="header">
         <div className="headerLeft">

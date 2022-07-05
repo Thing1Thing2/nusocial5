@@ -124,7 +124,7 @@ useEffect(() => {
           <div className="friendSuggestionRequest">
             <div className="friendSuggestionLeft">
               <div className="friendSuggestionAvatar">
-                <Avatar src = {u[1]} />
+                <Avatar src = {profilePic1} />
               </div>
               <div className="friendSuggestionName">
                 {u[0].username}

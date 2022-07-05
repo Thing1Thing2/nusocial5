@@ -41,13 +41,7 @@ const News = ({ username }) => {
 
   const getAllMyPosts = async () => {
     setPostList([]);
-    let useAvatar = "",
-      userName = username,
-      time = "",
-      text = "",
-      imageList = "",
-      love = 0,
-      comment = 0;
+    let useAvatar = "";
 
     const info = {
       username: username,
@@ -80,19 +74,24 @@ const News = ({ username }) => {
       await fetch(
         "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
         settings
-      ).then((gotPic) => {
-        useAvatar = gotPic;
-      });
+      )
+        .then((res) => res.text())
+        .then((gotPic) => {
+          useAvatar = gotPic;
+        });
 
       myPosts.forEach(async (post) => {
-        time = post.createdAt;
-        text = post.title + " : " + post.body;
-        imageList = post.image;
-        love = post.likesCount;
-        comment = post.commentsCount;
         setPostList((list) => [
           ...list,
-          [useAvatar, userName, time, text, imageList, love, comment],
+          [
+            useAvatar,
+            username,
+            post.createdAt,
+            post.title + " : " + post.body,
+            post.image,
+            post.likesCount,
+            post.commentsCount,
+          ],
         ]);
       });
     });

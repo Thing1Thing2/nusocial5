@@ -7,6 +7,11 @@ import { Avatar } from "@mui/material";
 
 
 const RightBar = ({username}) => {
+  window.onload = () => {
+    getAllStudents();
+    getProfilePicture(username);
+   };
+  
   
   const sendFriendRequest = async (friendUsername) => {
     console.log("sendFriendRequest");
@@ -45,9 +50,10 @@ const RightBar = ({username}) => {
     let count = 0;
     setFriendsSuggestion([]);
     arr.forEach(stu => {
+      const pic = getProfilePicture(stu.username);
       if(count <= 4){
         count += 1;
-      setFriendsSuggestion((list) => [...list, stu]);
+      setFriendsSuggestion((list) => [...list, [stu, pic]]);
       }
     })
   }
@@ -107,14 +113,14 @@ useEffect(() => {
           <div className="friendSuggestionRequest">
             <div className="friendSuggestionLeft">
               <div className="friendSuggestionAvatar">
-                <Avatar src = {getProfilePicture(u.username)} />
+                <Avatar src = {u[1]} />
               </div>
               <div className="friendSuggestionName">
-                {u.username}
+                {u[0].username}
               </div>
             </div>
             <div className="friendSuggestionRight">
-              <button className="sendFriendRequest" onClick = {() => sendFriendRequest(u.username)}>Friend request</button>
+              <button className="sendFriendRequest" onClick = {() => sendFriendRequest(u[0].username)}>Friend request</button>
             </div>
           </div>
         ))}

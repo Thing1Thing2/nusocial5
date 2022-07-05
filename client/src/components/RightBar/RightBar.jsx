@@ -5,7 +5,7 @@ import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
 
 
-const RightBar = ({username}) => {
+const RightBar = ({username, changeProfilePic}) => {
   
   const sendFriendRequest = async (friendUsername) => {
     console.log("sendFriendRequest");
@@ -71,11 +71,15 @@ const RightBar = ({username}) => {
       body: formData,
     }
   fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.json()).then(data => {
-  console.log(data);
+  console.log(data.url);
+  changeProfilePic()
   }).catch(error => {
     console.error(error)
   })
+  
 };
+
+
 
 useEffect(() => {
   getAllStudents();

@@ -1,9 +1,14 @@
 const db = require('../models')
 
-// image Upload
-const multer = require('multer')
-const path = require('path');
 const bcrypt = require("bcryptjs");
+var cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: 'nusocial5',
+  api_key: '829672847473966',
+  api_secret: 'EmSoixOPZ2b8u7Ot6xc1YR1oJmk'
+})
+
 
 // create main Model
 const Student = db.students
@@ -160,45 +165,35 @@ const logoutStudent = async (req, res) => {
     }
 }
 
-const addProfilePicture = async (req, res) => {
-    console.log(__dirname);
-    if(!req.file) {
-        res.send("No file upload");
-    } else {
-        console.log(req.file);
-        console.log(req.body);
-        console.log("username is " + req.username);
-        res.send(req.body.username + "ProfilePic");
+const addProfilePicture = async (req, res, nexts) => {
+   const file = req.files.photo;
+   let imageURL;
+   cloudinary.uploader.upload(file.tempFilePath, function(err, result){
+ 
+    imageURL = result.url;
+    let username = req.body.username
+   
+    Student.update({profilePictureURL: result.url}, { where: { username: username}}).then(function(item){
+           res.send({
+        success: true,
+        result
+    })
+      }).catch(function (err) {
+        res.status(200).send("error occured")
+      });   
+   })
     }
+
+    const getProfilePicture = async (req, res) => {
+        Student.findOne({ attributes: ['profilePictureURL'], where: {
+            username: req.body.username
+        }}).then(url => {
+            res.status(200).send(url);
+        }).catch(err=> {
+            console.log(err);
+            res.status(200).send("error occured");
+        })
     }
-
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        console.log(__dirname);
-        cb(null, '/app/client/src/ProfilePics')
-
-    },
-    filename: (req, file, cb) => {
-        const imageName = req.body.username + "ProfilePic.jpg";
-        cb(null, imageName)
-    }
-})
-
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: '1000000' },
-    fileFilter: (req, file, cb) => {
-        const fileTypes = /jpeg|jpg|png|gif/
-        const mimeType = fileTypes.test(file.mimetype)  
-        const extname = fileTypes.test(path.extname(file.originalname))
-        if(mimeType && extname) {
-            return cb(null, true)
-        }
-        cb('Give proper files format to upload')
-    }
-}).single('path')
-
 
 
 module.exports = {
@@ -206,6 +201,6 @@ module.exports = {
     logoutStudent,
     findStudent, 
     addProfilePicture,
-    upload
+    getProfilePicture
 }
 

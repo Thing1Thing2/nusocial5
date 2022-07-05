@@ -4,6 +4,18 @@ const cors = require('cors')
 const http = require("http");
 const { Server } = require("socket.io");
 const app = express();
+var cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: 'nusocial5',
+  api_key: '829672847473966',
+  api_secret: 'EmSoixOPZ2b8u7Ot6xc1YR1oJmk'
+})
+
+const fileupload = require("express-fileupload");
+app.use(fileupload({
+  useTempFiles: true
+}));
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));

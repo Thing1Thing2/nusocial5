@@ -9,7 +9,7 @@ import Select from '@mui/material/Select';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
-const Header = ({link, title,showHeaderCenter, showHeaderRight, username, socket}) => {
+const Header = ({link, title,showHeaderCenter, showHeaderRight, username, socket, profilePicURL}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [selected, setSelected]= useState("");
@@ -37,14 +37,7 @@ const handleSelect = (e) => {
   e.target.value === "My Profile"? navigate("/profile", {state:{username: location.state.username}})
   : e.target.value === "Log Out"? logoutFetch(): setSelected("")}
   
-  const tryRequire = () => {
-    console.log("tryRequire() profile picture")
-    try{
-      require(`../../ProfilePics/${username}ProfilePic.jpg`);
-    } catch(err){
-      return null;
-    }
-  };
+ 
 
   return (
     <div className="header">
@@ -83,7 +76,7 @@ const handleSelect = (e) => {
    
   <Select
     IconComponent={() => (
-      <Avatar src={tryRequire() === null? "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg": require(`../../ProfilePics/${username}ProfilePic.jpg`)}>
+      <Avatar src={profilePicURL}>
     3
     </Avatar>
     )}

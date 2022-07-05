@@ -86,7 +86,11 @@ const RightBar = ({username}) => {
     console.log(error)
   })
 };
-
+useEffect(() => {
+  getAllStudents();
+}
+ 
+, [getAllStudents]);
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">

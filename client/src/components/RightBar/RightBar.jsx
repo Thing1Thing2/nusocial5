@@ -9,7 +9,6 @@ import { Avatar } from "@mui/material";
 const RightBar = ({username}) => {
   
   const sendFriendRequest = async (friendUsername) => {
-    console.log("sendFriendRequest");
     const data = {
       username: username,
       friend: friendUsername,
@@ -23,15 +22,13 @@ const RightBar = ({username}) => {
       body: JSON.stringify(data),
     }
   fetch("https://nusocial5.herokuapp.com/api/friends/addFriend", settings).then(response => response.json()).then(data => {
-  console.log(data)});
+    window.alert(data);  
+});
 
 }
   const [friendsSuggestion, setFriendsSuggestion] = useState([]);
-  const [clicked, setClicked]= useState(false);
-
-  
       const getAllStudents = async()=> {
-        if (FriendSuggestion.length <= 0) {
+        setFriendsSuggestion([]);
         const data = {
           username: username
         };
@@ -46,7 +43,6 @@ const RightBar = ({username}) => {
         const res = await fetch("https://nusocial5.herokuapp.com/api/friends/getAllStudentsNotFriends", settings);
         const arr = await res.json();
         let count = 1;
-        setFriendsSuggestion([]);
         arr.forEach(async stu => {
     
           let pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
@@ -62,16 +58,13 @@ const RightBar = ({username}) => {
             body: JSON.stringify(data),
           }
         await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
-          console.log(data)
           pic = data;
         })
-    
           if(count <= 5){
             count += 1;
-          setFriendsSuggestion((list) => [...list, [stu, pic]]);
+          setFriendsSuggestion((list) => [...list, [stu.username, pic]]);
           }
         })
-      }
       } 
 
   
@@ -89,9 +82,7 @@ const RightBar = ({username}) => {
     console.log(error)
   })
 };
-useEffect(() => {
-  getAllStudents();}
-, []);
+
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">
@@ -108,11 +99,11 @@ useEffect(() => {
                 <Avatar src = {u[1]} />
               </div>
               <div className="friendSuggestionName">
-                {u[0].username}
+                {u[0]}
               </div>
             </div>
             <div className="friendSuggestionRight">
-              <button className="sendFriendRequest" onClick = {() => sendFriendRequest(u[0].username)}>Friend request</button>
+              <button className="sendFriendRequest" onClick = {() => sendFriendRequest(u[0])}>Friend request</button>
             </div>
           </div>
         ))}

@@ -90,7 +90,7 @@ useEffect(() => {
   getAllStudents();
 }
  
-, [getAllStudents]);
+, [getAllStudents, friendsSuggestion]);
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">

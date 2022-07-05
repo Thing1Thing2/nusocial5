@@ -6,7 +6,7 @@ import { Avatar } from "@mui/material";
 
 
 
-const RightBar = ({username, changeProfilePic}) => {
+const RightBar = ({username}) => {
   
   const sendFriendRequest = async (friendUsername) => {
     console.log("sendFriendRequest");
@@ -65,7 +65,6 @@ const RightBar = ({username, changeProfilePic}) => {
     }
   await fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.json()).then(data => {
   console.log("DATA.URL" + data.profilePicURL);
-  changeProfilePic(data.profilePicURL)
   }).catch(error => {
     console.log(error)
   })
@@ -87,7 +86,7 @@ const RightBar = ({username, changeProfilePic}) => {
     }
   await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
     console.log(data)
-    return data.profilePictureURL;
+    return data;
   })
   }
 

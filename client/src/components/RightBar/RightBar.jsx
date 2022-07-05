@@ -91,7 +91,7 @@ const RightBar = ({username}) => {
 };
 useEffect(() => {
   getAllStudents();}
-, [friendsSuggestion]);
+, []);
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">

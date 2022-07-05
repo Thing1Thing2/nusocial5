@@ -5,6 +5,7 @@ import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
 
 
+
 const RightBar = ({username, changeProfilePic}) => {
   
   const sendFriendRequest = async (friendUsername) => {
@@ -52,13 +53,6 @@ const RightBar = ({username, changeProfilePic}) => {
     })
   }
 
-  const tryRequire = (uid) => {
-    try{
-      require(`../../ProfilePics/${uid}ProfilePic.jpg`);
-    } catch(err){
-      return null;
-    }
-  };
   
 
   const addProfilePicture = event => {
@@ -71,7 +65,7 @@ const RightBar = ({username, changeProfilePic}) => {
       body: formData,
     }
   fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.json()).then(data => {
-  console.log(data.url);
+  console.log("DATA.URL" + data.url);
   changeProfilePic(data.url)
   }).catch(error => {
     console.error(error)
@@ -79,6 +73,24 @@ const RightBar = ({username, changeProfilePic}) => {
 };
 
 
+  
+  const getProfilePicture = (name) => {
+    const data = {
+      username: name,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  fetch("http://localhost:5000/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+    console.log(data)
+    return data.profilePicURL;
+  })
+  }
 
 useEffect(() => {
   getAllStudents();
@@ -97,7 +109,7 @@ useEffect(() => {
           <div className="friendSuggestionRequest">
             <div className="friendSuggestionLeft">
               <div className="friendSuggestionAvatar">
-                <Avatar src={tryRequire(u.username) === null? "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg": require(`../../ProfilePics/${u.username}ProfilePic.jpg`)} />
+                <Avatar src = {getProfilePicture(u.username)} />
               </div>
               <div className="friendSuggestionName">
                 {u.username}

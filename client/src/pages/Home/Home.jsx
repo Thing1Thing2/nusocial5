@@ -15,6 +15,7 @@ const Home = () => {
     setProfilePicURL(url);
     console.log("changed profile picture: " + url)
   }
+
   
   const location = useLocation();
   return (

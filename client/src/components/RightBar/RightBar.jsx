@@ -27,6 +27,7 @@ const RightBar = ({username}) => {
 
 }
   const [friendsSuggestion, setFriendsSuggestion] = useState([]);
+  const [clicked, setClicked]= useState(false);
 
   
       const getAllStudents = async()=> {
@@ -90,7 +91,7 @@ const RightBar = ({username}) => {
 };
 useEffect(() => {
   getAllStudents();}
-, []);
+, [friendsSuggestion]);
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">

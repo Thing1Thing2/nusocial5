@@ -57,7 +57,7 @@ useEffect(() => {
       body: JSON.stringify(data),
     }
     const res =  fetch("https://nusocial5.herokuapp.com/api/friends/getAllStudentsNotFriends", settings);
-    const arr =  res.json();
+    const arr =  res.text();
     let count = 1;
     setFriendsSuggestion([]);
     arr.forEach(async stu => {

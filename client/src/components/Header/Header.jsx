@@ -38,6 +38,7 @@ const handleSelect = (e) => {
   : e.target.value === "Log Out"? logoutFetch(): setSelected("")}
   
   const tryRequire = () => {
+    console.log("tryRequire() profile picture")
     try{
       require(`../../ProfilePics/${username}ProfilePic.jpg`);
     } catch(err){

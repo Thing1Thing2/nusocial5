@@ -29,10 +29,10 @@ const NewsAndNots = () => {
     setAllNews([]);
     stu.forEach(stu => {
       console.log(stu.to + stu.from);
-      if(stu.body === `${location.state.username} sent you a friend request`) {
+      if(stu.from === location.state.username) {
           buttonMsg = `View ${stu.to}'s profile`;
           stu.body = `You sent ${stu.to} a friend request`;
-        } else if (stu.body === `${stu.from} sent you a friend request`) {
+        } else if (stu.to === location.state.username) {
           stu.body = `Confirm ${stu.from}'s friend request`;  
           buttonMsg = "Confirm";
       } else {

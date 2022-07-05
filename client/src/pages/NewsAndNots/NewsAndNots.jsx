@@ -23,16 +23,13 @@ const NewsAndNots = () => {
     }
   let res = await fetch("https://nusocial5.herokuapp.com/api/personalnewsandnots/getNews", settings);
   let arr = await res.json();
-  let buttonMsg, from, to, pic;
+  let pic;
   arr.forEach(stu => {
     setAllNews([]);
     stu.forEach(stu => {
-      from = stu.from;
-      to = stu.to;
       pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
-      if(from === location.state.username) {
-          buttonMsg = `View ${to}'s profile`;
-          stu.body = `You sent ${to} a friend request`;
+      if(stu.from === location.state.username) {
+          stu.body = "You sent " + stu.to + " a friend request";
           let data = {
             username: username,
           }
@@ -45,17 +42,16 @@ const NewsAndNots = () => {
             body: JSON.stringify(data),
           }
           fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
-      console.log(data)
       pic = data;
-      setAllNews((list) => [...list, [stu, buttonMsg, pic ]]);
+      setAllNews((list) => [...list, [stu, "View " + stu.to + "'s profile", pic ]]);
     })
         } else if (stu.to === location.state.username) {
-          stu.body = `Confirm ${stu.from}'s friend request`;  
-          buttonMsg = "Confirm";
-          data = {
+          stu.body = "Confirm " + stu.from + "'s friend request";  
+           data = {
             username: stu.from
           }
-          settings = {method: "POST",
+          settings = {
+            method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -63,14 +59,11 @@ const NewsAndNots = () => {
           body: JSON.stringify(data),
         }
           fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
-      pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg"
-      console.log(data)
       pic = data;
-      setAllNews((list) => [...list, [stu, buttonMsg, pic ]]);
+      setAllNews((list) => [...list, [stu, "Confirm", pic ]]);
     })
       } else {
-        buttonMsg = "Add button msg";
-        setAllNews((list) => [...list, [stu, buttonMsg, pic ]]);
+        setAllNews((list) => [...list, [stu, " ", pic ]]);
       }
       })
   })

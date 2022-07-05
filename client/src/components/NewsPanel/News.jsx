@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./news.css";
 import NewsFeed from "./NewsFeed";
-import { NewsData, PostList } from "../test-data/test-data";
+import { NewsData } from "../test-data/test-data";
 import Post from "../Post/Post";
 
 //Change props of NewsFeed to alter content of News panel
@@ -37,6 +37,56 @@ const News = ({ username }) => {
     title: "",
   });
 
+  const [PostList, setPostList] = useState([]);
+
+  const getAllMyPosts = () => {
+    setPostList([]);
+    const info = {
+      username: username,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+    fetch(
+      "https://nusocial5.herokuapp.com/api/posts/getMyPosts",
+      settings
+    ).then((result) => {
+      const data = {
+        username: username,
+      };
+      const settings = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      fetch(
+        "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+        settings
+      ).then((gotPic) => {
+        setPostList((list) => [
+          ...list,
+          [
+            gotPic,
+            username,
+            result.createdAt,
+            result.title + " : " + result.body,
+            result.image,
+            result.likesCount,
+            result.commentsCount,
+          ],
+        ]);
+      });
+    });
+  };
+
   return (
     <>
       <div className="News">
@@ -71,6 +121,12 @@ const News = ({ username }) => {
           />
           <input type="submit" placeholder="submit image" />
         </form>
+        <input
+          type="submit"
+          placeholder="refresh feed"
+          onClick={getAllMyPosts}
+          value="refresh suggestion"
+        />
       </div>
 
       <div className="newsFeed">

@@ -29,6 +29,50 @@ const RightBar = ({username}) => {
   const [friendsSuggestion, setFriendsSuggestion] = useState([]);
 
   
+      const getAllStudents = async()=> {
+        if (FriendSuggestion.length <= 0) {
+        const data = {
+          username: username
+        };
+        const settings = {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+        const res = await fetch("https://nusocial5.herokuapp.com/api/friends/getAllStudentsNotFriends", settings);
+        const arr = await res.json();
+        let count = 1;
+        setFriendsSuggestion([]);
+        arr.forEach(async stu => {
+    
+          let pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
+          const data = {
+            username: stu.username,
+          };
+          const settings = {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+          console.log(data)
+          pic = data;
+        })
+    
+          if(count <= 5){
+            count += 1;
+          setFriendsSuggestion((list) => [...list, [stu, pic]]);
+          }
+        })
+      }
+      } 
+
   
   const addProfilePicture = async event => {
     const fileField = document.querySelector('input[type="file"]');
@@ -45,53 +89,14 @@ const RightBar = ({username}) => {
   })
 };
 useEffect(() => {
-    const data = {
-      username: username
-    };
-    const settings = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }
-    const res =  fetch("https://nusocial5.herokuapp.com/api/friends/getAllStudentsNotFriends", settings);
-    const arr =  res.text();
-    let count = 1;
-    setFriendsSuggestion([]);
-    arr.forEach(async stu => {
-
-      let pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
-      const data = {
-        username: stu.username,
-      };
-      const settings = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
-      console.log(data)
-      pic = data;
-    })
-
-      if(count <= 5){
-        count += 1;
-      setFriendsSuggestion((list) => [...list, [stu, pic]]);
-      }
-    })
-}
-, [friendsSuggestion]);
+  getAllStudents();}
+, []);
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">
        <input type="file" id="myFile" name="filename" placeholder="upload profile picture" />
   <input type="submit" onClick = {addProfilePicture} value="upload image"/>
-  <input type="submit" placeholder="refresh feed" value = "refresh suggestion" />
+  <input type="submit" placeholder="refresh feed" onClick = {getAllStudents} value = "refresh suggestion" />
         <div className="containerTitle">
           Suggestions For You
         </div>

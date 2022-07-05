@@ -9,7 +9,7 @@ import Select from '@mui/material/Select';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
-const Header = ({link, title,showHeaderCenter, showHeaderRight, username, socket, profilePicURL}) => {
+const Header = ({link, title,showHeaderCenter, showHeaderRight, username, socket}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [selected, setSelected]= useState("");

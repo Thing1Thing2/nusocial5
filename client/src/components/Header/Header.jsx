@@ -37,6 +37,31 @@ const handleSelect = (e) => {
   e.target.value === "My Profile"? navigate("/profile", {state:{username: location.state.username}})
   : e.target.value === "Log Out"? logoutFetch(): setSelected("")}
   
+
+  const [profilePicURL, setProfilePicURL] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg");
+
+  const getChangedProfilePicture = (url) => {
+    setProfilePicURL(url);
+    console.log("changed profile picture: " + url)
+  }
+
+  const getProfilePicture = (name) => {
+    const data = {
+      username: name,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  fetch("http://localhost:5000/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+    console.log(data)
+    setProfilePicURL(data.profilePicURL);
+  })
+  }
  
 
   return (
@@ -76,7 +101,7 @@ const handleSelect = (e) => {
    
   <Select
     IconComponent={() => (
-      <Avatar src={profilePicURL}>
+      <Avatar src={getProfilePicture(username)}>
     3
     </Avatar>
     )}

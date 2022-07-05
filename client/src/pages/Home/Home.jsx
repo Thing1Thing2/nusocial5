@@ -8,20 +8,12 @@ import { useLocation } from 'react-router-dom'
 
 
 const Home = () => {
-
-  const [profilePicURL, setProfilePicURL] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg");
-
-  const getChangedProfilePicture = (url) => {
-    setProfilePicURL(url);
-    console.log("changed profile picture: " + url)
-  }
-
   
   const location = useLocation();
   return (
     <>
     <div className = "homeHeader">
-    <Header showHeaderCenter={true} showHeaderRight= {true} username = {location.state.username} profilePicURL = {profilePicURL}/>
+    <Header showHeaderCenter={true} showHeaderRight= {true} username = {location.state.username}/>
    
     </div>
     <div className = "homeBody">
@@ -32,7 +24,7 @@ const Home = () => {
         <News  />
       </div>
       <div className="homeRightBar">
-        <RightBar username = {location.state.username} changeProfilePic = {getChangedProfilePicture}/>
+        <RightBar username = {location.state.username}/>
       </div>
     </div>
     </>

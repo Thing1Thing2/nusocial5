@@ -21,7 +21,7 @@ const NewsAndNots = () => {
       },
       body: JSON.stringify(data),
     }
-  let res = await fetch("https://nusocial5.herokuapp.com/api/personalnewsandnots/getNews", settings);
+  let res = await fetch("hhttps://nusocial5.herokuapp.com/api/personalnewsandnots/getNews", settings);
   let arr = await res.json();
   let buttonMsg;
   console.log(arr);

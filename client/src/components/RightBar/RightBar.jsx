@@ -91,7 +91,6 @@ const RightBar = ({username}) => {
 
 
 useEffect(() => {
-  getAllStudents();
 });
 
   return (

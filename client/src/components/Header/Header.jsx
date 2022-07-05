@@ -57,7 +57,7 @@ const handleSelect = (e) => {
   setProfilePic(url);
   }
 
-  const [profilePic, setProfilePic] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg");
+  const [profilePic, setProfilePic] = useState("http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg");
   return (
     <div className="header">
         <div className="headerLeft">
@@ -95,7 +95,7 @@ const handleSelect = (e) => {
    
   <Select
     IconComponent={() => (
-      <Avatar src={getProfilePicture(username)}>
+      <Avatar src={profilePic}>
     3
     </Avatar>
     )}

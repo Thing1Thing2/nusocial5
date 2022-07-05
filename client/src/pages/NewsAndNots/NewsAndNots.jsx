@@ -27,9 +27,9 @@ const NewsAndNots = () => {
   arr.forEach(stu => {
     setAllNews([]);
     stu.forEach(stu => {
+      console.log(stu);
       pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
       if(stu.from === location.state.username) {
-          stu.body = "You sent " + stu.to + " a friend request";
           let data = {
             username: username,
           }
@@ -43,10 +43,9 @@ const NewsAndNots = () => {
           }
           fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
       pic = data;
-      setAllNews((list) => [...list, [stu, "View " + stu.to + "'s profile", pic ]]);
+      setAllNews((list) => [...list, [stu,  "You sent " + stu.to + " a friend request at" + stu.createdAt, "View " + stu.to + "'s profile", pic ]]);
     })
         } else if (stu.to === location.state.username) {
-          stu.body = "Confirm " + stu.from + "'s friend request";  
            data = {
             username: stu.from
           }
@@ -58,12 +57,12 @@ const NewsAndNots = () => {
           },
           body: JSON.stringify(data),
         }
-          fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+      fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
       pic = data;
-      setAllNews((list) => [...list, [stu, "Confirm", pic ]]);
+      setAllNews((list) => [...list, [stu,  "Confirm " + stu.from + "'s friend request at " + stu.createdAt,"Confirm", pic ]]);
     })
       } else {
-        setAllNews((list) => [...list, [stu, " ", pic ]]);
+        setAllNews((list) => [...list, [stu, "Dummy message" , "ButtonMsg", pic ]]);
       }
       })
   })
@@ -108,14 +107,14 @@ const NewsAndNots = () => {
       <input type="submit" placeholder="refresh feed" onClick = {getAllPersonalNewsAndNots} value = "refresh suggestion" />
       {allNews.map((u) => (
           <div className="friendSuggestionRequest">
-          <Avatar src={u[2]} />
+          <Avatar src={u[3]} />
             <div className="friendSuggestionLeft">
               <div className="friendSuggestionName">
-                {u[0].body}{u[0].createdAt}
+                {u[1]}
               </div>
             </div>
             <div className="friendSuggestionRight">
-              <button className="sendFriendRequest" onClick = {handleButton(u)}>{u[1]}</button>
+              <button className="sendFriendRequest" onClick = {handleButton(u)}>{u[2]}</button>
             </div>
           </div>
         ))}

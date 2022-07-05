@@ -51,7 +51,7 @@ const handleSelect = (e) => {
     }
   await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
     console.log(data)
-    return data.profilePicURL;
+    return data.profilePictureURL;
   })
   }
  

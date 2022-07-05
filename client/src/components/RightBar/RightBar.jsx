@@ -86,8 +86,8 @@ const RightBar = ({username, changeProfilePic}) => {
       body: JSON.stringify(data),
     }
   await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
-    console.log(data.profilePicURL)
-    return data.profilePicURL;
+    console.log(data.profilePictureURL)
+    return data.profilePictureURL;
   })
   }
 

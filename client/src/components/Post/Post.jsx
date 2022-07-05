@@ -8,9 +8,9 @@ import { ChatBubbleOutline } from "@mui/icons-material";
 import Picker from "emoji-picker-react";
 
 const Post = ({ post }) => {
-  const [likes, setLikes] = useState(post.love);
+  const [likes, setLikes] = useState(post[5]);
   const [isLiked, setIsLiked] = useState(false);
-  const [comments, setComments] = useState(post.comment);
+  const [comments, setComments] = useState(post[6]);
   const [comment, setComment] = useState("");
   const [commentsList, setCommentsList] = useState([]);
   const [showPicker, setShowPicker] = useState(false);
@@ -46,16 +46,16 @@ const Post = ({ post }) => {
     <div className="postContainer">
       <div className="postTop">
         <div className="avatarContainer">
-          <Avatar src={post.userAvatar} />
+          <Avatar src={post[0]} />
         </div>
         <div className="posterInfo">
-          <div className="postOwner">{post.userName}</div>
-          <div className="postTime">{post.time}</div>
+          <div className="postOwner">{post[1]}</div>
+          <div className="postTime">{post[2]}</div>
         </div>
       </div>
       <div className="postDetail">
-        <div className="postText"> {post.text} </div>
-        <img className="postImages" src={post.imageList} alt="" />
+        <div className="postText"> {post[3]} </div>
+        <img className="postImages" src={post[4]} alt="" />
       </div>
       <div className="postInteraction">
         <div>

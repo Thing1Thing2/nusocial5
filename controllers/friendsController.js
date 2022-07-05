@@ -3,6 +3,7 @@ const db = require('../models')
 
 const {Op} = require("sequelize");
 const { personalnewsandnots } = require('../models');
+const sequelize = require("sequelize")
 
 // create main Model
 const Student = db.students
@@ -22,6 +23,7 @@ const addFriend = async (req, res) => {
         chatId: username + friend + "Chat",
         sentBy: username
     }
+         
     try {
     await Friends.findOne({where: {[Op.or]: [{username: info.username,friend:info.friend, reqStatus:"pending" }, {username: info.friend,friend:info.username, reqStatus:"confirm" }]}}).then(async stu => {
         if (stu) {
@@ -34,29 +36,17 @@ const addFriend = async (req, res) => {
                     if (info.username === info.friend) {
                         res.status(200).send("cannot send friend request to yourself")
                     } else {
-                    Friends.create(info).then(function(item) {
-                        const infoNews = {
-                            from: username,
-                            to: friend,
-                            body: username + "sent you a friend request"
-                        }
-                        PersonalNewsAndNots.create(infoNews).then(up => {
-                            res.status(200).send("added friend");
-                        }).catch(err => {
-                            console.log(err);
-                            res.status(200).send("err in updating personal news");
-                        })
-                    }).catch(e => {
-                        console.log(e)
-                    res.status(200).send("Error adding friend");})
+                    Friends.create(info);
                     }
                 }
             })
         }
     }
     )
+
 } catch (err) {
     console.log("error adding friend: " + err);
+    res.status(200).sed("error occurs");
 }
 }
 
@@ -71,17 +61,9 @@ const confirmFriend = async (req, res) => {
         const info = {
             from: username,
             to: friendName,
-            body: `${username} confirmed your friend request`
+            body: username + "confirmed your friend request"
         }
-      const settings = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(info),
-      }
-    fetch("httpss://nusocial5.herokuapp.com/api/personalnewsandnots/addNews", settings).then(response => response.text()).then(msg => {
+      PersonalNewsAndNots.create({info}).then(response => response.text()).then(msg => {
     if (msg === "sent message") {
         res.status(200).send("confirmed friend") 
     } else {
@@ -143,13 +125,29 @@ const getAllFriendRequestsPending = async (req, res) => {
     })
     if (stu) {
         const pendingSent = await Friends.findAll({
-            attributes: ['friend'],
+            attributes: ['friend', [
+                sequelize.fn
+                (
+                  "DATE_FORMAT", 
+                  sequelize.col("createdAt"), 
+                  "%d-%m-%Y %H:%i:%s"
+                ),
+                "createdAt",
+              ]],
             where: {
                 reqStatus: "pending",
                 sentBy: username,
          }});
          const pendingReceived = await Friends.findAll({
-            attributes: ['username'],
+            attributes: ['username', [
+                sequelize.fn
+                (
+                  "DATE_FORMAT", 
+                  sequelize.col("createdAt"), 
+                  "%d-%m-%Y %H:%i:%s"
+                ),
+                "createdAt",
+              ]],
             where: {
                 reqStatus: "pending",
                 friend: username
@@ -157,10 +155,10 @@ const getAllFriendRequestsPending = async (req, res) => {
          })
          let returnList = [];
          pendingSent.map((sent)=> {
-            returnList.push(["sent", sent.friend]);
+            returnList.push(["sent", sent.friend, sent.createdAt]);
          })
-         pendingReceived.map((sent)=> {
-            returnList.push(["received", sent.username]);
+         pendingReceived.map((received)=> {
+            returnList.push(["received", received.username, received.createdAt]);
          })
          res.status(200).send(returnList);
     } else {
@@ -177,16 +175,24 @@ const getAllConfirmedFriends = async (req, res) => {
     })
     if (stu) {
         const friends = await Friends.findAll({
-            attributes: ['username','friend'],
+            attributes: ['username','friend', [
+                sequelize.fn
+                (
+                  "DATE_FORMAT", 
+                  sequelize.col("createdAt"), 
+                  "%d-%m-%Y %H:%i:%s"
+                ),
+                "updatedAt",
+              ]],
             where: {
                 reqStatus: "confirm",
                 [Op.or]: [{username: username}, {friend: username}]
          }});
          const confirmed = friends.map((friend)=> {
             if(friend.username === username){
-                return friend.friend;
+                return [friend.friend, friend.updatedAt];
             } else {
-                return friend.username;
+                return [friend.username, friend.updatedAt];
             }
          })
          res.status(200).send(confirmed);

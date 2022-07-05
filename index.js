@@ -57,9 +57,6 @@ const router = require('./routes/studentRouter.js')
 app.use('/api/students', router)
 const friendsRouter = require('./routes/friendsRouter.js')
 app.use('/api/friends', friendsRouter)
-const personalNewsAndNotsRouter = require('./routes/personalNewsAndNotsRouter.js')
-app.use('/api/personalnewsandnots', personalNewsAndNotsRouter)
-
 
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.

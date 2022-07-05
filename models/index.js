@@ -35,7 +35,6 @@ db.sequelize = sequelize
 
 db.students = require('./studentsModel.js')(sequelize, DataTypes)
 db.friends = require('./friendsModel.js')(sequelize, DataTypes);
-db.personalnewsandnots = require('./personalNewsAndNotsModel.js')(sequelize, DataTypes);
 db.students.hasMany(db.friends, {foreignKey: "username"});
 db.friends.belongsTo(db.students, {foreignKey: "username"});
 db.friends.belongsTo(db.students, {foreignKey: "friend"});

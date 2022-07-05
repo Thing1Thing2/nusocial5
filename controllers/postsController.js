@@ -36,7 +36,7 @@ const addPost = async (req, res) => {
               body: body,
               image: imageURL,
             };
-            Posts.create(info, { where: { username: username } })
+            Posts.create(info)
               .then(async function (item) {
                 postsC.update({ postsCount: postsCountp1 });
                 res.status(200).send("added post");

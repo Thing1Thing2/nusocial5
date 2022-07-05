@@ -65,18 +65,17 @@ const RightBar = ({username, changeProfilePic}) => {
     const fileField = document.querySelector('input[type="file"]');
   const formData = new FormData();
   formData.append('username', username);
-    formData.append('path', fileField.files[0]);
+    formData.append('photo', fileField.files[0]);
     const settings = {
       method: "POST",
       body: formData,
     }
   fetch("https://nusocial5.herokuapp.com/api/students/addProfilePicture", settings).then(response => response.json()).then(data => {
   console.log(data.url);
-  changeProfilePic()
+  changeProfilePic(data.url)
   }).catch(error => {
     console.error(error)
   })
-  
 };
 
 

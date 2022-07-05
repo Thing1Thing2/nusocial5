@@ -13,6 +13,7 @@ const News = ({ username }) => {
     formData.append("username", postData.username);
     formData.append("image", fileField.files[0]);
     formData.append("body", postData.body);
+    formData.append("title", postData.title);
     const settings = {
       method: "POST",
       body: formData,
@@ -33,6 +34,7 @@ const News = ({ username }) => {
   const [postData, setPostData] = useState({
     username: username,
     body: "",
+    title: "",
   });
 
   return (
@@ -49,6 +51,12 @@ const News = ({ username }) => {
       </div>
       <div className="AddPost">
         <form onSubmit={(e) => submitPost(e)}>
+          <input
+            type="text"
+            placeholder="Entre message title"
+            id="title"
+            onChange={(e) => handle(e)}
+          />
           <input
             type="text"
             placeholder="Entre message body"

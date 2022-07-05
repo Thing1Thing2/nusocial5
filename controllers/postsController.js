@@ -42,7 +42,7 @@ const addPost = async (req, res) => {
                 res.status(200).send("added post");
               })
               .catch(function (err) {
-                res.status(200).send("error occured");
+                res.status(200).send("error occured" + err);
               });
           } else {
             res

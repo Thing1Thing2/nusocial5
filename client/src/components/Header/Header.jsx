@@ -95,7 +95,7 @@ const handleSelect = (e) => {
    
   <Select
     IconComponent={() => (
-      <Avatar src={profilePic}>
+      <Avatar src={getProfilePicture(username)}>
     3
     </Avatar>
     )}

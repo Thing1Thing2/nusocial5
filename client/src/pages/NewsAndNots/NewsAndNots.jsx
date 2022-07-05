@@ -23,17 +23,16 @@ const NewsAndNots = () => {
     }
   let res = await fetch("https://nusocial5.herokuapp.com/api/personalnewsandnots/getNews", settings);
   let arr = await res.json();
-  let buttonMsg;
-  console.log(arr);
-  let pic;
+  let buttonMsg, from, to, pic;
   arr.forEach(stu => {
     setAllNews([]);
     stu.forEach(stu => {
+      from = stu.from;
+      to = stu.to;
       pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
-      console.log(stu.to + stu.from);
-      if(stu.from === location.state.username) {
-          buttonMsg = `View ${stu.to}'s profile`;
-          stu.body = `You sent ${stu.to} a friend request`;
+      if(from === location.state.username) {
+          buttonMsg = `View ${to}'s profile`;
+          stu.body = `You sent ${to} a friend request`;
           let data = {
             username: username,
           }
@@ -46,7 +45,6 @@ const NewsAndNots = () => {
             body: JSON.stringify(data),
           }
           fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
-      pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg"
       console.log(data)
       pic = data;
       setAllNews((list) => [...list, [stu, buttonMsg, pic ]]);
@@ -76,8 +74,6 @@ const NewsAndNots = () => {
       }
       })
   })
-  
-
   }
 
   const location = useLocation();

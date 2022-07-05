@@ -146,7 +146,7 @@ const getAllFriendRequestsPending = async (req, res) => {
             attributes: ['friend'],
             where: {
                 reqStatus: "pending",
-                sentBy: username
+                sentBy: username,
          }});
          const pendingReceived = await Friends.findAll({
             attributes: ['username'],

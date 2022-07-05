@@ -1,26 +1,33 @@
 module.exports = (sequelize, DataTypes) => {
-  const Friends = sequelize.define("friends", {
-    username: {
+  const Posts = sequelize.define("posts", {
+    from: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    friend: {
+    postID: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    reqStatus: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    chatId: {
-      type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       primaryKey: true,
     },
-    sentBy: {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    body: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    image: {
       type: DataTypes.STRING,
     },
+    likesCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    commentsCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   });
-  return Friends;
+  return Posts;
 };

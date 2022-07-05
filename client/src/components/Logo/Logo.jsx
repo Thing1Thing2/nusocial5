@@ -1,25 +1,23 @@
-import React  from "react";
+import React from "react";
 import "./logo.css";
 import logo from "./logo.png";
-import { Link } from "@mui/material"
+import { Link } from "@mui/material";
 
-const Logo = ({link, title}) => {
+const Logo = ({ link, title }) => {
   return (
-    <div className = "logoAndHeader">
-    <Link href = {link} style={{ textDecoration: 'none' }}s>
-    <div className = "logo">  
-    <img src={logo} alt="logo" className="logo" />
+    <div className="logoAndHeader">
+      <Link href={link} style={{ textDecoration: "none" }} s>
+        <div className="logo">
+          <img src={logo} alt="logo" className="logo" />
+        </div>
+        <div className="pageTitle">{title}</div>
+      </Link>
     </div>
-    <div className = "pageTitle">
-    {title}
-    </div>
-    </Link>
-    </div>
-  )
-}
+  );
+};
 
 Logo.defaultProps = {
-  title: 'NUSocial'
-}
+  title: "NUSocial",
+};
 
 export default Logo;

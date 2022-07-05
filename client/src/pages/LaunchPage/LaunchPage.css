@@ -62,7 +62,7 @@ form.loginForm {
 
 .title {
   font-size: 2.2rem;
-  color: #EF7C00;
+  color: #ef7c00;
   margin-bottom: 10px;
 }
 
@@ -80,7 +80,7 @@ form.loginForm {
 }
 
 .icon {
-  color: #EF7C00;
+  color: #ef7c00;
   font-size: 40;
   margin: auto;
 }
@@ -92,24 +92,24 @@ form.loginForm {
   line-height: 1;
   font-weight: 600;
   font-size: 1.1rem;
-  color: #EF7C00;
+  color: #ef7c00;
 }
 
 .inputField input::placeholder {
-  color: #EF7C00;
+  color: #ef7c00;
   font-weight: 500;
 }
 
 .guest {
   padding: 0.7rem 0;
   font-size: 1rem;
-  color: #EF7C00;
+  color: #ef7c00;
   font-weight: 500;
 }
 
 .btn {
   width: 150px;
-  background-color: #EF7C00;
+  background-color: #ef7c00;
   border: none;
   outline: none;
   height: 49px;
@@ -124,7 +124,7 @@ form.loginForm {
 
 .btn:hover {
   background-color: #fff;
-  color: #EF7C00;
+  color: #ef7c00;
 }
 
 .panelsContainer {
@@ -145,7 +145,7 @@ form.loginForm {
   top: -10%;
   right: 48%;
   transform: translateY(-50%);
-  background-image: linear-gradient(-45deg, #EF7C00 0%, #f8af39 100%);
+  background-image: linear-gradient(-45deg, #ef7c00 0%, #f8af39 100%);
   transition: 1.8s ease-in-out;
   border-radius: 50%;
   z-index: 6;

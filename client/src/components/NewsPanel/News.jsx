@@ -41,6 +41,14 @@ const News = ({ username }) => {
 
   const getAllMyPosts = () => {
     setPostList([]);
+    let useAvatar = "",
+      userName = username,
+      time = "",
+      text = "",
+      imageList = "",
+      love = 0,
+      comment = 0;
+
     const info = {
       username: username,
     };
@@ -56,6 +64,11 @@ const News = ({ username }) => {
       "https://nusocial5.herokuapp.com/api/posts/getMyPosts",
       settings
     ).then((result) => {
+      time = result.createdAt;
+      text = result.title + " : " + result.body;
+      imageList = result.image;
+      love = result.likesCount;
+      comment = result.commentsCount;
       const data = {
         username: username,
       };
@@ -71,17 +84,10 @@ const News = ({ username }) => {
         "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
         settings
       ).then((gotPic) => {
+        useAvatar = gotPic;
         setPostList((list) => [
           ...list,
-          [
-            gotPic,
-            username,
-            result.createdAt,
-            result.title + " : " + result.body,
-            result.image,
-            result.likesCount,
-            result.commentsCount,
-          ],
+          [useAvatar, userName, time, text, imageList, love, comment],
         ]);
       });
     });

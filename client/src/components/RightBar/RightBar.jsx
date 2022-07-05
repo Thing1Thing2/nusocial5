@@ -8,10 +8,7 @@ import { useLocation } from "react-router-dom";
 
 
 const RightBar = ({username}) => {
-  window.onload = () => {
-    getAllStudents();
-    getProfilePicture(username);
-   };
+
   const location = useLocation();
   
   const sendFriendRequest = async (friendUsername) => {

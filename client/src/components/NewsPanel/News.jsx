@@ -80,7 +80,7 @@ const News = ({ username }) => {
           useAvatar = gotPic;
         });
 
-      myPosts.forEach(async (post) => {
+      myPosts.reverse().forEach(async (post) => {
         setPostList((list) => [
           ...list,
           [

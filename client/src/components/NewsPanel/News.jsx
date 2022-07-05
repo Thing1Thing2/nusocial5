@@ -84,7 +84,7 @@ const News = ({ username }) => {
         useAvatar = gotPic;
       });
 
-      myPosts.foreach(async (post) => {
+      myPosts.forEach(async (post) => {
         time = post.createdAt;
         text = post.title + " : " + post.body;
         imageList = post.image;

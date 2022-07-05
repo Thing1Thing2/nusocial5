@@ -1,4 +1,4 @@
-import React, {useState, useEffect}from 'react'
+import React, {useState} from 'react'
 import "./NewsAndNots.css"
 import Header from '../../components/Header/Header';
 import { useLocation } from 'react-router-dom'; 
@@ -21,7 +21,7 @@ const NewsAndNots = () => {
       },
       body: JSON.stringify(data),
     }
-  let res = await fetch("hhttps://nusocial5.herokuapp.com/api/personalnewsandnots/getNews", settings);
+  let res = await fetch("https://nusocial5.herokuapp.com/api/personalnewsandnots/getNews", settings);
   let arr = await res.json();
   let buttonMsg;
   console.log(arr);
@@ -38,7 +38,14 @@ const NewsAndNots = () => {
       } else {
         buttonMsg = "Add button msg";
       }
-          setAllNews((list) => [...list, [stu, buttonMsg ]]); 
+      let pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
+    fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+      pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg"
+      console.log(data)
+      pic = data;
+      setAllNews((list) => [...list, [stu, buttonMsg, pic ]]);
+    })
+          
       })
   })
   
@@ -74,14 +81,6 @@ const NewsAndNots = () => {
         console.error(error)
       })
     }
-    
-    const tryRequire = (uid) => {
-      try{
-        require(`../../ProfilePics/${uid}ProfilePic.jpg`);
-      } catch(err){
-        return null;
-      }
-    };
 
   return (
     <div >
@@ -92,7 +91,7 @@ const NewsAndNots = () => {
       <input type="submit" placeholder="refresh feed" onClick = {getAllPersonalNewsAndNots} value = "refresh suggestion" />
       {allNews.map((u) => (
           <div className="friendSuggestionRequest">
-          <Avatar src={tryRequire(u.image) === null? "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg": require(`../../ProfilePics/${u.image}ProfilePic.jpg`)} />
+          <Avatar src={u[2]} />
             <div className="friendSuggestionLeft">
               <div className="friendSuggestionName">
                 {u[0].body}{u[0].createdAt}

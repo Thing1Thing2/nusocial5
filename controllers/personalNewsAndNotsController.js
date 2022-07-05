@@ -49,7 +49,15 @@ const getPersonalNewsAndNots = async (req, res) => {
                 from: username
          }});
          const toNews = await PersonalNewsAndNots.findAll({
-            attributes: ['body', 'createdAt'],
+            attributes: ['body', [
+                sequelize.fn
+                (
+                  "DATE_FORMAT", 
+                  sequelize.col("createdAt"), 
+                  "%d-%m-%Y %H:%i:%s"
+                ),
+                "createdAt",
+              ], 'from', 'to'],
             where: {
                 to: username
             }

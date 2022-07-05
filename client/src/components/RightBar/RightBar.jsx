@@ -45,9 +45,25 @@ const RightBar = ({username}) => {
     const arr = await res.json();
     let count = 1;
     setFriendsSuggestion([]);
-    arr.forEach(stu => {
-      getProfilePicture(stu.username, count);
-      const pic = `profilePic${count}`
+    arr.forEach(async stu => {
+
+      let pic = "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
+      const data = {
+        username: stu.username,
+      };
+      const settings = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
+      console.log(data)
+      pic = data;
+    })
+
       if(count <= 5){
         count += 1;
       setFriendsSuggestion((list) => [...list, [stu, pic]]);
@@ -71,45 +87,12 @@ const RightBar = ({username}) => {
   })
 };
 
-const [profilePic1, setProfilePic1] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
-const [profilePic2, setProfilePic2] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
-const [profilePic3, setProfilePic3] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
-const [profilePic4, setProfilePic4] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
-const [profilePic5, setProfilePic5] = useState("https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg")
   
-  const getProfilePicture = async (name, count) => {
-    let url;
-    const data = {
-      username: name,
-    };
-    const settings = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }
-  await fetch("https://nusocial5.herokuapp.com/api/students/getProfilePicture", settings).then(response => response.text()).then(data => {
-    console.log(data)
-    url = data;
-  })
-  if (count === 1) {
-    setProfilePic1(url);
-  } else if (count === 2) {
-    setProfilePic2(url);
-  } else if (count === 3) {
-    setProfilePic3(url);
-  } else if (count === 4) {
-    setProfilePic4(url);
-  } else if (count === 5) {
-    setProfilePic5(url);
-  }
-  }
+
 
 useEffect(() => {
   getAllStudents();
-}, []);
+});
 
   return (
     <div className="rightBar">
@@ -124,7 +107,7 @@ useEffect(() => {
           <div className="friendSuggestionRequest">
             <div className="friendSuggestionLeft">
               <div className="friendSuggestionAvatar">
-                <Avatar src = {profilePic1} />
+                <Avatar src = {u[1]} />
               </div>
               <div className="friendSuggestionName">
                 {u[0].username}

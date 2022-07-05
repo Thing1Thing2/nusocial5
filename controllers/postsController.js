@@ -39,8 +39,12 @@ const addPost = async (req, res) => {
               };
               Posts.create(info)
                 .then(async function (item) {
-                  postC.update({ postsCount: postsCountp1 });
-                  res.status(200).send("added post");
+                  Student.update(
+                    { postsCount: postsCountp1 },
+                    { where: { username: username } }
+                  ).then((done) => {
+                    res.status(200).send("added post");
+                  });
                 })
                 .catch(function (err) {
                   res.status(200).send("error occured" + err + postsCountp1);

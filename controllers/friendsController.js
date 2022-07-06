@@ -1,7 +1,6 @@
 const db = require("../models");
 
 const { Op } = require("sequelize");
-const { personalnewsandnots } = require("../models");
 const sequelize = require("sequelize");
 
 // create main Model

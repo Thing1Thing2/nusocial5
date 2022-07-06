@@ -92,6 +92,7 @@ const News = ({ username }) => {
             post.image,
             post.likesCount,
             post.commentsCount,
+            post.postID,
           ],
         ]);
       });

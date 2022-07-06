@@ -25,7 +25,8 @@ const Post = ({ post, username }) => {
       setCommentsList((list) => [...list, messageData]);
       setComments(comments + 1);
       const messageData = {
-        sender_nusocial_id: "sender_id",
+        postID: post[8],
+        from: username,
         body: comment,
       };
       const settings = {
@@ -36,9 +37,10 @@ const Post = ({ post, username }) => {
         },
         body: JSON.stringify(messageData),
       };
-      fetch("https://nusocial5.herokuapp.com/api/posts/addPost", settings)
+      fetch("https://nusocial5.herokuapp.com/api/comments/addComment", settings)
         .then((response) => response.text())
         .then((data) => {
+          window.alert(data);
           setComment("");
         });
     }

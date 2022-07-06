@@ -44,9 +44,10 @@ const Post = ({ post }) => {
     }
   };
 
+  const [closePost, setClosePost] = useState(false);
   return (
     <div className="postContainer">
-      <Collapse in={true}>
+      <Collapse in={closePost} fontSize="inherit">
         <div className="postTop">
           <div className="avatarContainer">
             <Avatar src={post[0]} />
@@ -54,7 +55,7 @@ const Post = ({ post }) => {
           <div className="posterInfo">
             <div className="postOwner">{post[1]}</div>
             <div className="postTime">{post[2]}</div>
-            <CloseIcon></CloseIcon>
+            <CloseIcon onClick={() => setClosePost(true)} />
           </div>
         </div>
         <div className="postDetail">

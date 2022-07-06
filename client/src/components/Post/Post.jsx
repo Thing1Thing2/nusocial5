@@ -79,11 +79,11 @@ const Post = ({ post, username }) => {
     };
     await fetch(
       "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
-      settings
+      settingsPic
     )
       .then((response) => response.text())
       .then((result) => {
-        let pic = result;
+        pic = result;
         arr.forEach((comment) => {
           setCommentsList((list) => [
             ...list,

@@ -33,11 +33,14 @@ db.sequelize = sequelize;
 db.students = require("./studentsModel.js")(sequelize, DataTypes);
 db.friends = require("./friendsModel.js")(sequelize, DataTypes);
 db.posts = require("./postsModel.js")(sequelize, DataTypes);
+cb.comments = require("./commentsModel.js")(sequelize, DataTypes);
 
 //associations
 db.students.hasMany(db.friends, { foreignKey: "username" });
 db.friends.belongsTo(db.students, { foreignKey: "username" });
 db.friends.belongsTo(db.students, { foreignKey: "friend" });
+db.posts.hadMany(db.comments, { foreignKey: "postID" });
+db.comments.belongsTo(db.posts, { foreignKey: "postID" });
 
 db.sequelize.sync({ force: false }).then(() => {
   console.log("yes re-sync done!");

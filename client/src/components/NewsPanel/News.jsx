@@ -130,7 +130,7 @@ const News = ({ username }) => {
             name="filename"
             placeholder="upload post picture"
           />
-          <input type="submit" placeholder="submit image" />
+          <input type="submit" placeholder="submit post" />
         </form>
         <input
           type="submit"

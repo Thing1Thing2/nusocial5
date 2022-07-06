@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Users, Deadlines } from "../test-data/test-data";
 import "./rightBar.css";
 import Online from "../Online/Online";
@@ -75,7 +75,7 @@ const RightBar = ({ username }) => {
 
   function addProfilePicture(e) {
     e.preventDefault();
-    const fileField = document.querySelector('input[type="file"]');
+    const fileField = document.querySelector('input[id="photo"]');
     const formData = new FormData();
     formData.append("username", username);
     formData.append("photo", fileField.files[0]);
@@ -103,7 +103,7 @@ const RightBar = ({ username }) => {
         <form onSubmit={(e) => addProfilePicture(e)}>
           <input
             type="file"
-            id="image"
+            id="photo"
             name="filename"
             placeholder="upload profile picture"
           />

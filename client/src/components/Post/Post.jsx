@@ -115,30 +115,6 @@ const Post = ({ post, username }) => {
     setOpenPost(false);
   };
 
-  const deleteComment = (commentID) => {
-    const data = {
-      commentID: commentID,
-    };
-    const settings = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-
-    fetch(
-      "https://nusocial5.herokuapp.com/api/comments/deleteComment",
-      settings
-    )
-      .then((result) => result.text())
-      .then((result) => {
-        window.alert(result);
-      });
-    setOpenComment(false);
-  };
-
   const [openComment, setOpenComment] = useState(true);
   const [openPost, setOpenPost] = useState(true);
   return (

@@ -20,9 +20,9 @@ const LeftBar = () => {
 
   const createGroup = (e) => {
     e.preventDefault();
-    const fileField = document.querySelector('input[id="image"]');
+    const fileField = document.querySelector('input[type="file"]');
     const formData = new FormData();
-    formData.append("username", groupData.groupName);
+    formData.append("groupName", groupData.groupName);
     formData.append("image", fileField.files[0]);
     formData.append("description", groupData.description);
     const settings = {
@@ -45,13 +45,13 @@ const LeftBar = () => {
         <form onSubmit={(e) => createGroup(e)}>
           <input
             type="text"
-            placeholder="Entre message title"
+            placeholder="Enter Group Name"
             id="groupName"
             onChange={(e) => handle(e)}
           />
           <input
             type="text"
-            placeholder="Entre message body"
+            placeholder="Entre Group Description"
             id="description"
             onChange={(e) => handle(e)}
           />
@@ -61,7 +61,7 @@ const LeftBar = () => {
             name="filename"
             placeholder="upload post picture"
           />
-          <input type="submit" placeholder="submit post" />
+          <input type="submit" placeholder="submit group create request" />
         </form>
         <div className="containerTitle">Your Groups</div>
         {Groups.map((u) => (

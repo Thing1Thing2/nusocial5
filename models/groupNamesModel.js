@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Groups = sequelize.define(
-    "groups",
+  const GroupNames = sequelize.define(
+    "groupNames",
     {
       groupName: {
         type: DataTypes.STRING,
@@ -26,5 +26,5 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: "modifiedAt",
     }
   );
-  return Groups;
+  return GroupNames;
 };

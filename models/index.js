@@ -36,7 +36,7 @@ db.students = require("./studentsModel.js")(sequelize, DataTypes);
 db.friends = require("./friendsModel.js")(sequelize, DataTypes);
 db.posts = require("./postsModel.js")(sequelize, DataTypes);
 db.comments = require("./commentsModel.js")(sequelize, DataTypes);
-db.groups = require("./groupsModel.js")(sequelize, DataTypes);
+db.groupNames = require("./groupNamesModel.js")(sequelize, DataTypes);
 
 //associations
 db.students.hasMany(db.friends, { foreignKey: "username" });

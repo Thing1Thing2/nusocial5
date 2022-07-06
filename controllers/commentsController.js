@@ -6,7 +6,7 @@ const Posts = db.posts;
 const deleteComment = async (req, res) => {
   var reqBody = req.body;
   Comments.destroy({ where: { commentID: reqBody.commentID } })
-    .then((result) => {
+    .then((postFound) => {
       //update comments count of post
 
       Posts.update(

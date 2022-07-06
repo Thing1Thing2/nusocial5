@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./leftBar.css";
 import { Groups, Trending, Events } from "../test-data/test-data";
 import { Avatar } from "@mui/material";
@@ -6,9 +6,63 @@ import { useNavigate } from "react-router-dom";
 
 const LeftBar = () => {
   const navigate = useNavigate();
+
+  const [groupData, setGroupData] = useState({
+    groupName: "",
+    description: "",
+  });
+
+  function handle(e) {
+    const newdata = { ...groupData };
+    newdata[e.target.id] = e.target.value;
+    setGroupData(newdata);
+  }
+
+  const createGroup = (e) => {
+    e.preventDefault();
+    const fileField = document.querySelector('input[id="image"]');
+    const formData = new FormData();
+    formData.append("username", groupData.groupName);
+    formData.append("image", fileField.files[0]);
+    formData.append("description", groupData.description);
+    const settings = {
+      method: "POST",
+      body: formData,
+    };
+    fetch(
+      "https://nusocial5.herokuapp.com/api/groupnames/addGroupName",
+      settings
+    )
+      .then((result) => result.text())
+      .then((msg) => {
+        window.alert(msg);
+      });
+  };
+
   return (
     <div className="leftBar">
       <div className="leftBarComponentContainer">
+        <form onSubmit={(e) => createGroup(e)}>
+          <input
+            type="text"
+            placeholder="Entre message title"
+            id="groupName"
+            onChange={(e) => handle(e)}
+          />
+          <input
+            type="text"
+            placeholder="Entre message body"
+            id="description"
+            onChange={(e) => handle(e)}
+          />
+          <input
+            type="file"
+            id="image"
+            name="filename"
+            placeholder="upload post picture"
+          />
+          <input type="submit" placeholder="submit post" />
+        </form>
         <div className="containerTitle">Your Groups</div>
         {Groups.map((u) => (
           <div

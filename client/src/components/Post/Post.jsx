@@ -9,7 +9,7 @@ import Picker from "emoji-picker-react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Collapse } from "@mui/material";
 
-const Post = ({ post }) => {
+const Post = ({ post, username }) => {
   const [likes, setLikes] = useState(post[5]);
   const [isLiked, setIsLiked] = useState(false);
   const [comments, setComments] = useState(post[6]);
@@ -44,10 +44,33 @@ const Post = ({ post }) => {
     }
   };
 
-  const [closePost, setClosePost] = useState(true);
+  const deletePost = () => {
+    const data = {
+      title: post[3],
+      username: username,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    fetch(
+      "https://nusocial5.herokuapp.com/api/posts/deletePost",
+      settings
+    ).then(async (result) => {
+      window.alert(result);
+    });
+    setOpenPost(false);
+  };
+
+  const [openPost, setOpenPost] = useState(true);
   return (
     <div className="postContainer">
-      <Collapse in={closePost} fontSize="inherit">
+      <Collapse in={openPost} fontSize="inherit">
         <div className="postTop">
           <div className="avatarContainer">
             <Avatar src={post[0]} />
@@ -55,12 +78,15 @@ const Post = ({ post }) => {
           <div className="posterInfo">
             <div className="postOwner">{post[1]}</div>
             <div className="postTime">{post[2]}</div>
-            <CloseIcon onClick={() => setClosePost(false)} />
+            <CloseIcon onClick={() => setOpenPost(false)} />
           </div>
         </div>
         <div className="postDetail">
-          <div className="postText"> {post[3]} </div>
-          <img className="postImages" src={post[4]} alt="" />
+          <div className="postText">
+            {" "}
+            {post[3]} : {post[4]}{" "}
+          </div>
+          <img className="postImages" src={post[5]} alt="" />
         </div>
         <div className="postInteraction">
           <div>
@@ -124,6 +150,9 @@ const Post = ({ post }) => {
           </div>
           <button className="postBottomSendButton" onClick={sendMessage}>
             Send
+          </button>
+          <button className="postBottomSendButton" onClick={deletePost}>
+            Delete Post
           </button>
         </div>
       </Collapse>

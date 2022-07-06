@@ -87,7 +87,8 @@ const News = ({ username }) => {
             useAvatar,
             username,
             post.createdAt,
-            post.title + " : " + post.body,
+            post.title,
+            post.body,
             post.image,
             post.likesCount,
             post.commentsCount,
@@ -141,7 +142,7 @@ const News = ({ username }) => {
 
       <div className="newsFeed">
         {PostList.map((post) => (
-          <Post post={post} />
+          <Post post={post} username={username} />
         ))}
       </div>
     </>

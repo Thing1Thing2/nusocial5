@@ -2,8 +2,11 @@ const commentsController = require("../controllers/commentsController.js");
 
 const commentsRouter = require("express").Router();
 
-commentsRouter.post("/deletePost", commentsController.deleteComment);
-commentsRouter.post("/getMyPosts", commentsController.getCommentsForPost);
-commentsRouter.post("/addPost", commentsController.addComment);
+commentsRouter.post("/deleteComment", commentsController.deleteComment);
+commentsRouter.post(
+  "/getCommentsForPost",
+  commentsController.getCommentsForPost
+);
+commentsRouter.post("/addComment", commentsController.addComment);
 
-module.exports = postsRouter;
+module.exports = commentsRouter;

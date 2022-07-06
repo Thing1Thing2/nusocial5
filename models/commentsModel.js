@@ -1,15 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
   const Comments = sequelize.define("comments", {
-    postID: {
+    commentID: {
       type: DataTypes.STRING,
       allowNull: false,
+      autoIncrement: true,
+      unique: true,
     },
     postID: {
       type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true,
     },
-    title: {
+    from: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -17,17 +19,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    image: {
-      type: DataTypes.STRING,
-    },
-    likesCount: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
-    commentsCount: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-    },
   });
-  return Posts;
+  return Comments;
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Users, Deadlines, FriendSuggestion } from "../test-data/test-data";
+import { Users, Deadlines } from "../test-data/test-data";
 import "./rightBar.css";
 import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
@@ -74,6 +74,7 @@ const RightBar = ({ username }) => {
   };
 
   const addProfilePicture = async (event) => {
+    event.preventDefault();
     const fileField = document.querySelector('input[type="file"]');
     const formData = new FormData();
     formData.append("username", username);
@@ -99,12 +100,14 @@ const RightBar = ({ username }) => {
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">
-        <input
-          type="file"
-          id="myFile"
-          name="filename"
-          placeholder="upload profile picture"
-        />
+        <form onSubmit={(e) => addProfilePicture(e)}>
+          <input
+            type="file"
+            id="photo"
+            name="filename"
+            placeholder="upload profile picture"
+          />
+        </form>
         <input type="submit" onClick={addProfilePicture} value="upload image" />
         <input
           type="submit"

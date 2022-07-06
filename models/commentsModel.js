@@ -5,11 +5,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       unique: true,
+      primaryKey: true,
     },
     postID: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
     },
     from: {
       type: DataTypes.STRING,

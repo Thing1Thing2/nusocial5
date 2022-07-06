@@ -198,6 +198,9 @@ const Post = ({ post, username }) => {
           <button className="postBottomSendButton" onClick={sendComment}>
             Send
           </button>
+          <button className="postBottomSendButton" onClick={getAllComments}>
+            Refresh Comments
+          </button>
           <button className="postBottomSendButton" onClick={deletePost}>
             Delete Post
           </button>

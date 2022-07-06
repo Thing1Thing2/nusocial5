@@ -2,7 +2,18 @@ const db = require("../models");
 
 const Comments = db.comments;
 const Posts = db.posts;
-const deleteComment = async (req, res) => {};
+
+const deleteComment = async (req, res) => {
+  var reqBody = req.body;
+  Comments.destroy({ where: { commentID: reqBody.commentID } })
+    .then((result) => {
+      res.status(200).send("Deleted comment");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("Error occurred");
+    });
+};
 
 const getCommentsForPost = async (req, res) => {
   var reqBody = req.body;

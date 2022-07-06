@@ -10,6 +10,7 @@ cloudinary.config({
 // create main Model
 const Student = db.students;
 const Posts = db.posts;
+const Friends = db.friends;
 
 const addPost = async (req, res) => {
   if (req.files) {
@@ -90,7 +91,44 @@ const getMyPosts = async (req, res) => {
 };
 
 const getFriendsPosts = async (req, res) => {
-  res.status(200).send(helpers.getAllConfirmedFriends(req.body.username));
+  let username = req.body.username;
+  let friendName = req.body.friend;
+  let friend = await Friends.findOne({
+    where: { username: friendName, friend: username },
+  });
+  if (friend) {
+    if (friend.reqStatus === "pending") {
+      friend
+        .update({ reqStatus: "confirm" })
+        .then(async function (item) {
+          await PersonalNewsAndNots.destroy({
+            where: { from: friendName, to: username },
+          });
+          const info = {
+            from: username,
+            to: friendName,
+            body: username + "confirmed your friend request",
+          };
+          PersonalNewsAndNots.create({ info })
+            .then((response) => response.text())
+            .then((msg) => {
+              if (msg === "sent message") {
+                res.status(200).send("confirmed friend");
+              } else {
+                res.status(200).send(msg);
+              }
+            });
+        })
+        .catch(function (err) {
+          res.status(200).send("error occured");
+          console.log(err);
+        });
+    } else {
+      res.status(200).send("Already confirmed");
+    }
+  } else {
+    res.status(200).send("No such friend request");
+  }
 };
 
 module.exports = {

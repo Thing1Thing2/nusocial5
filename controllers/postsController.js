@@ -142,13 +142,43 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-const addLike = async (req, res) => {};
+const addLike = async (req, res) => {
+  Posts.findOne({ where: { postID: req.body.postID } }).then((post) => {
+    Posts.update(
+      { likesCount: parseInt(post.likesCount) + 1 },
+      { where: { postID: req.body.postID } }
+    )
+      .then((result) => {
+        res.status(200).send("added like");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(200).send("error occurred");
+      });
+  });
+};
 
-const removeLike = async (req, res) => {};
+const removeLike = async (req, res) => {
+  Posts.findOne({ where: { postID: req.body.postID } }).then((post) => {
+    Posts.update(
+      { likesCount: parseInt(post.likesCount) - 1 },
+      { where: { postID: req.body.postID } }
+    )
+      .then((result) => {
+        res.status(200).send("removed like");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(200).send("error occurred");
+      });
+  });
+};
 
 module.exports = {
   addPost,
   deletePost,
   getMyPosts,
   getAllPosts,
+  addLike,
+  removeLike,
 };

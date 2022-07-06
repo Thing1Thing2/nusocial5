@@ -115,6 +115,55 @@ const Post = ({ post, username }) => {
     setOpenPost(false);
   };
 
+  const addLike = () => {
+    const data = {
+      postID: post[8],
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    fetch("https://nusocial5.herokuapp.com/api/posts/addLike", settings)
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+        window.alert("sorry some error occurred with likes");
+      });
+  };
+
+  const removeLike = () => {
+    const data = {
+      postID: post[8],
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    fetch("https://nusocial5.herokuapp.com/api/posts/removeLike", settings)
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+        window.alert("sorry some error occurred with likes");
+      });
+  };
+
+  const handleLikes = () => {
+    if (isLiked) {
+      removeLike();
+    } else {
+      addLike();
+    }
+    getAllComments();
+  };
+
   const [openComment, setOpenComment] = useState(true);
   const [openPost, setOpenPost] = useState(true);
   return (
@@ -141,8 +190,8 @@ const Post = ({ post, username }) => {
             <FavoriteBorderIcon
               className="interactIcon"
               onClick={() => {
-                setLikes(isLiked ? likes - 1 : likes + 1);
                 setIsLiked(!isLiked);
+                handleLikes();
               }}
             />
             {post[6]}
@@ -202,24 +251,3 @@ const Post = ({ post, username }) => {
 };
 
 export default Post;
-
-/*
- <div className="comment">
-                <Collapse in={openComment} fontSize="inherit">
-                  <div className="postBottomAvatar">
-                    <Avatar src={comment[0]} />
-                  </div>
-                  <div className="commentBubble">
-                    <div className="commentName">{comment[1]}</div>
-                    <p>{comment[2]}</p>
-                  </div>
-                  <button
-                    className="postBottomSendButton"
-                    onClick={deleteComment}
-                  >
-                    Delete Comment
-                  </button>
-                  <CloseIcon onClick={() => setOpenPost(false)} />
-                </Collapse>
-              </div>
-*/

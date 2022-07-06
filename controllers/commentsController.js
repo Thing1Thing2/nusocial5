@@ -8,7 +8,22 @@ const deleteComment = async (req, res) => {
   Comments.destroy({ where: { commentID: reqBody.commentID } })
     .then((result) => {
       //update comments count of post
-      res.status(200).send("Deleted comment");
+
+      Posts.update(
+        { commentsCount: parseInt(postFound.commentsCount) - 1 },
+        {
+          where: {
+            postID: req.body.postID,
+          },
+        }
+      )
+        .then((done) => {
+          res.status(200).send("Deleted comment");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(200).send("error updating comments count");
+        });
     })
     .catch((err) => {
       console.log(err);

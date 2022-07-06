@@ -7,6 +7,7 @@ const deleteComment = async (req, res) => {
   var reqBody = req.body;
   Comments.destroy({ where: { commentID: reqBody.commentID } })
     .then((result) => {
+      //update comments count of post
       res.status(200).send("Deleted comment");
     })
     .catch((err) => {
@@ -34,14 +35,31 @@ const getCommentsForPost = async (req, res) => {
 const addComment = (req, res) => {
   var reqBody = req.body;
   Posts.findOne({ where: { postID: req.body.postID } })
-    .then((result) => {
+    .then((postFound) => {
       Comments.create({
         postID: reqBody.postID,
         body: reqBody.body,
         from: reqBody.from,
       })
         .then((result) => {
-          res.status(200).send("Sent comment");
+          //update Comments count of post
+          Posts.update(
+            { commentsCount: parseInt(postFound.commentsCount) + 1 },
+            {
+              where: {
+                postID: req.body.postID,
+              },
+            }
+          )
+            .then((done) => {
+              res
+                .status(200)
+                .send("added comment and updated comments count of post");
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(200).send("error updating comments count");
+            });
         })
         .catch((err) => {
           console.log(err);

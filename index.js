@@ -63,6 +63,8 @@ const postsRouter = require("./routes/postsRouter.js");
 app.use("/api/posts", postsRouter);
 const commentsRouter = require("./routes/commentsRouter.js");
 app.use("/api/comments", commentsRouter);
+const groupsRouter = require("./routes/groupsRouter.js");
+app.use("/api/groups", groupsRouter);
 
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.

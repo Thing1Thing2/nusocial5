@@ -145,14 +145,14 @@ const Post = ({ post, username }) => {
                 setIsLiked(!isLiked);
               }}
             />
-            {likes}
+            {post[6]}
           </div>
           <div>
             <ChatBubbleOutline
               className="interactIcon"
               onClick={() => setComments(comments + 1)}
             />
-            {comments}
+            {post[7]}
           </div>
         </div>
         <div className="commentSection">

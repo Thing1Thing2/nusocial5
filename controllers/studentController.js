@@ -190,10 +190,7 @@ const addProfilePicture = async (req, res, nexts) => {
             { where: { username: username } }
           )
             .then(function (item) {
-              res.status(200).send({
-                success: true,
-                result,
-              });
+              res.status(200).send("Added picture");
             })
             .catch(function (err) {
               res.status(200).send("error occured");

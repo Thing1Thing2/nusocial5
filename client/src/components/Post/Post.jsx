@@ -8,6 +8,7 @@ import { ChatBubbleOutline } from "@mui/icons-material";
 import Picker from "emoji-picker-react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Collapse } from "@mui/material";
+import Comment from "../Comments/Comment";
 
 const Post = ({ post, username }) => {
   const [likes, setLikes] = useState(post[6]);
@@ -87,7 +88,7 @@ const Post = ({ post, username }) => {
         arr.forEach((comment) => {
           setCommentsList((list) => [
             ...list,
-            [pic, comment.from, comment.body],
+            [pic, comment.from, comment.body, comment.commentID],
           ]);
         });
       });
@@ -106,7 +107,6 @@ const Post = ({ post, username }) => {
       },
       body: JSON.stringify(data),
     };
-
     fetch("https://nusocial5.herokuapp.com/api/posts/deletePost", settings)
       .then((result) => result.text())
       .then((result) => {
@@ -115,6 +115,31 @@ const Post = ({ post, username }) => {
     setOpenPost(false);
   };
 
+  const deleteComment = (commentID) => {
+    const data = {
+      commentID: commentID,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    fetch(
+      "https://nusocial5.herokuapp.com/api/comments/deleteComment",
+      settings
+    )
+      .then((result) => result.text())
+      .then((result) => {
+        window.alert(result);
+      });
+    setOpenComment(false);
+  };
+
+  const [openComment, setOpenComment] = useState(true);
   const [openPost, setOpenPost] = useState(true);
   return (
     <div className="postContainer">
@@ -155,19 +180,9 @@ const Post = ({ post, username }) => {
           </div>
         </div>
         <div className="commentSection">
-          {commentsList.map((comment) => {
-            return (
-              <div className="comment">
-                <div className="postBottomAvatar">
-                  <Avatar src={comment[0]} />
-                </div>
-                <div className="commentBubble">
-                  <div className="commentName">{comment[1]}</div>
-                  <p>{comment[2]}</p>
-                </div>
-              </div>
-            );
-          })}
+          {commentsList.map((comment) => (
+            <Comment comment={comment} />
+          ))}
         </div>
         <div className="postBottom">
           <div className="postBottomAvatar">
@@ -211,3 +226,24 @@ const Post = ({ post, username }) => {
 };
 
 export default Post;
+
+/*
+ <div className="comment">
+                <Collapse in={openComment} fontSize="inherit">
+                  <div className="postBottomAvatar">
+                    <Avatar src={comment[0]} />
+                  </div>
+                  <div className="commentBubble">
+                    <div className="commentName">{comment[1]}</div>
+                    <p>{comment[2]}</p>
+                  </div>
+                  <button
+                    className="postBottomSendButton"
+                    onClick={deleteComment}
+                  >
+                    Delete Comment
+                  </button>
+                  <CloseIcon onClick={() => setOpenPost(false)} />
+                </Collapse>
+              </div>
+*/

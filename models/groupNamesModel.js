@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     coverPictureURL: {
       type: DataTypes.STRING,
     },
+    private: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   });
   return GroupNames;
 };

@@ -118,10 +118,9 @@ const confirmFriend = async (req, res) => {
 };
 
 const getAllStudentsNotFriends = async (req, res) => {
-  let username = req.body.username;
   let stu = await Student.findOne({
     where: {
-      username: username,
+      username: req.body.username,
     },
   });
   if (stu) {
@@ -131,16 +130,18 @@ const getAllStudentsNotFriends = async (req, res) => {
 
     const f = friends
       .filter(
-        (friend) => friend.username === username || friend.friend === username
+        (friend) =>
+          friend.username === req.body.username ||
+          friend.friend === req.body.username
       )
       .map((friend) => {
-        if (friend.username === username) {
+        if (friend.username === req.body.username) {
           return friend.friend;
         } else {
           return friend.username;
         }
       });
-    f.push(username);
+    f.push(req.body.username);
     const filteredStudents = await Student.findAll({
       attributes: ["username"],
       where: {

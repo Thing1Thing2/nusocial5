@@ -64,9 +64,33 @@ const Post = ({ post, username }) => {
       settings
     );
     const arr = await res.json();
-    arr.forEach((comment) => {
-      setCommentsList((list) => [...list, ["", comment.from, comment.body]]);
-    });
+    let pic =
+      "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
+    const data = {
+      username: post[1],
+    };
+    const settingsPic = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((result) => {
+        let pic = result;
+        arr.forEach((comment) => {
+          setCommentsList((list) => [
+            ...list,
+            [pic, comment.from, comment.body],
+          ]);
+        });
+      });
   };
 
   const deletePost = () => {
@@ -107,7 +131,6 @@ const Post = ({ post, username }) => {
         </div>
         <div className="postDetail">
           <div className="postText">
-            {" "}
             {post[3]} : {post[4]}{" "}
           </div>
           <img className="postImages" src={post[5]} alt="" />
@@ -136,7 +159,7 @@ const Post = ({ post, username }) => {
             return (
               <div className="comment">
                 <div className="postBottomAvatar">
-                  <Avatar src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg" />
+                  <Avatar src={comment[0]} />
                 </div>
                 <div className="commentBubble">
                   <div className="commentName">{comment[1]}</div>

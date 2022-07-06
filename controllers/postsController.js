@@ -101,34 +101,39 @@ const getAllPosts = async (req, res) => {
     },
   });
   if (stu) {
-    const friends = await Friends.findAll({
+    await Friends.findAll({
       attributes: ["username", "friend"],
       where: {
         reqStatus: "confirm",
         [Op.or]: [{ username: username }, { friend: username }],
       },
-    });
-    const confirmed = friends.map((friend) => {
-      if (friend.username === username) {
-        return [friend.friend];
-      } else {
-        return [friend.username];
-      }
-    });
-    confirmed.push(username);
-    //finally got all confirmed friends in confirmed
-    Posts.findAll({
-      where: {
-        from: confirmed,
-      },
-    })
-      .then((result) => {
-        res.status(200).send(result);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(200).send("error occurred");
+    }).then(async (friends) => {
+      console.log("FRIENDS ARE: " + friends);
+      let confirmed = friends.map((friend) => {
+        if (friend.username === username) {
+          return [friend.friend];
+        } else {
+          return [friend.username];
+        }
       });
+      confirmed.push(username);
+      console.log("CONFIRMED ARE: " + confirmed);
+
+      //finally got all confirmed friends in confirmed
+
+      Posts.findAll({
+        where: {
+          from: confirmed,
+        },
+      })
+        .then((result) => {
+          res.status(200).send(result);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(200).send("error occurred");
+        });
+    });
   } else {
     res
       .status(200)

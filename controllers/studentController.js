@@ -175,27 +175,31 @@ const logoutStudent = async (req, res) => {
 };
 
 const addProfilePicture = async (req, res, nexts) => {
-  const file = req.files.photo;
   let imageURL;
-  if (file) {
-    cloudinary.uploader.upload(file.tempFilePath, function (err, result) {
-      imageURL = result.url;
-      let username = req.body.username;
+  if (req.files) {
+    if (req.files.photo) {
+      const file = req.files.photo;
+      cloudinary.uploader.upload(file.tempFilePath, function (err, result) {
+        imageURL = result.url;
+        let username = req.body.username;
 
-      Student.update(
-        { profilePictureURL: result.url },
-        { where: { username: username } }
-      )
-        .then(function (item) {
-          res.status(200).send({
-            success: true,
-            result,
+        Student.update(
+          { profilePictureURL: result.url },
+          { where: { username: username } }
+        )
+          .then(function (item) {
+            res.status(200).send({
+              success: true,
+              result,
+            });
+          })
+          .catch(function (err) {
+            res.status(200).send("error occured");
           });
-        })
-        .catch(function (err) {
-          res.status(200).send("error occured");
-        });
-    });
+      });
+    } else {
+      res.status(200).send("make sure you send a photo");
+    }
   } else {
     res.status(200).send("send an image");
   }

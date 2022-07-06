@@ -39,7 +39,7 @@ db.comments = require("./commentsModel.js")(sequelize, DataTypes);
 db.students.hasMany(db.friends, { foreignKey: "username" });
 db.friends.belongsTo(db.students, { foreignKey: "username" });
 db.friends.belongsTo(db.students, { foreignKey: "friend" });
-db.posts.hadMany(db.comments, { foreignKey: "postID" });
+db.posts.hasMany(db.comments, { foreignKey: "postID" });
 db.comments.belongsTo(db.posts, { foreignKey: "postID" });
 
 db.sequelize.sync({ force: false }).then(() => {

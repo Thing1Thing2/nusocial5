@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./post.css";
+import "./comment.css";
 import { Avatar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Collapse } from "@mui/material";

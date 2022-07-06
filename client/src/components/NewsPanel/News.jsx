@@ -39,7 +39,7 @@ const News = ({ username }) => {
 
   const [PostList, setPostList] = useState([]);
 
-  const getAllMyPosts = async () => {
+  const getAllPosts = async () => {
     setPostList([]);
     let useAvatar = "";
 
@@ -55,7 +55,7 @@ const News = ({ username }) => {
       body: JSON.stringify(info),
     };
     fetch(
-      "https://nusocial5.herokuapp.com/api/posts/getMyPosts",
+      "https://nusocial5.herokuapp.com/api/posts/getAllPosts",
       settings
     ).then(async (result) => {
       let myPosts = await result.json();
@@ -136,7 +136,7 @@ const News = ({ username }) => {
         <input
           type="submit"
           placeholder="refresh feed"
-          onClick={getAllMyPosts}
+          onClick={getAllPosts}
           value="refresh suggestion"
         />
       </div>

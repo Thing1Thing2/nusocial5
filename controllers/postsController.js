@@ -93,7 +93,13 @@ const getMyPosts = async (req, res) => {
     });
 };
 
-const getFriendsPosts = async (req, res) => {
+/**
+ * Return posts from you and confirmed friends
+ * @param {} req
+ * @param {*} res
+ */
+
+const getAllPosts = async (req, res) => {
   let username = req.body.username;
   let stu = await Student.findOne({
     where: {
@@ -102,18 +108,7 @@ const getFriendsPosts = async (req, res) => {
   });
   if (stu) {
     const friends = await Friends.findAll({
-      attributes: [
-        "username",
-        "friend",
-        [
-          sequelize.fn(
-            "DATE_FORMAT",
-            sequelize.col("createdAt"),
-            "%d-%m-%Y %H:%i:%s"
-          ),
-          "updatedAt",
-        ],
-      ],
+      attributes: ["username", "friend"],
       where: {
         reqStatus: "confirm",
         [Op.or]: [{ username: username }, { friend: username }],
@@ -126,19 +121,19 @@ const getFriendsPosts = async (req, res) => {
         return [friend.username];
       }
     });
-
+    confirmed.push(username);
     //finally got all confirmed friends in confirmed
-    const posts = Posts.findAll({
+    Posts.findAll({
       where: {
-        [Op.in]: confirmed,
+        from: confirmed,
       },
     })
       .then((result) => {
-        result.status(200).send(result);
+        res.status(200).send(result);
       })
       .catch((err) => {
         console.log(err);
-        res.status(200).send(err);
+        res.status(200).send("error occurred");
       });
   } else {
     res
@@ -151,5 +146,5 @@ module.exports = {
   addPost,
   deletePost,
   getMyPosts,
-  getFriendsPosts,
+  getAllPosts,
 };

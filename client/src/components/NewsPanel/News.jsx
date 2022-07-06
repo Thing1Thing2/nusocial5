@@ -60,7 +60,7 @@ const News = ({ username }) => {
     ).then(async (result) => {
       let posts = await result.json();
 
-      posts.reverse().forEach(async (post) => {
+      posts.forEach(async (post) => {
         const data = {
           username: post.from,
         };

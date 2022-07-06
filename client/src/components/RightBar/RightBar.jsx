@@ -107,8 +107,8 @@ const RightBar = ({ username }) => {
             name="filename"
             placeholder="upload profile picture"
           />
+          <input type="submit" placeholder="submit image" />
         </form>
-        <input type="submit" onClick={addProfilePicture} value="upload image" />
         <input
           type="submit"
           placeholder="refresh feed"

@@ -87,7 +87,7 @@ const NewsAndNots = () => {
               ...list,
               [
                 stu,
-                "Confirm " + stu[1] + "'s friend request at " + stu[2],
+                "Confirm " + stu[1] + "'s friend request sent at " + stu[2],
                 "Confirm",
                 pic,
               ],

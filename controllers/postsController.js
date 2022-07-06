@@ -93,12 +93,6 @@ const getMyPosts = async (req, res) => {
     });
 };
 
-/**
- * Return posts from you and confirmed friends
- * @param {} req
- * @param {*} res
- */
-
 const getAllPosts = async (req, res) => {
   let username = req.body.username;
   let stu = await Student.findOne({

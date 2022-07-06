@@ -40,7 +40,10 @@ const Comment = ({ comment }) => {
           <div className="commentName">{comment[1]}</div>
           <p>{comment[2]}</p>
         </div>
-        <button className="postBottomSendButton" onClick={deleteComment}>
+        <button
+          className="postBottomSendButton"
+          onClick={() => deleteComment(comment[3])}
+        >
           Delete Comment
         </button>
         <CloseIcon onClick={() => setOpenComment(false)} />

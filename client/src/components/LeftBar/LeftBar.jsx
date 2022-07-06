@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./leftBar.css";
-import { Groups, Trending, Events } from "../test-data/test-data";
+import { Trending, Events } from "../test-data/test-data";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 

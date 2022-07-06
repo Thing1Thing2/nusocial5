@@ -51,6 +51,19 @@ const addGroup = async (req, res) => {
   }
 };
 
+const allGroups = async (req, res) => {
+  GroupNames.findAll().then((groups) => {
+    res
+      .status(200)
+      .send(groups)
+      .catch((err) => {
+        console.log(err);
+        res.status(200).send(err);
+      });
+  });
+};
+
 module.exports = {
   addGroup,
+  allGroups,
 };

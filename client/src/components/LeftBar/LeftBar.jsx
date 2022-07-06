@@ -4,8 +4,10 @@ import { Groups, Trending, Events } from "../test-data/test-data";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const LeftBar = () => {
+const LeftBar = ({ username }) => {
   const navigate = useNavigate();
+
+  const [Groups, setGroups] = useState([]);
 
   const [groupData, setGroupData] = useState({
     groupName: "",
@@ -39,6 +41,39 @@ const LeftBar = () => {
       });
   };
 
+  const getAllGroups = () => {
+    setGroups([]);
+    let useAvatar = "";
+
+    const info = {
+      username: username,
+    };
+
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+
+    fetch(
+      "https://nusocial5.herokuapp.com/api/groupnames/allGroups",
+      settings
+    ).then(async (result) => {
+      let groups = await result.json();
+
+      groups.forEach(async (group) => {
+        setGroups((list) => [
+          group.groupName,
+          group.profilePictureURL,
+          group.description,
+        ]);
+      });
+    });
+  };
+
   return (
     <div className="leftBar">
       <div className="leftBarComponentContainer">
@@ -67,14 +102,14 @@ const LeftBar = () => {
         {Groups.map((u) => (
           <div
             className="group"
-            onClick={() => navigate("/group", { state: { group: u.name } })}
+            onClick={() => navigate("/group", { state: { group: u[0] } })}
           >
             <div className="groupAvatar">
-              <Avatar src={u.avatar} />
+              <Avatar src={u[1]} />
             </div>
             <div className="groupContainerRight">
-              <div className="groupName">{u.name}</div>
-              <div className="groupDescription">{u.description}</div>
+              <div className="groupName">{u[0]}</div>
+              <div className="groupDescription">{u[2]}</div>
             </div>
           </div>
         ))}

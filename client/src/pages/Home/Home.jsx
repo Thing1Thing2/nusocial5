@@ -19,7 +19,7 @@ const Home = () => {
       </div>
       <div className="homeBody">
         <div className="homeLeftBar">
-          <LeftBar />
+          <LeftBar username={location.state.username} />
         </div>
         <div className="homeNewsFeed">
           <News username={location.state.username} />

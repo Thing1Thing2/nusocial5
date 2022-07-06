@@ -20,7 +20,7 @@ const Profile = () => {
       </div>
       <div className="profileBody">
         <div className="profileBodyLeft">
-          <LeftBar />
+          <LeftBar username={location.state.username} />
         </div>
         <div className="profileBodyMid">
           <ProfileMid username={location.state.username} />

@@ -2,7 +2,6 @@ const db = require("../models");
 
 const Comments = db.comments;
 const Posts = db.posts;
-students;
 const deleteComment = async (req, res) => {};
 
 const getCommentsForPost = async (req, res) => {

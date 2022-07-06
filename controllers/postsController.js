@@ -125,6 +125,7 @@ const getAllPosts = async (req, res) => {
         where: {
           from: confirmed,
         },
+        order: [["createdAt", "DESC"]],
       })
         .then((result) => {
           res.status(200).send(result);

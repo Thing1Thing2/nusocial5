@@ -43,8 +43,6 @@ const LeftBar = ({ username }) => {
 
   const getAllGroups = () => {
     setGroups([]);
-    let useAvatar = "";
-
     const info = {
       username: username,
     };

@@ -58,34 +58,33 @@ const News = ({ username }) => {
       "https://nusocial5.herokuapp.com/api/posts/getAllPosts",
       settings
     ).then(async (result) => {
-      let myPosts = await result.json();
+      let posts = await result.json();
 
-      const data = {
-        username: username,
-      };
-      const settings = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      };
-      await fetch(
-        "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
-        settings
-      )
-        .then((res) => res.text())
-        .then((gotPic) => {
-          useAvatar = gotPic;
-        });
-
-      myPosts.reverse().forEach(async (post) => {
+      posts.reverse().forEach(async (post) => {
+        const data = {
+          username: post.from,
+        };
+        const settings = {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        };
+        await fetch(
+          "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+          settings
+        )
+          .then((res) => res.text())
+          .then((gotPic) => {
+            useAvatar = gotPic;
+          });
         setPostList((list) => [
           ...list,
           [
             useAvatar,
-            username,
+            post.from,
             post.createdAt,
             post.title,
             post.body,
@@ -143,7 +142,7 @@ const News = ({ username }) => {
 
       <div className="newsFeed">
         {PostList.map((post) => (
-          <Post post={post} username={username} />
+          <Post post={post} username={post[1]} />
         ))}
       </div>
     </>

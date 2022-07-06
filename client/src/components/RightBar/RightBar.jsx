@@ -73,8 +73,8 @@ const RightBar = ({ username }) => {
     });
   };
 
-  const addProfilePicture = async (event) => {
-    event.preventDefault();
+  function addProfilePicture(e) {
+    e.preventDefault();
     const fileField = document.querySelector('input[type="file"]');
     const formData = new FormData();
     formData.append("username", username);
@@ -83,7 +83,7 @@ const RightBar = ({ username }) => {
       method: "POST",
       body: formData,
     };
-    await fetch(
+    fetch(
       "https://nusocial5.herokuapp.com/api/students/addProfilePicture",
       settings
     )
@@ -95,7 +95,7 @@ const RightBar = ({ username }) => {
         console.log(error);
         window.alert(error);
       });
-  };
+  }
 
   return (
     <div className="rightBar">
@@ -103,7 +103,7 @@ const RightBar = ({ username }) => {
         <form onSubmit={(e) => addProfilePicture(e)}>
           <input
             type="file"
-            id="photo"
+            id="image"
             name="filename"
             placeholder="upload profile picture"
           />

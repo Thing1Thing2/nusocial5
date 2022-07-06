@@ -1,6 +1,9 @@
 const db = require("../models");
 var cloudinary = require("cloudinary").v2;
 
+const { Op } = require("sequelize");
+const sequelize = require("sequelize");
+
 cloudinary.config({
   cloud_name: "nusocial5",
   api_key: "829672847473966",
@@ -92,42 +95,55 @@ const getMyPosts = async (req, res) => {
 
 const getFriendsPosts = async (req, res) => {
   let username = req.body.username;
-  let friendName = req.body.friend;
-  let friend = await Friends.findOne({
-    where: { username: friendName, friend: username },
+  let stu = await Student.findOne({
+    where: {
+      username: username,
+    },
   });
-  if (friend) {
-    if (friend.reqStatus === "pending") {
-      friend
-        .update({ reqStatus: "confirm" })
-        .then(async function (item) {
-          await PersonalNewsAndNots.destroy({
-            where: { from: friendName, to: username },
-          });
-          const info = {
-            from: username,
-            to: friendName,
-            body: username + "confirmed your friend request",
-          };
-          PersonalNewsAndNots.create({ info })
-            .then((response) => response.text())
-            .then((msg) => {
-              if (msg === "sent message") {
-                res.status(200).send("confirmed friend");
-              } else {
-                res.status(200).send(msg);
-              }
-            });
-        })
-        .catch(function (err) {
-          res.status(200).send("error occured");
-          console.log(err);
-        });
-    } else {
-      res.status(200).send("Already confirmed");
-    }
+  if (stu) {
+    const friends = await Friends.findAll({
+      attributes: [
+        "username",
+        "friend",
+        [
+          sequelize.fn(
+            "DATE_FORMAT",
+            sequelize.col("createdAt"),
+            "%d-%m-%Y %H:%i:%s"
+          ),
+          "updatedAt",
+        ],
+      ],
+      where: {
+        reqStatus: "confirm",
+        [Op.or]: [{ username: username }, { friend: username }],
+      },
+    });
+    const confirmed = friends.map((friend) => {
+      if (friend.username === username) {
+        return [friend.friend];
+      } else {
+        return [friend.username];
+      }
+    });
+
+    //finally got all confirmed friends in confirmed
+    const posts = Posts.findAll({
+      where: {
+        [Op.in]: confirmed,
+      },
+    })
+      .then((result) => {
+        result.status(200).send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(200).send(err);
+      });
   } else {
-    res.status(200).send("No such friend request");
+    res
+      .status(200)
+      .send("Create an account to make friends and see their posts");
   }
 };
 

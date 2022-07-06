@@ -4,9 +4,6 @@ module.exports = {
   PASSWORD: "7d7bbae9",
   DB: "heroku_084ebaf32b1cf34",
   dialect: "mysql",
-  dialectOptions: {
-    charset: "utf8mb4",
-  },
 
   pool: {
     max: 5,

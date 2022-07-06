@@ -71,9 +71,7 @@ const LeftBar = ({ username }) => {
         console.log(group.description);
         setGroups((list) => [
           ...list,
-          group.groupName,
-          group.profilePictureURL,
-          group.description,
+          [group.groupName, group.profilePictureURL, group.description],
         ]);
       });
     });

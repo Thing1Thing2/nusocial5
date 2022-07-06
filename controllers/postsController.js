@@ -64,7 +64,7 @@ const addPost = async (req, res) => {
       res.status(200).send("check that image input is called image");
     }
   } else {
-    res.status(200).send("send and image");
+    res.status(200).send("send an image");
   }
 };
 

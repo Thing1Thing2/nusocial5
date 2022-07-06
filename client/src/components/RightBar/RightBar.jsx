@@ -86,10 +86,13 @@ const RightBar = ({ username }) => {
       "https://nusocial5.herokuapp.com/api/students/addProfilePicture",
       settings
     )
-      .then((response) => response.json())
-      .then((data) => {})
+      .then((response) => response.text())
+      .then((data) => {
+        window.alert(data);
+      })
       .catch((error) => {
         console.log(error);
+        window.alert(error);
       });
   };
 

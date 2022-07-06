@@ -66,7 +66,11 @@ const LeftBar = ({ username }) => {
       console.log(groups);
       groups.forEach(async (group) => {
         console.log(group);
+        console.log(group.groupName);
+        console.log(group.profilePictureURL);
+        console.log(group.description);
         setGroups((list) => [
+          ...list,
           group.groupName,
           group.profilePictureURL,
           group.description,

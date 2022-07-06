@@ -10,9 +10,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Collapse } from "@mui/material";
 
 const Post = ({ post, username }) => {
-  const [likes, setLikes] = useState(post[5]);
+  const [likes, setLikes] = useState(post[6]);
   const [isLiked, setIsLiked] = useState(false);
-  const [comments, setComments] = useState(post[6]);
+  const [comments, setComments] = useState(post[7]);
   const [comment, setComment] = useState("");
   const [commentsList, setCommentsList] = useState([]);
   const [showPicker, setShowPicker] = useState(false);
@@ -20,7 +20,7 @@ const Post = ({ post, username }) => {
     setComment((prevInput) => prevInput + emojiObj.emoji);
     setShowPicker(false);
   };
-  const sendMessage = async () => {
+  const sendComment = async () => {
     if (comment !== "") {
       setCommentsList((list) => [...list, messageData]);
       setComments(comments + 1);
@@ -58,12 +58,11 @@ const Post = ({ post, username }) => {
       body: JSON.stringify(data),
     };
 
-    fetch(
-      "https://nusocial5.herokuapp.com/api/posts/deletePost",
-      settings
-    ).then(async (result) => {
-      window.alert(result);
-    });
+    fetch("https://nusocial5.herokuapp.com/api/posts/deletePost", settings)
+      .then((result) => result.text())
+      .then((result) => {
+        window.alert(result);
+      });
     setOpenPost(false);
   };
 
@@ -136,7 +135,7 @@ const Post = ({ post, username }) => {
                 setComment(event.target.value);
               }}
               onKeyPress={(event) => {
-                event.key === "Enter" && sendMessage();
+                event.key === "Enter" && sendComment();
               }}
             ></input>
             <div className="additionStuff">
@@ -148,7 +147,7 @@ const Post = ({ post, username }) => {
               <InsertPhotoIcon />
             </div>
           </div>
-          <button className="postBottomSendButton" onClick={sendMessage}>
+          <button className="postBottomSendButton" onClick={sendComment}>
             Send
           </button>
           <button className="postBottomSendButton" onClick={deletePost}>

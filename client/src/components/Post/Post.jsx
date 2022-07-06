@@ -22,7 +22,6 @@ const Post = ({ post, username }) => {
   };
   const sendComment = async () => {
     if (comment !== "") {
-      setCommentsList((list) => [...list, messageData]);
       setComments(comments + 1);
       const messageData = {
         postID: post[8],
@@ -43,7 +42,31 @@ const Post = ({ post, username }) => {
           window.alert(data);
           setComment("");
         });
+      getAllComments();
     }
+  };
+
+  const getAllComments = async () => {
+    setCommentsList([]);
+    const messageData = {
+      postID: post[8],
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(messageData),
+    };
+    const res = await fetch(
+      "https://nusocial5.herokuapp.com/api/comments/getCommentsForPost",
+      settings
+    );
+    const arr = await res.json();
+    arr.forEach((comment) => {
+      setCommentsList((list) => [...list, ["", comment.from, comment.body]]);
+    });
   };
 
   const deletePost = () => {
@@ -116,8 +139,8 @@ const Post = ({ post, username }) => {
                   <Avatar src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg" />
                 </div>
                 <div className="commentBubble">
-                  <div className="commentName">Samoyed Hoang</div>
-                  <p>{comment}</p>
+                  <div className="commentName">{comment[1]}</div>
+                  <p>{comment[2]}</p>
                 </div>
               </div>
             );

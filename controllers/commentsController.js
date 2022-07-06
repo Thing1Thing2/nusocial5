@@ -4,7 +4,21 @@ const Comments = db.comments;
 const Posts = db.posts;
 const deleteComment = async (req, res) => {};
 
-const getCommentsForPost = async (req, res) => {};
+const getCommentsForPost = async (req, res) => {
+  var reqBody = req.body;
+  Comments.findAll({
+    where: {
+      postID: reqBody.postID,
+    },
+  })
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("error occurred");
+    });
+};
 
 const addComment = (req, res) => {
   var reqBody = req.body;

@@ -98,6 +98,12 @@ const LeftBar = ({ username }) => {
           />
           <input type="submit" placeholder="submit group create request" />
         </form>
+        <input
+          type="submit"
+          placeholder="refresh feed"
+          onClick={getAllGroups}
+          value="refresh suggestion"
+        />
         <div className="containerTitle">Your Groups</div>
         {Groups.map((u) => (
           <div

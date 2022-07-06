@@ -63,8 +63,9 @@ const LeftBar = ({ username }) => {
       settings
     ).then(async (result) => {
       let groups = await result.json();
-
+      console.log(groups);
       groups.forEach(async (group) => {
+        console.log(group);
         setGroups((list) => [
           group.groupName,
           group.profilePictureURL,

@@ -45,6 +45,8 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
   };
   const showConfirmedFriends = async () => {
     setChats([]);
+    let pic =
+      "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
     const info = {
       username: username,
     };
@@ -77,15 +79,13 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
           "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
           settings
         )
-          .then(async (result) => {
-            await result.text();
+          .then((result) => {
+            result.text();
           })
           .then((result) => {
-            setChats((list) => [...list, [f[0], result]]);
-          })
-          .catch((err) => {
-            console.log(err);
+            pic = result;
           });
+        setChats((list) => [...list, [f[0], pic]]);
       });
     });
   };

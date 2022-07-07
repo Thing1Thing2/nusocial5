@@ -58,13 +58,10 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
     await fetch(
       "https://nusocial5.herokuapp.com/api/friends/getAllConfirmedFriends",
       settings
-    )
-      .then((friends) => {
-        friends.text();
-      })
-      .then((friend) => {
-        console.log(friend);
-      });
+    ).then(async (friends) => {
+      let friendsList = await friends.json();
+      console.log(friendsList);
+    });
   };
   return (
     <div className="sidebar">

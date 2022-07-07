@@ -61,7 +61,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
       settings
     ).then(async (friends) => {
       let friendsList = await friends.json();
-      friendsList.forEach((f) => {
+      friendsList.forEach(async (f) => {
         let pic =
           "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
         const data = {
@@ -75,12 +75,12 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
           },
           body: JSON.stringify(data),
         };
-        fetch(
+        await fetch(
           "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
           settings
         )
-          .then((result) => {
-            result.text();
+          .then(async (result) => {
+            await result.text();
           })
           .then((result) => {
             pic = result;

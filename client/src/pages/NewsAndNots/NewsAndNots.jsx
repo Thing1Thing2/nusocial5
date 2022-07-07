@@ -9,7 +9,7 @@ const NewsAndNots = () => {
   const getAllNewsAndNots = async () => {
     setAllNews([]);
     const username = await location.state.username;
-    console.log(username);
+
     let data = {
       username: username,
     };
@@ -28,11 +28,6 @@ const NewsAndNots = () => {
     let arr = await res.json();
     let pic;
     arr.forEach((stu) => {
-      console.log(stu);
-      console.log(stu[0]);
-      console.log(stu[1]);
-      console.log(stu[2]);
-
       pic =
         "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
       if (stu[0] === "sent") {

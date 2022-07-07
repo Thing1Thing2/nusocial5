@@ -43,8 +43,10 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
       });
     socket.emit("join_room", "ourchats");
   };
+
   const showConfirmedFriends = async () => {
     setChats([]);
+
     const info = {
       username: username,
     };
@@ -56,45 +58,38 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
       },
       body: JSON.stringify(info),
     };
-    await fetch(
+    let res = await fetch(
       "https://nusocial5.herokuapp.com/api/friends/getAllConfirmedFriends",
       settings
-    ).then(async (friends) => {
-      let friendsList = await friends.json();
-      friendsList.forEach(async (f) => {
-        getProfilePicture(f[0]);
-        setChats((list) => [...list, [f[0], profilePic]]);
-      });
+    );
+    let arr = await res.json();
+    let pic;
+    arr.forEach((f) => {
+      pic =
+        "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg";
+      let data = {
+        username: f[0],
+      };
+
+      const settings = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      fetch(
+        "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+        settings
+      )
+        .then((response) => response.text())
+        .then((data) => {
+          pic = data;
+          setChats((list) => [...list, [f[0], pic]]);
+        });
     });
   };
-  const getProfilePicture = async (name) => {
-    let url;
-    const data = {
-      username: name,
-    };
-    const settings = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    await fetch(
-      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
-      settings
-    )
-      .then((response) => response.text())
-      .then((data) => {
-        console.log(data);
-        url = data;
-      });
-    setProfilePic(url);
-  };
-
-  const [profilePic, setProfilePic] = useState(
-    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
-  );
 
   return (
     <div className="sidebar">

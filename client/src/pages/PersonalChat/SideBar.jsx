@@ -31,10 +31,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
       },
       body: JSON.stringify(data),
     };
-    fetch(
-      "https://nusocial5.herokuapp.com/home/api/students/isOnline",
-      settings
-    )
+    fetch("https://nusocial5.herokuapp.com/api/students/isOnline", settings)
       .then((response) => response.text())
       .then((data) => {
         console.log("ONLINE STATUS IS" + data);

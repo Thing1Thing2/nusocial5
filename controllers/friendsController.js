@@ -235,14 +235,15 @@ const getAllConfirmedFriends = async (req, res) => {
         [Op.or]: [{ username: username }, { friend: username }],
       },
     });
-    const confirmed = friends.map((friend) => {
+    let pic;
+    let f = friends.map((friend) => {
       if (friend.username === username) {
         return [friend.friend, friend.updatedAt];
       } else {
         return [friend.username, friend.updatedAt];
       }
     });
-    res.status(200).send(confirmed);
+    res.status(200).send(f);
   } else {
     res.status(200).send("Create an account to make friends");
   }

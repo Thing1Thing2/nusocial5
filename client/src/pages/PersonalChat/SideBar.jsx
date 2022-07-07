@@ -62,34 +62,39 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
     ).then(async (friends) => {
       let friendsList = await friends.json();
       friendsList.forEach(async (f) => {
-        let pic =
-          "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
-        const data = {
-          username: f[0],
-        };
-        const settings = {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        };
-        await fetch(
-          "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
-          settings
-        )
-          .then(async (result) => {
-            await result.text();
-          })
-          .then((result) => {
-            pic = result;
-            console.log(result);
-          });
-        setChats((list) => [...list, [f[0], pic]]);
+        getProfilePicture(f[0]);
+        setChats((list) => [...list, [f[0], profilePic]]);
       });
     });
   };
+  const getProfilePicture = async (name) => {
+    let url;
+    const data = {
+      username: name,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        console.log(data);
+        url = data;
+      });
+    setProfilePic(url);
+  };
+
+  const [profilePic, setProfilePic] = useState(
+    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+  );
 
   return (
     <div className="sidebar">

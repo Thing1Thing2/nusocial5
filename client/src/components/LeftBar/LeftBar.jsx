@@ -75,6 +75,29 @@ const LeftBar = ({ username }) => {
     });
   };
 
+  const joinGroup = async (groupName) => {
+    const info = {
+      username: username,
+      groupName: groupName,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+    fetch(
+      "https://nusocial5.herokuapp.com/api/groupmemberships/joinGroup",
+      settings
+    )
+      .then((result) => result.text())
+      .then((result) => {
+        window.alert(result);
+      });
+  };
+
   return (
     <div className="leftBar">
       <div className="leftBarComponentContainer">
@@ -118,6 +141,12 @@ const LeftBar = ({ username }) => {
               <div className="groupName">{u[0]}</div>
               <div className="groupDescription">{u[2]}</div>
             </div>
+            <button
+              className="postBottomSendButton"
+              onClick={() => joinGroup(u[0])}
+            >
+              Join Group
+            </button>
           </div>
         ))}
         <div className="showMore">Show more</div>

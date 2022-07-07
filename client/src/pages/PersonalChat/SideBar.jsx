@@ -43,38 +43,16 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
       });
     socket.emit("join_room", "ourchats");
   };
-  //ADD CHAT TO LEFT BAR if verified AND INITIALISE MSG HISTORY TABLE
-  const addChatToLeftBarFetch = (chat) => {
-    if (chat !== "") {
-      const data = {
-        chat: chat,
-        username: username,
-      };
-      const settings = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      };
-      fetch("https://nusocial5.herokuapp.com/api/chats/verifyChat", settings)
-        .then((response) => response.text())
-        .then((response) => {
-          console.log("responsedata " + response);
-          if (response === "passed") {
-            if (!chats.includes(chat)) {
-              console.log("wow new friend");
-              getClickedChat(chat);
-              setChats((list) => [...list, chat]);
-            } else {
-              console.log("Chat already open");
-            }
-          }
-        });
-    }
+  const showConfirmedFriends = async () => {
+    const info = {
+      username: username,
+    };
+    await fetch(
+      "http://nusocial5.herokuapp.com/friends/getAllConfirmedFriends"
+    ).then((friends) => {
+      console.log(friends);
+    });
   };
-
   return (
     <div className="sidebar">
       <div className="sidebar_header">
@@ -102,7 +80,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
             }}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                addChatToLeftBarFetch(chat);
+                showConfirmedFriends();
               }
             }}
           />

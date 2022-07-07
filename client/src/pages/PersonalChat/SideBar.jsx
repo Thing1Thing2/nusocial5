@@ -47,8 +47,17 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
     const info = {
       username: username,
     };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
     await fetch(
-      "http://nusocial5.herokuapp.com/friends/getAllConfirmedFriends"
+      "http://nusocial5.herokuapp.com/friends/getAllConfirmedFriends",
+      settings
     ).then((friends) => {
       console.log(friends);
     });

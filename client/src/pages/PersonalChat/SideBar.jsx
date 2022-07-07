@@ -90,9 +90,14 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
             }}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                showConfirmedFriends();
               }
             }}
+          />
+          <input
+            type="submit"
+            placeholder="refresh feed"
+            onClick={showConfirmedFriends}
+            value="refresh suggestion"
           />
         </div>
       </div>

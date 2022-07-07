@@ -8,7 +8,7 @@ import Post from "../Post/Post";
 const News = ({ username }) => {
   function submitPost(e) {
     e.preventDefault();
-    const fileField = document.querySelector('input[type="file"]');
+    const fileField = document.querySelector('input[id="image"]');
     const formData = new FormData();
     formData.append("username", postData.username);
     formData.append("image", fileField.files[0]);

@@ -130,12 +130,12 @@ const LeftBar = ({ username }) => {
         />
         <div className="containerTitle">Your Groups</div>
         {Groups.map((u) => (
-          <div
-            className="group"
-            onClick={() => navigate("/group", { state: { group: u[0] } })}
-          >
+          <div className="group">
             <div className="groupAvatar">
-              <Avatar src={u[1]} />
+              <Avatar
+                src={u[1]}
+                onClick={() => navigate("/group", { state: { group: u[0] } })}
+              />
             </div>
             <div className="groupContainerRight">
               <div className="groupName">{u[0]}</div>

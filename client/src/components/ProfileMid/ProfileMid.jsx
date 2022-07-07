@@ -19,6 +19,7 @@ function srcset(image, size, rows = 1, cols = 1) {
 const ProfileMid = ({ username }) => {
   window.onload = () => {
     getProfilePicture(username);
+    getCoverPicture(username);
   };
   const getProfilePicture = async (name) => {
     let url;
@@ -49,14 +50,63 @@ const ProfileMid = ({ username }) => {
     "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
   );
 
+  function addCoverPicture(e) {
+    e.preventDefault();
+    const fileField = document.querySelector('input[id="photo"]');
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("photo", fileField.files[0]);
+    const settings = {
+      method: "POST",
+      body: formData,
+    };
+    fetch(
+      "https://nusocial5.herokuapp.com/api/students/addCoverPicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        window.alert(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        window.alert(error);
+      });
+  }
+
+  const getCoverPicture = async (name) => {
+    let url;
+    const data = {
+      username: name,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getCoverPicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        console.log(data);
+        url = data;
+      });
+    setCoverPic(url);
+  };
+
+  const [coverPic, setCoverPic] = useState(
+    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+  );
+
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
-        <img
-          className="profileCoverImg"
-          src="https://static.boredpanda.com/blog/wp-content/uploads/2020/05/dreamy-portraits-white-samoyed-nikolkopp-fb8.png"
-          alt=""
-        />
+        <img className="profileCoverImg" src={coverPic} alt="" />
         <div className="profileAvatarInfoContainer">
           <img className="profileAvatar" src={profilePic} alt="" />
           <div className="profileInfoContainer">
@@ -80,6 +130,15 @@ const ProfileMid = ({ username }) => {
             </div>
           </div>
           <div className="profileAlbum">
+            <form onSubmit={(e) => addCoverPicture(e)}>
+              <input
+                type="file"
+                id="photo"
+                name="filename"
+                placeholder="upload cover picture"
+              />
+              <input type="submit" placeholder="submit image" />
+            </form>
             <div className="albumTitle">
               <div className="albumIcon">
                 <PhotoLibraryIcon sx={{ fontSize: 40 }} />

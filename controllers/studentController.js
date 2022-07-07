@@ -205,6 +205,37 @@ const addProfilePicture = async (req, res, nexts) => {
   }
 };
 
+const addCoverPicture = async (req, res, nexts) => {
+  if (req.files) {
+    if (req.files.photo) {
+      const file = req.files.photo;
+      let imageURL;
+      cloudinary.uploader.upload(
+        file.tempFilePath,
+        async function (err, result) {
+          imageURL = result.url;
+          let username = req.body.username;
+
+          await Student.update(
+            { coverPictureURL: imageURL },
+            { where: { username: username } }
+          )
+            .then(function (item) {
+              res.status(200).send("Added picture");
+            })
+            .catch(function (err) {
+              res.status(200).send("error occured");
+            });
+        }
+      );
+    } else {
+      res.status(200).send("make sure you send a photo");
+    }
+  } else {
+    res.status(200).send("send an image");
+  }
+};
+
 const getProfilePicture = async (req, res) => {
   Student.findOne({
     attributes: ["profilePictureURL"],
@@ -214,6 +245,22 @@ const getProfilePicture = async (req, res) => {
   })
     .then((url) => {
       res.status(200).send(url.profilePictureURL);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("error occured");
+    });
+};
+
+const getCoverPicture = async (req, res) => {
+  Student.findOne({
+    attributes: ["coverPictureURL"],
+    where: {
+      username: req.body.username,
+    },
+  })
+    .then((url) => {
+      res.status(200).send(url.coverPictureURL);
     })
     .catch((err) => {
       console.log(err);
@@ -245,4 +292,6 @@ module.exports = {
   addProfilePicture,
   getProfilePicture,
   isOnline,
+  addCoverPicture,
+  getCoverPicture,
 };

@@ -5,10 +5,12 @@ module.exports = (sequelize, DataTypes) => {
       username: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: "uniqueMembership",
       },
       groupName: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: "uniqueMembership",
       },
       type: {
         //member or admin

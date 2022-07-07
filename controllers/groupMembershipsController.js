@@ -11,17 +11,30 @@ cloudinary.config({
 });
 
 // create main Model
-const Student = db.students;
-const Posts = db.posts;
-const Friends = db.friends;
+const GroupNames = db.groupNames;
 const GroupMemberships = db.groupMemberships;
 
 const joinGroup = async (req, res) => {
-  GroupMemberships.create({
-    username: req.body.username,
-    groupName: req.body.groupName,
-  }).then((result) => {
-    res.status(200).send("Joined group");
+  await GroupNames.findOne({
+    where: {
+      groupName: req.body.groupName,
+    },
+  }).then((groupFound) => {
+    if (groupFound) {
+      GroupMemberships.create({
+        username: req.body.username,
+        groupName: req.body.groupName,
+      })
+        .then((result) => {
+          res.status(200).send("Joined group");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(200).send("error occurred");
+        });
+    } else {
+      res.status(200).send("Entre valid groupName");
+    }
   });
 };
 

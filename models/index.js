@@ -48,8 +48,6 @@ db.comments.belongsTo(db.posts, { foreignKey: "postID" });
 
 db.students.hasMany(db.groupMemberships, { foreignKey: "username" });
 db.groupMemberships.belongsTo(db.students, { foreignKey: "username" });
-db.groupNames.hasMany(db.groupMemberships, { foreignKey: "groupName" });
-db.groupMemberships.hasMany(db.groupNames, { foreignKey: "groupName" });
 
 db.sequelize.sync({ force: false }).then(() => {
   console.log("yes re-sync done!");

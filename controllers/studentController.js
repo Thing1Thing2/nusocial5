@@ -221,10 +221,28 @@ const getProfilePicture = async (req, res) => {
     });
 };
 
+const isOnline = async (req, res) => {
+  Student.findOne({
+    attributes: ["online"],
+    where: {
+      username: req.body.username,
+    },
+  })
+    .then((stu) => {
+      console.log(stu.online);
+      res.status(200).send(stu.online);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("Error obtaining online status");
+    });
+};
+
 module.exports = {
   addStudent,
   logoutStudent,
   findStudent,
   addProfilePicture,
   getProfilePicture,
+  isOnline,
 };

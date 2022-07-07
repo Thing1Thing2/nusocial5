@@ -20,7 +20,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
   const joinChatFetch = (chat) => {
     clickedChat(chat);
     const data = {
-      chat: chat,
+      username: chat,
     };
 
     const settings = {
@@ -31,15 +31,17 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
       },
       body: JSON.stringify(data),
     };
-    console.log("in is online");
     fetch(
       "https://nusocial5.herokuapp.com/home/api/students/isOnline",
       settings
     )
       .then((response) => response.text())
       .then((data) => {
-        console.log("response in isOnline chatBar: " + data);
-        isOnline(data);
+        if (data) {
+          isOnline("online");
+        } else {
+          isOnline("offline");
+        }
       });
     socket.emit("join_room", "ourchats");
   };

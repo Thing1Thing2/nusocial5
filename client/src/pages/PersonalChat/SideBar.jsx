@@ -37,6 +37,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
     )
       .then((response) => response.text())
       .then((data) => {
+        console.log("ONLINE STATUS IS" + data);
         if (data === "true") {
           isOnline("online");
         } else {

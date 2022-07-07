@@ -86,6 +86,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
             pic = result;
           });
         setChats((list) => [...list, [f[0], pic]]);
+        console.log(pic);
       });
     });
   };

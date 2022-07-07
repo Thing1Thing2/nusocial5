@@ -22,6 +22,7 @@ const ProfileMid = ({ username }) => {
   };
   const getProfilePicture = async (name) => {
     let url;
+    console.log("getting profile pic");
     const data = {
       username: name,
     };

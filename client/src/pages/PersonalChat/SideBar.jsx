@@ -94,6 +94,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
     getProfilePicture(username);
   };
   const getProfilePicture = async (name) => {
+    console.log("getting profile pic");
     let url;
     const data = {
       username: name,

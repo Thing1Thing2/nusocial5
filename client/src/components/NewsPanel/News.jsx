@@ -4,7 +4,6 @@ import NewsFeed from "./NewsFeed";
 import { NewsData } from "../test-data/test-data";
 import Post from "../Post/Post";
 
-//Change props of NewsFeed to alter content of News panel
 const News = ({ username }) => {
   function submitPost(e) {
     e.preventDefault();

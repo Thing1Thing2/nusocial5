@@ -44,6 +44,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
     socket.emit("join_room", "ourchats");
   };
   const showConfirmedFriends = async () => {
+    setChats([]);
     const info = {
       username: username,
     };
@@ -60,9 +61,39 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
       settings
     ).then(async (friends) => {
       let friendsList = await friends.json();
-      console.log(friendsList);
+      friendsList.forEach(async (f) => {
+        let pic =
+          "https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg";
+        const data = {
+          username: f[0],
+        };
+        const settings = {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        };
+        await fetch(
+          "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+          settings
+        )
+          .then((result) => {
+            result.text();
+            pic = result;
+          })
+          .then((result) => {
+            pic = result;
+            setChats((list) => [...list, [f[0], pic]]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
     });
   };
+
   return (
     <div className="sidebar">
       <div className="sidebar_header">

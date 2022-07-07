@@ -16,13 +16,13 @@ const SideBarChat = ({ chatName, clickAction }) => {
     <div
       className="sidebarchat"
       onClick={() => {
-        console.log("chat clicked" + chatName);
-        clickAction(chatName);
+        console.log("chat clicked" + chatName[0]);
+        clickAction(chatName[0]);
       }}
     >
-      <Avatar src="https://avatars.dicebear.com/api/micah/frend.svg" />
+      <Avatar src={chatName[1]} />
       <div className="sidebarchat_info">
-        <h2>{chatName}</h2>
+        <h2>{chatName[0]}</h2>
         <p>Last message ...</p>
       </div>
     </div>

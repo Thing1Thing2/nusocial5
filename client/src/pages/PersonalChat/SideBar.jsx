@@ -90,11 +90,40 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
         });
     });
   };
-
+  window.onload = () => {
+    getProfilePicture(username);
+  };
+  const getProfilePicture = async (name) => {
+    let url;
+    const data = {
+      username: name,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        console.log(data);
+        url = data;
+      });
+    setProfilePic(url);
+  };
+  const [profilePic, setProfilePic] = useState(
+    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+  );
   return (
     <div className="sidebar">
       <div className="sidebar_header">
-        <Avatar />
+        <Avatar src={profilePic} />
         <div className="sidebar_headerRight">
           <IconButton>
             <DonutLarge />

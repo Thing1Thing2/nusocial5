@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./profile.css";
 import { ImageList, ImageListItem } from "@mui/material";
 import { ProfileAlbumList, PostList } from "../test-data/test-data";
@@ -17,6 +17,37 @@ function srcset(image, size, rows = 1, cols = 1) {
 }
 
 const ProfileMid = ({ username }) => {
+  window.onload = () => {
+    getProfilePicture(username);
+  };
+  const getProfilePicture = async (name) => {
+    let url;
+    const data = {
+      username: name,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        console.log(data);
+        url = data;
+      });
+    setProfilePic(url);
+  };
+  const [profilePic, setProfilePic] = useState(
+    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+  );
+
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
@@ -26,11 +57,7 @@ const ProfileMid = ({ username }) => {
           alt=""
         />
         <div className="profileAvatarInfoContainer">
-          <img
-            className="profileAvatar"
-            src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg"
-            alt=""
-          />
+          <img className="profileAvatar" src={profilePic} alt="" />
           <div className="profileInfoContainer">
             <div className="profileName">{username}</div>
             <div className="profileFriendsNumber">893 Friends</div>

@@ -30,18 +30,14 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
       },
       body: JSON.stringify(info),
     };
-    fetch(
+    let results = await fetch(
       "https://nusocial5.herokuapp.com/api/personalchats/getAllMessages",
       settings
-    )
-      .then((results) => {
-        console.log(results);
-        console.log(results.boby);
-        results.json();
-      })
-      .then((results) => {
-        console.log(results);
-      });
+    );
+
+    let arr = await results.json();
+
+    console.log(arr);
   };
 
   const joinChatFetch = (chat, chatId) => {

@@ -38,15 +38,6 @@ const PersonalChat = ({ username }) => {
   const sendMessageSocket = async (data) => {
     await socket.emit("send_message", data);
   };
-  const [inputs, setInputs] = useState([]);
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log(data);
-      setInputs((list) => [...list, data]);
-      console.log(inputs);
-    });
-  }, [socket]);
 
   return (
     <div className="PersonalChat">

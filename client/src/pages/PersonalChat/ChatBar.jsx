@@ -37,39 +37,37 @@ const ChatBar = ({
       const messageData = {
         sentBy: username,
         message: input,
-        createdAt:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
         chatId: chatId,
       };
-      /*
-      const data = {
-        username: username,
-        chat: "ourchats",
-        body: input,
-      };
+
       const settings = {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(messageData),
       };
+      fetch(
+        "https://nusocial5.herokuapp.com/api/personalchats/addMessage",
+        settings
+      )
+        .then((res) => res.text())
+        .then((msg) => console.log(msg));
+      /*
+      const data = {
+        username: username,
+        chat: "ourchats",
+        body: input,
+      };
+      
       */
-      console.log(messageData);
+      setInputs((list) => [...list, messageData]);
 
       try {
-        socket(messageData);
+        //socket(messageData);
         /*
-        fetch(
-          "https://nusocial5.herokuapp.com/api/personalchats/addMessage",
-          settings
-          
-        )
-          .then((res) => res.text())
-          .then((msg) => console.log(msg));
+       
           */
         setInput("");
       } catch (err) {
@@ -115,6 +113,7 @@ const ChatBar = ({
     getProfilePicture(username);
   };
 
+  const [inputs, setInputs] = useState([]);
   return (
     <div className="chat">
       <div className="chat_header">

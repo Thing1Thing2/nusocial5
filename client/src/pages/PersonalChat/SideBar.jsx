@@ -83,6 +83,7 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
       },
       body: JSON.stringify(info),
     };
+
     let res = await fetch(
       "https://nusocial5.herokuapp.com/api/friends/getAllConfirmedFriends",
       settings
@@ -104,27 +105,21 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
         },
         body: JSON.stringify(data),
       };
-      fetch(
+      let picURL = fetch(
         "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
         settings
-      )
-        .then((response) => response.text())
-        .then((data) => {
-          pic = data;
-          let results = fetch(
-            "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",
-            settings
-          )
-            .then((response) => {
-              response.text();
-            })
-            .then((data) => {
-              let arr = results.json();
-              setChats((list) => [...list, [f[0], pic, f[2], arr.message]]);
-            });
-        });
+      );
+      picURL = picURL.text();
+      pic = picURL;
+      let latestMsg = fetch(
+        "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",
+        settings
+      );
+      latestMsg = latestMsg.text();
+      setChats((list) => [...list, [f[0], pic, f[2], latestMsg]]);
     });
   };
+
   window.onload = () => {
     getProfilePicture(username);
   };

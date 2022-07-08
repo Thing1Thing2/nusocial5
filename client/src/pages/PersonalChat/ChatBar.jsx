@@ -15,11 +15,19 @@ const clickedMenu = () => {
   console.log("clicked menu");
 };
 
-const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
+const ChatBar = ({
+  socket,
+  username,
+  chat,
+  chatId,
+  isOnline,
+  chatHistory,
+  inputs,
+}) => {
   const anchorPoint = { x: 0, y: 0 };
   const show = false;
   const [input, setInput] = useState("");
-  const [inputs, setInputs] = useState([]);
+
   const [showPicker, setShowPicker] = useState(false);
 
   const sendMessage = async () => {
@@ -63,7 +71,6 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
           .then((res) => res.text())
           .then((msg) => console.log(msg));
           */
-        setInputs((list) => [...list, messageData]);
         setInput("");
       } catch (err) {
         console.log(err);
@@ -75,14 +82,6 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
     setInput((prevInput) => prevInput + emojiObj.emoji);
     setShowPicker(false);
   };
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log(data);
-      setInputs((list) => [...list, data]);
-      console.log(inputs);
-    });
-  }, [socket]);
 
   const getProfilePicture = async (name) => {
     console.log("getting profile pic");

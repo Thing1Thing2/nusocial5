@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./personalChat.css";
 import SideBar from "./SideBar";
 import ChatBar from "./ChatBar";
@@ -38,6 +38,15 @@ const PersonalChat = ({ username }) => {
   const sendMessageSocket = async (data) => {
     await socket.emit("send_message", data);
   };
+  const [inputs, setInputs] = useState([]);
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      console.log(data);
+      setInputs((list) => [...list, data]);
+      console.log(inputs);
+    });
+  }, [socket]);
 
   return (
     <div className="PersonalChat">
@@ -65,6 +74,7 @@ const PersonalChat = ({ username }) => {
             chatId={clickedChatId}
             isOnline={isOnline}
             chatHistory={chatHistory}
+            inputs={inputs}
           />
         </div>
       </div>

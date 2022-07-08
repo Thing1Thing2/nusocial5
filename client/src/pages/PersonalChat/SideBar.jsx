@@ -30,7 +30,10 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
       },
       body: JSON.stringify(info),
     };
-    fetch("", settings)
+    fetch(
+      "https://nusocial5.herokuapp.com/api/personalchats/getAllMessages",
+      settings
+    )
       .then((results) => {
         console.log(results);
         console.log(results.boby);

@@ -122,6 +122,7 @@ const ProfileMid = ({ username }) => {
       settings
     );
     let arr = await res.json();
+    console.log(arr.length);
     setNumOfFriends(arr.length);
   };
 

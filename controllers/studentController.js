@@ -285,6 +285,24 @@ const isOnline = async (req, res) => {
     });
 };
 
+const addBio = async (req, res) => {
+  Student.update(
+    { bio: req.body.bio },
+    {
+      where: {
+        username: req.body.username,
+      },
+    }
+  )
+    .then((stu) => {
+      res.status(200).send("Added bio");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("Error adding bio");
+    });
+};
+
 module.exports = {
   addStudent,
   logoutStudent,
@@ -294,4 +312,5 @@ module.exports = {
   isOnline,
   addCoverPicture,
   getCoverPicture,
+  addBio,
 };

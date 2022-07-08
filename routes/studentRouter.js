@@ -10,4 +10,5 @@ router.post("/addCoverPicture", studentController.addCoverPicture);
 router.post("/getProfilePicture", studentController.getProfilePicture);
 router.post("/getCoverPicture", studentController.getCoverPicture);
 router.post("/isOnline", studentController.isOnline);
+router.post("/addBio", studentController.addBio);
 module.exports = router;

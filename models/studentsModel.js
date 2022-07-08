@@ -39,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
       coverPictureURL: {
         type: DataTypes.STRING,
       },
+      bio: {
+        type: DataTypes.STRING,
+      },
     },
     {
       createdAt: "registeredAt",

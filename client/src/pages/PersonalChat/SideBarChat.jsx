@@ -17,7 +17,7 @@ const SideBarChat = ({ chatName, clickAction }) => {
       className="sidebarchat"
       onClick={() => {
         console.log("chat clicked" + chatName[0]);
-        clickAction(chatName[0]);
+        clickAction(chatName[0], chatName[2]);
       }}
     >
       <Avatar src={chatName[1]} />

@@ -38,7 +38,20 @@ const deleteMessage = async (req, res) => {
     });
 };
 
-const getAllMessages = async (req, res) => {};
+const getAllMessages = async (req, res) => {
+  PersonalChats.findAll({
+    where: {
+      chatId: req.body.chatId,
+    },
+  })
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("error loading chats");
+    });
+};
 
 module.exports = {
   addMessage,

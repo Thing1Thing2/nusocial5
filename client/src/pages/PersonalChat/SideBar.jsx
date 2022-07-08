@@ -12,14 +12,16 @@ import SideBarChat from "./SideBarChat";
 function SideBar({ socket, getClickedChat, isOnline, username }) {
   const [chats, setChats] = useState([]);
   const [chat, setChat] = useState("");
+  const [chatHistory, setChatHistory] = useState([]);
+
   const clickedChat = (chat) => {
     getClickedChat(chat);
     console.log("chat was clicked: " + chat);
     socket.emit("join_room", chat);
   };
 
-  const joinChatFetch = (chat) => {
-    clickedChat(chat);
+  const joinChatFetch = (chat, chatId) => {
+    clickedChat(chat, chatId);
     const data = {
       username: chat,
     };
@@ -86,7 +88,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
         .then((response) => response.text())
         .then((data) => {
           pic = data;
-          setChats((list) => [...list, [f[0], pic]]);
+          setChats((list) => [...list, [f[0], pic, f[2]]]);
         });
     });
   };

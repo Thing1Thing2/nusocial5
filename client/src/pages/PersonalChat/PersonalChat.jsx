@@ -12,12 +12,14 @@ import { useLocation } from "react-router-dom";
 const PersonalChat = ({ username }) => {
   const socket = io.connect("https://nusocial5.herokuapp.com/");
   const [clickedChat, setClickedChat] = useState("");
+  const [clickedChatId, setClickedChatId] = useState("");
   const [isOnline, setIsOnline] = useState("offline");
 
   const location = useLocation();
 
-  const getClickedChat = (chat) => {
+  const getClickedChat = (chat, chatId) => {
     setClickedChat(chat);
+    setClickedChatId(chatId);
   };
 
   const getIsOnline = (online) => {
@@ -45,7 +47,8 @@ const PersonalChat = ({ username }) => {
           <ChatBar
             socket={socket}
             username={location.state.username}
-            chat={clickedChat.toString()}
+            chat={clickedChat}
+            chatId={clickedChatId}
             isOnline={isOnline}
           />
         </div>

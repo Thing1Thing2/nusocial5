@@ -15,12 +15,37 @@ const clickedMenu = () => {
   console.log("clicked menu");
 };
 
-const ChatBar = ({ socket, username, chat, isOnline }) => {
+const ChatBar = ({ socket, username, chat, chatId, isOnline }) => {
   const anchorPoint = { x: 0, y: 0 };
   const show = false;
   const [input, setInput] = useState("");
   const [inputs, setInputs] = useState([]);
   const [showPicker, setShowPicker] = useState(false);
+
+  window.onload = () => {
+    getAllMessages();
+  };
+
+  const getAllMessages = async () => {
+    const info = {
+      chatId: chatId,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+    await fetch("", settings)
+      .then((results) => {
+        results.text();
+      })
+      .then((results) => {
+        console.log(results);
+      });
+  };
 
   const sendMessageFetch = async () => {
     if (input !== "") {

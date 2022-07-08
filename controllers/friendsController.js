@@ -221,6 +221,7 @@ const getAllConfirmedFriends = async (req, res) => {
       attributes: [
         "username",
         "friend",
+        "chatId",
         [
           sequelize.fn(
             "DATE_FORMAT",
@@ -238,9 +239,9 @@ const getAllConfirmedFriends = async (req, res) => {
     let pic;
     let f = friends.map((friend) => {
       if (friend.username === username) {
-        return [friend.friend, friend.updatedAt];
+        return [friend.friend, friend.updatedAt, friend.chatId];
       } else {
-        return [friend.username, friend.updatedAt];
+        return [friend.username, friend.updatedAt, friend.chatId];
       }
     });
     res.status(200).send(f);

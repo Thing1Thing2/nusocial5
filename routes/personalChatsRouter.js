@@ -12,5 +12,9 @@ personalChatsRouter.post(
   personalChatsController.getAllMessages
 );
 personalChatsRouter.post("/addMessage", personalChatsController.addMessage);
+personalChatsRouter.post(
+  "/latestMessage",
+  personalChatsController.latestMessage
+);
 
 module.exports = personalChatsRouter;

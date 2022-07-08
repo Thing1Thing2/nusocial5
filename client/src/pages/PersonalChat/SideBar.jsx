@@ -146,6 +146,30 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
   const [profilePic, setProfilePic] = useState(
     "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
   );
+
+  const [latestMsg, setLatestMsg] = useState("latest message");
+  const latestMessage = async (chatId) => {
+    const info = {
+      chatId: chatId,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+    let results = await fetch(
+      "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",
+      settings
+    );
+
+    let arr = await results.json();
+
+    setLatestMsg(arr.message);
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar_header">
@@ -186,7 +210,13 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
       </div>
       <div className="sidebar_chats">
         {chats.map((chat) => {
-          return <SideBarChat chatName={chat} clickAction={joinChatFetch} />;
+          return (
+            <SideBarChat
+              chatName={chat}
+              clickAction={joinChatFetch}
+              latestMessage={latestMsg}
+            />
+          );
         })}
       </div>
     </div>

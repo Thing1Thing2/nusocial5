@@ -99,6 +99,7 @@ const getMyPosts = async (req, res) => {
       "messageId",
     ],
     where: { from: req.body.username },
+    order: [["createdAt", "DESC"]],
   })
     .then((posts) => {
       res.status(200).send(posts);
@@ -115,6 +116,7 @@ const getAllPosts = async (req, res) => {
     where: {
       username: username,
     },
+    order: [["createdAt", "DESC"]],
   });
   if (stu) {
     await Friends.findAll({

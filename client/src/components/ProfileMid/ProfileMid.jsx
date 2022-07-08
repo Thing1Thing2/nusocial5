@@ -171,7 +171,7 @@ const ProfileMid = ({ username }) => {
       "https://nusocial5.herokuapp.com/api/students/getBio",
       settings
     );
-    dataBio = await dataBio.json();
+    dataBio = await dataBio.text();
     console.log(dataBio);
     setBio(dataBio);
   };

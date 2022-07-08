@@ -116,7 +116,6 @@ const getAllPosts = async (req, res) => {
     where: {
       username: username,
     },
-    order: [["createdAt", "DESC"]],
   });
   if (stu) {
     await Friends.findAll({

@@ -109,7 +109,7 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
         "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
         settings
       );
-      picURL = picURL.text();
+      picURL = picURL.json();
       pic = picURL;
       let latestMsg = fetch(
         "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",

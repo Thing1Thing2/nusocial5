@@ -103,6 +103,29 @@ const ProfileMid = ({ username }) => {
     "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
   );
 
+  const showConfirmedFriends = async () => {
+    const info = {
+      username: username,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+
+    let res = await fetch(
+      "https://nusocial5.herokuapp.com/api/friends/getAllConfirmedFriends",
+      settings
+    );
+    let arr = await res.json();
+    setNumOfFriends(arr.length);
+  };
+
+  const [numOfFriends, setNumOfFriends] = useState(0);
+
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
@@ -111,7 +134,7 @@ const ProfileMid = ({ username }) => {
           <img className="profileAvatar" src={profilePic} alt="" />
           <div className="profileInfoContainer">
             <div className="profileName">{username}</div>
-            <div className="profileFriendsNumber">893 Friends</div>
+            <div className="profileFriendsNumber">{numOfFriends} Friend(s)</div>
           </div>
         </div>
       </div>

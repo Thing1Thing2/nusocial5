@@ -205,7 +205,7 @@ const addProfilePicture = async (req, res, nexts) => {
   }
 };
 
-const addCoverPicture = async (req, res, nexts) => {
+const addCoverPicture = async (req, res) => {
   if (req.files) {
     if (req.files.photo) {
       const file = req.files.photo;

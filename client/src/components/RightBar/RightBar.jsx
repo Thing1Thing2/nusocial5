@@ -75,7 +75,7 @@ const RightBar = ({ username }) => {
 
   function addProfilePicture(e) {
     e.preventDefault();
-    const fileField = document.querySelector('input[type="file"]');
+    const fileField = document.querySelector('input[id="profilePic"]');
     const formData = new FormData();
     formData.append("username", username);
     formData.append("photo", fileField.files[0]);
@@ -103,7 +103,7 @@ const RightBar = ({ username }) => {
         <form onSubmit={(e) => addProfilePicture(e)}>
           <input
             type="file"
-            id="photo"
+            id="profilePic"
             name="filename"
             placeholder="upload profile picture"
           />

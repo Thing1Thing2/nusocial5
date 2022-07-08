@@ -109,14 +109,14 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
         "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
         settings
       );
-      let picurl = await picURL.json();
+      let picurl = await picURL.text();
       pic = picurl;
       let latestMsg = await fetch(
         "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",
         settings
       );
 
-      latestMsg = await latestMsg.json();
+      latestMsg = await latestMsg.text();
       setChats((list) => [...list, [f[0], pic, f[2], latestMsg]]);
     });
   };

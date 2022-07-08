@@ -92,7 +92,44 @@ const allGroups = async (req, res) => {
   }
 };
 
+//get all groups you are a member of
+const allMyGroups = async (req, res) => {
+  let stu = await Students.findOne({
+    where: {
+      username: req.body.username,
+    },
+  });
+  if (stu) {
+    let groups = await GroupMemberships.findAll({
+      attributes: ["groupName"],
+      where: {
+        username: req.body.username,
+      },
+    }).then((g) => {
+      let arr = [];
+      g.forEach((name) => {
+        arr.push(name.groupName);
+      });
+      GroupNames.findAll({
+        where: {
+          groupName: { [Op.in]: arr },
+        },
+      })
+        .then((filteredGroups) => {
+          res.status(200).send(filteredGroups);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(200).send("Error occurred");
+        });
+    });
+  } else {
+    res.status(200).send("no such student");
+  }
+};
+
 module.exports = {
   addGroup,
   allGroups,
+  allMyGroups,
 };

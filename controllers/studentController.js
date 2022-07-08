@@ -303,6 +303,22 @@ const addBio = async (req, res) => {
     });
 };
 
+const getBio = async (req, res) => {
+  Student.findOne({
+    attributes: ["bio"],
+    where: {
+      username: req.body.username,
+    },
+  })
+    .then((stu) => {
+      res.status(200).send(stu.bio);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("Error obtaining bio");
+    });
+};
+
 module.exports = {
   addStudent,
   logoutStudent,
@@ -313,4 +329,5 @@ module.exports = {
   addCoverPicture,
   getCoverPicture,
   addBio,
+  getBio,
 };

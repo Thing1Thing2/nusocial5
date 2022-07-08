@@ -17,6 +17,15 @@ function srcset(image, size, rows = 1, cols = 1) {
 }
 
 const ProfileMid = ({ username }) => {
+  const [bioData, setBioData] = useState({
+    bio: "",
+  });
+  const [bio, setBio] = useState("bio description");
+  function handle(e) {
+    const newdata = { ...bioData };
+    newdata[e.target.id] = e.target.value;
+    setBioData(newdata);
+  }
   window.onload = () => {
     getProfilePicture(username);
     getCoverPicture(username);
@@ -128,6 +137,41 @@ const ProfileMid = ({ username }) => {
 
   const [numOfFriends, setNumOfFriends] = useState(0);
 
+  const addBio = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("bio", bioData.bio);
+    formData.append("username", username);
+    const settings = {
+      method: "POST",
+      body: formData,
+    };
+    fetch("https://nusocial5.herokuapp.com/api/students/addBio", settings)
+      .then((result) => result.text())
+      .then((msg) => {
+        window.alert(msg);
+      });
+  };
+
+  const getBio = async () => {
+    const data = {
+      username: username,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch("https://nusocial5.herokuapp.com/api/students/getBio", settings)
+      .then((response) => response.text())
+      .then((data) => {
+        setBio(data);
+      });
+  };
+
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
@@ -148,11 +192,16 @@ const ProfileMid = ({ username }) => {
                 <FaceTwoToneIcon sx={{ fontSize: 40 }} />
               </div>
               <div className="bio">BIO</div>
+              <form onSubmit={(e) => addBio(e)}>
+                <input
+                  type="text"
+                  placeholder="Enter Group Name"
+                  id="groupName"
+                  onChange={(e) => handle(e)}
+                />
+              </form>
             </div>
-            <div className="bioDetails">
-              I'm from CS, hiking habbit, do DM me if you want an accompany for
-              hiking :D
-            </div>
+            <div className="bioDetails">{bio}</div>
           </div>
           <div className="profileAlbum">
             <form onSubmit={(e) => addCoverPicture(e)}>

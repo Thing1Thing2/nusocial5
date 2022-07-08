@@ -83,7 +83,23 @@ const deletePost = async (req, res) => {
 };
 
 const getMyPosts = async (req, res) => {
-  Posts.findAll({ where: { from: req.body.username } })
+  Posts.findAll({
+    attributes: [
+      "chatId",
+      "message",
+      "sentBy",
+      [
+        sequelize.fn(
+          "DATE_FORMAT",
+          sequelize.col("createdAt"),
+          "%d-%m-%Y %H:%i:%s"
+        ),
+        "createdAt",
+      ],
+      "messageId",
+    ],
+    where: { from: req.body.username },
+  })
     .then((posts) => {
       res.status(200).send(posts);
     })

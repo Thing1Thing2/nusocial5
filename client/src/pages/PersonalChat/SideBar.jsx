@@ -18,7 +18,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
     getAllMessages();
   };
 
-  const getAllMessages = (chatId) => {
+  const getAllMessages = async (chatId) => {
     const info = {
       chatId: chatId,
     };
@@ -33,9 +33,8 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
     fetch("", settings)
       .then((results) => {
         console.log(results);
-        console.log(results.boyd);
-        console.log(results.body.text());
-        results.body.text();
+        console.log(results.boby);
+        results.json();
       })
       .then((results) => {
         console.log(results);

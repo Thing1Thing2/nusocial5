@@ -65,7 +65,6 @@ const PersonalChat = ({ username }) => {
             chatId={clickedChatId}
             isOnline={isOnline}
             chatHistory={chatHistory}
-            inputs={inputs}
           />
         </div>
       </div>

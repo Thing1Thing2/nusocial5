@@ -33,7 +33,9 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
     fetch("", settings)
       .then((results) => {
         console.log(results);
-        results.text();
+        console.log(results.boyd);
+        console.log(results.body.text());
+        results.body.text();
       })
       .then((results) => {
         console.log(results);

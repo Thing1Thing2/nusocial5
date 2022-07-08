@@ -15,15 +15,7 @@ const clickedMenu = () => {
   console.log("clicked menu");
 };
 
-const ChatBar = ({
-  socket,
-  username,
-  chat,
-  chatId,
-  isOnline,
-  chatHistory,
-  inputs,
-}) => {
+const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
   const anchorPoint = { x: 0, y: 0 };
   const show = false;
   const [input, setInput] = useState("");

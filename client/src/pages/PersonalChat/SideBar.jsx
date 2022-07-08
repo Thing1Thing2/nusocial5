@@ -130,7 +130,8 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
       );
 
       latestMsg = await latestMsg.text();
-      setChats((list) => [...list, [f[0], pic, f[2], latestMsg.message]]);
+      latestMsg = await latestMsg.message;
+      setChats((list) => [...list, [f[0], pic, f[2], latestMsg]]);
     });
   };
 

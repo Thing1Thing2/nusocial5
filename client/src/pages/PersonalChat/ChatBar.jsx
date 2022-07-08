@@ -22,7 +22,7 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
   const [inputs, setInputs] = useState([]);
   const [showPicker, setShowPicker] = useState(false);
 
-  const sendMessageFetch = async () => {
+  const sendMessage = async () => {
     if (input !== "") {
       console.log(input);
 
@@ -78,7 +78,9 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
+      console.log(data);
       setInputs((list) => [...list, data]);
+      console.log(inputs);
     });
   }, [socket]);
 
@@ -183,7 +185,7 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
             setInput(event.target.value);
           }}
           onKeyPress={(event) => {
-            event.key === "Enter" && sendMessageFetch();
+            event.key === "Enter" && sendMessage();
           }}
         />
 

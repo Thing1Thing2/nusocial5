@@ -33,6 +33,7 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
           new Date(Date.now()).getHours() +
           ":" +
           new Date(Date.now()).getMinutes(),
+        chatId: chatId,
       };
       /*
       const data = {
@@ -81,10 +82,42 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
     });
   }, [socket]);
 
+  const getProfilePicture = async (name) => {
+    console.log("getting profile pic");
+    let url;
+    const data = {
+      username: name,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        console.log(data);
+        url = data;
+      });
+    setProfilePic(url);
+  };
+  const [profilePic, setProfilePic] = useState(
+    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+  );
+  window.onload = () => {
+    getProfilePicture(username);
+  };
+
   return (
     <div className="chat">
       <div className="chat_header">
-        <Avatar src="https://avatars.dicebear.com/api/micah/frend.svg" />
+        <Avatar src={profilePic} />
 
         <div className="chat_headerInfo">
           <h3>{chat}</h3>

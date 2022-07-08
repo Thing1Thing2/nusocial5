@@ -24,6 +24,8 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
 
   const sendMessageFetch = async () => {
     if (input !== "") {
+      console.log(input);
+
       const messageData = {
         sentBy: username,
         message: input,
@@ -47,6 +49,7 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
         body: JSON.stringify(data),
       };
       */
+      console.log(messageData);
 
       try {
         await socket.emit("send_message", messageData);
@@ -59,6 +62,7 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
           .then((res) => res.text())
           .then((msg) => console.log(msg));
           */
+        setInputs((list) => [...list, messageData]);
         setInput("");
       } catch (err) {
         console.log(err);

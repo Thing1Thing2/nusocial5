@@ -165,11 +165,12 @@ const ProfileMid = ({ username }) => {
       },
       body: JSON.stringify(data),
     };
-    await fetch("https://nusocial5.herokuapp.com/api/students/getBio", settings)
-      .then((response) => response.text())
-      .then((data) => {
-        setBio(data);
-      });
+    let dataBio = await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getBio",
+      settings
+    );
+    dataBio = await dataBio.text();
+    setBio(dataBio);
   };
 
   return (

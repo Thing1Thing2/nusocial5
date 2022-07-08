@@ -30,6 +30,7 @@ const ProfileMid = ({ username }) => {
     getProfilePicture(username);
     getCoverPicture(username);
     showConfirmedFriends();
+    getBio();
   };
   const getProfilePicture = async (name) => {
     let url;

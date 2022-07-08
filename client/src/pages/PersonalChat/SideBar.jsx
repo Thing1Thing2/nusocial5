@@ -111,9 +111,22 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
       );
       let picurl = await picURL.text();
       pic = picurl;
+
+      let info = {
+        chatId: f[2],
+      };
+
+      let settingsInfo = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(info),
+      };
       let latestMsg = await fetch(
         "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",
-        settings
+        settingsInfo
       );
 
       latestMsg = await latestMsg.text();

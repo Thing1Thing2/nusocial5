@@ -90,7 +90,7 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
     );
     let arr = await res.json();
     let pic;
-    arr.forEach((f) => {
+    arr.forEach(async (f) => {
       pic =
         "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg";
       let data = {
@@ -105,17 +105,18 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
         },
         body: JSON.stringify(data),
       };
-      let picURL = fetch(
+      let picURL = await fetch(
         "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
         settings
       );
-      let picurl = picURL.json();
+      let picurl = await picURL.json();
       pic = picurl;
-      let latestMsg = fetch(
+      let latestMsg = await fetch(
         "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",
         settings
       );
-      latestMsg = latestMsg.text();
+
+      latestMsg = await latestMsg.json();
       setChats((list) => [...list, [f[0], pic, f[2], latestMsg]]);
     });
   };

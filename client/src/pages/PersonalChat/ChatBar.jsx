@@ -25,14 +25,14 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
   const sendMessageFetch = async () => {
     if (input !== "") {
       const messageData = {
-        chat: "ourchats",
-        author: username,
+        sentBy: username,
         message: input,
-        time:
+        createdAt:
           new Date(Date.now()).getHours() +
           ":" +
           new Date(Date.now()).getMinutes(),
       };
+      /*
       const data = {
         username: username,
         chat: "ourchats",
@@ -46,12 +46,19 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
         },
         body: JSON.stringify(data),
       };
+      */
 
       try {
         await socket.emit("send_message", messageData);
-        fetch("https://nusocial5.herokuapp.com/api/chats/addMsg", settings)
+        /*
+        fetch(
+          "https://nusocial5.herokuapp.com/api/personalchats/addMessage",
+          settings
+          
+        )
           .then((res) => res.text())
           .then((msg) => console.log(msg));
+          */
         setInput("");
       } catch (err) {
         console.log(err);
@@ -95,6 +102,18 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
 
       <div className="chat_body">
         {chatHistory.map((msg) => {
+          console.log(msg);
+          return (
+            <div
+              className={username === msg.sentBy ? "message" : "message_other"}
+            >
+              <span className="chat_name">{msg.sentBy}</span>
+              {msg.message}
+              <span className="chat_timeStamp">{msg.createdAt}</span>
+            </div>
+          );
+        })}
+        {inputs.map((msg) => {
           console.log(msg);
           return (
             <div

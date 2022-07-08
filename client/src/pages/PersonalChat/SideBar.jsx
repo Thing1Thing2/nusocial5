@@ -9,10 +9,9 @@ import {
 } from "@mui/icons-material";
 import SideBarChat from "./SideBarChat";
 
-function SideBar({ socket, getClickedChat, isOnline, username }) {
+function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
   const [chats, setChats] = useState([]);
   const [chat, setChat] = useState("");
-  const [chatHistory, setChatHistory] = useState([]);
 
   window.onload = () => {
     getAllMessages();
@@ -37,7 +36,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
 
     let arr = await results.json();
 
-    console.log(arr);
+    chatHistory(arr);
   };
 
   const joinChatFetch = (chat, chatId) => {

@@ -15,7 +15,7 @@ const clickedMenu = () => {
   console.log("clicked menu");
 };
 
-const ChatBar = ({ socket, username, chat, chatId, isOnline }) => {
+const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
   const anchorPoint = { x: 0, y: 0 };
   const show = false;
   const [input, setInput] = useState("");
@@ -94,15 +94,15 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline }) => {
       </div>
 
       <div className="chat_body">
-        {inputs.map((msg) => {
+        {chatHistory.map((msg) => {
           console.log(msg);
           return (
             <div
-              className={username === msg.author ? "message" : "message_other"}
+              className={username === msg.sentBy ? "message" : "message_other"}
             >
-              <span className="chat_name">{msg.author}</span>
+              <span className="chat_name">{msg.sentBy}</span>
               {msg.message}
-              <span className="chat_timeStamp">{msg.time}</span>
+              <span className="chat_timeStamp">{msg.createdAt}</span>
             </div>
           );
         })}

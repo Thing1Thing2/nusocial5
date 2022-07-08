@@ -14,12 +14,17 @@ const PersonalChat = ({ username }) => {
   const [clickedChat, setClickedChat] = useState("");
   const [clickedChatId, setClickedChatId] = useState("");
   const [isOnline, setIsOnline] = useState("offline");
+  const [chatHistory, setChatHistory] = useState([]);
 
   const location = useLocation();
 
   const getClickedChat = (chat, chatId) => {
     setClickedChat(chat);
     setClickedChatId(chatId);
+  };
+
+  const getChatHistory = (arr) => {
+    setChatHistory(arr);
   };
 
   const getIsOnline = (online) => {
@@ -43,6 +48,7 @@ const PersonalChat = ({ username }) => {
             getClickedChat={getClickedChat}
             isOnline={getIsOnline}
             username={location.state.username}
+            chatHistory={getChatHistory}
           />
           <ChatBar
             socket={socket}
@@ -50,6 +56,7 @@ const PersonalChat = ({ username }) => {
             chat={clickedChat}
             chatId={clickedChatId}
             isOnline={isOnline}
+            chatHistory={chatHistory}
           />
         </div>
       </div>

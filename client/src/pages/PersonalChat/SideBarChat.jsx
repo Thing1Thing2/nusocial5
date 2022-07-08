@@ -23,7 +23,7 @@ const SideBarChat = ({ chatName, clickAction, latestMsg }) => {
       <Avatar src={chatName[1]} />
       <div className="sidebarchat_info">
         <h2>{chatName[0]}</h2>
-        <p>{chatName[3].message}</p>
+        <p>{chatName[3]}</p>
       </div>
     </div>
   );

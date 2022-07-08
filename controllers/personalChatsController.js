@@ -55,6 +55,7 @@ const getAllMessages = async (req, res) => {
 
 const latestMessage = async (req, res) => {
   PersonalChats.findOne({
+    attributs: ["message"],
     where: {
       chatId: req.body.chatId,
     },

@@ -55,14 +55,14 @@ const getAllMessages = async (req, res) => {
 
 const latestMessage = async (req, res) => {
   PersonalChats.findOne({
-    attributs: ["message"],
+    attributes: ["message"],
     where: {
       chatId: req.body.chatId,
     },
     order: [["createdAt", "DESC"]],
   })
     .then((result) => {
-      res.status(200).send(result);
+      res.status(200).send(result.message);
     })
     .catch((err) => {
       console.log(err);

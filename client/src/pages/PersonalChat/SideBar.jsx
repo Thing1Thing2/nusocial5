@@ -42,7 +42,8 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
   const joinChatFetch = (chat, chatId) => {
     getClickedChat(chat, chatId);
     console.log("chat was clicked: " + chat);
-    socket.emit("join_room", chatId);
+    console.log(chatId);
+    socket(chatId);
     getAllMessages(chatId);
     const data = {
       username: chat,

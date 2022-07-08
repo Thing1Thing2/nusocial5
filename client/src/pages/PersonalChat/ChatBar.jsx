@@ -53,7 +53,7 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
       console.log(messageData);
 
       try {
-        await socket.emit("send_message", messageData);
+        socket(messageData);
         /*
         fetch(
           "https://nusocial5.herokuapp.com/api/personalchats/addMessage",

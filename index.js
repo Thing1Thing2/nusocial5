@@ -26,23 +26,22 @@ app.use(express.json());
 app.use(cors());
 
 // middleware
-const PORT = process.env.PORT || 5000;
-const INDEX = "/client/build/index.html";
-const server = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  .listen(PORT, () => console.log(`listening on ${PORT}`));
-
-const io = socketIO(server);
-
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "https://nusocial5.herokuapp.com",
+    methods: ["GET", "POST"],
+  },
+});
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
+
   socket.on("join_room", (data) => {
     socket.join(data);
     console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
   socket.on("send_message", (data) => {
-    console.log(data);
     socket.to(data.chatId).emit("receive_message", data);
   });
 
@@ -77,6 +76,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
-app.listen(PORT);
+const port = process.env.PORT || 5000;
+app.listen(port);
 
 console.log(`NUSocial server listening on ${port}`);

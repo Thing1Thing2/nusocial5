@@ -14,14 +14,36 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
   const [chat, setChat] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
 
-  const clickedChat = (chat) => {
-    getClickedChat(chat);
-    console.log("chat was clicked: " + chat);
-    socket.emit("join_room", chat);
+  window.onload = () => {
+    getAllMessages();
+  };
+
+  const getAllMessages = async (chatId) => {
+    const info = {
+      chatId: chatId,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+    await fetch("", settings)
+      .then((results) => {
+        results.text();
+      })
+      .then((results) => {
+        console.log(results);
+      });
   };
 
   const joinChatFetch = (chat, chatId) => {
-    clickedChat(chat, chatId);
+    getClickedChat(chat, chatId);
+    console.log("chat was clicked: " + chat);
+    socket.emit("join_room", chat);
+    getAllMessages(chatId);
     const data = {
       username: chat,
     };

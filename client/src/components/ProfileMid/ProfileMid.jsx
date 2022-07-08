@@ -20,6 +20,7 @@ const ProfileMid = ({ username }) => {
   window.onload = () => {
     getProfilePicture(username);
     getCoverPicture(username);
+    showConfirmedFriends();
   };
   const getProfilePicture = async (name) => {
     let url;

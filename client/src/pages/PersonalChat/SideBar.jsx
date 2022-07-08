@@ -111,7 +111,17 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
         .then((response) => response.text())
         .then((data) => {
           pic = data;
-          setChats((list) => [...list, [f[0], pic, f[2]]]);
+          let results = fetch(
+            "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",
+            settings
+          )
+            .then((response) => {
+              response.text();
+            })
+            .then((data) => {
+              let arr = results.json();
+              setChats((list) => [...list, [f[0], pic, f[2], arr.message]]);
+            });
         });
     });
   };

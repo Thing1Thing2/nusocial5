@@ -15,6 +15,7 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
   const clickedChat = (chat) => {
     getClickedChat(chat);
     console.log("chat was clicked: " + chat);
+    socket.emit("join_room", chat);
   };
 
   const joinChatFetch = (chat) => {
@@ -41,7 +42,6 @@ function SideBar({ socket, getClickedChat, isOnline, username }) {
           isOnline("offline");
         }
       });
-    socket.emit("join_room", "ourchats");
   };
 
   const showConfirmedFriends = async () => {

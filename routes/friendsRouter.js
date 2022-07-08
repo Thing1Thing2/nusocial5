@@ -16,4 +16,5 @@ friendsRouter.post(
   "/getAllConfirmedFriends",
   friendsController.getAllConfirmedFriends
 );
+friendsRouter.post("/getChatId", friendsController.getChatId);
 module.exports = friendsRouter;

@@ -38,6 +38,7 @@ db.posts = require("./postsModel.js")(sequelize, DataTypes);
 db.comments = require("./commentsModel.js")(sequelize, DataTypes);
 db.groupNames = require("./groupNamesModel.js")(sequelize, DataTypes);
 db.groupMemberships = require("./groupMemberships.js")(sequelize, DataTypes);
+db.personalchats = require("./personalChatsModel.js")(sequelize, DataTypes);
 //associations
 db.students.hasMany(db.friends, { foreignKey: "username" });
 db.friends.belongsTo(db.students, { foreignKey: "username" });
@@ -48,6 +49,10 @@ db.comments.belongsTo(db.posts, { foreignKey: "postID" });
 
 db.students.hasMany(db.groupMemberships, { foreignKey: "username" });
 db.groupMemberships.belongsTo(db.students, { foreignKey: "username" });
+
+db.friends.hasMany(db.personalchats, { foreignKey: "chatId" });
+
+db.personalchats.belongsTo(db.friends, { foreignKey: "chatId" });
 
 db.sequelize.sync({ force: false }).then(() => {
   console.log("yes re-sync done!");

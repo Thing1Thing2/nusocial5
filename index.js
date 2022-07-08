@@ -67,6 +67,8 @@ const groupNamesRouter = require("./routes/groupNamesRouter.js");
 app.use("/api/groupnames", groupNamesRouter);
 const groupMembershipsRouter = require("./routes/groupMembershipsRouter.js");
 app.use("/api/groupmemberships", groupMembershipsRouter);
+const personalChatsRouter = require("./routes/personalChatsRouter.js");
+app.use("/api/personalchats", personalChatsRouter);
 
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.

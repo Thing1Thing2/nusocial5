@@ -18,12 +18,10 @@ const PersonalChat = ({ username }) => {
 
   const getClickedChat = (chat) => {
     setClickedChat(chat);
-    console.log("Now in personalchat : " + chat);
   };
 
   const getIsOnline = (online) => {
     setIsOnline(online);
-    console.log("Now in personalchat online status: " + online);
   };
 
   return (

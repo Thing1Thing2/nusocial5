@@ -249,10 +249,27 @@ const getAllConfirmedFriends = async (req, res) => {
   }
 };
 
+const getChatId = async (req, res) => {
+  Friends.findOne({
+    where: {
+      [Op.or]: [{ username: req.body.username }, { friend: req.body.username }],
+      [Op.or]: [{ username: req.body.friend }, { friend: req.body.friend }],
+    },
+  })
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("Error occurred");
+    });
+};
+
 module.exports = {
   addFriend,
   confirmFriend,
   getAllStudentsNotFriends,
   getAllFriendRequestsPending,
   getAllConfirmedFriends,
+  getChatId,
 };

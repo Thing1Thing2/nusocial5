@@ -16,12 +16,12 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-const ProfileMidGroup = ({ groupName }) => {
-  const [groupData, setGroupData] = useState([]);
+const ProfileMidGroup = ({ groupName, username }) => {
+  const [desc, setDesc] = useState("bio");
 
   window.onload = () => {
-    showMembers();
     getGroupData();
+    getNumOfMembers();
   };
 
   const [coverPic, setCoverPic] = useState(
@@ -30,12 +30,13 @@ const ProfileMidGroup = ({ groupName }) => {
   const [profilePic, setProfilePic] = useState(
     "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
   );
-  const [numOfMembers, setNumOfMembers] = useState(0);
+
+  const [numOfMembers, setNumOfMembers] = useState("0");
+  const data = {
+    groupName: groupName,
+  };
 
   const getGroupData = async () => {
-    const data = {
-      groupName: groupName,
-    };
     const settings = {
       method: "POST",
       headers: {
@@ -49,16 +50,12 @@ const ProfileMidGroup = ({ groupName }) => {
       settings
     );
     dataBio = await dataBio.text();
-    setGroupData([dataBio.description]);
+    setDesc(dataBio.description);
     setProfilePic(dataBio.profilePictureURL);
     setCoverPic(dataBio.coverPictureURL);
-    getNumOfMembers();
   };
 
   const getNumOfMembers = async () => {
-    const data = {
-      groupName: groupName,
-    };
     const settings = {
       method: "POST",
       headers: {
@@ -70,12 +67,14 @@ const ProfileMidGroup = ({ groupName }) => {
     let num = await fetch(
       "https://nusocial5.herokuapp.com/api/groupmemberships/getNumOfMembers",
       settings
-    );
-    num = await num.text();
-    setNumOfMembers(num);
+    )
+      .then(async (number) => {
+        await number.text();
+      })
+      .then((num) => {
+        setNumOfMembers(num);
+      });
   };
-
-  const showMembers = async () => {};
 
   return (
     <div className="profileMid">
@@ -98,7 +97,7 @@ const ProfileMidGroup = ({ groupName }) => {
               </div>
               <div className="bio">BIO</div>
             </div>
-            <div className="bioDetails">{groupData[0]}</div>
+            <div className="bioDetails">{desc}</div>
           </div>
           <div className="profileAlbum">
             <div className="albumTitle">

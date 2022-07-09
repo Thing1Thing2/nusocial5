@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./profile.css";
 import { ImageList, ImageListItem } from "@mui/material";
-import { ProfileAlbumList, PostList } from "../test-data/test-data";
+import { ProfileAlbumList } from "../test-data/test-data";
 import News from "../NewsPanel/News";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
-import Post from "../Post/Post";
+
 //import ReactPlayer from 'react-player'
 
 function srcset(image, size, rows = 1, cols = 1) {

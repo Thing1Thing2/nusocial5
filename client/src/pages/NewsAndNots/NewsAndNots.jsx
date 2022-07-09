@@ -3,8 +3,10 @@ import "./NewsAndNots.css";
 import Header from "../../components/Header/Header";
 import { useLocation } from "react-router-dom";
 import { Avatar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const NewsAndNots = () => {
+  const navigate = useNavigate();
   const [allNews, setAllNews] = useState([]);
   const getAllNewsAndNots = async () => {
     setAllNews([]);
@@ -101,8 +103,15 @@ const NewsAndNots = () => {
 
   const handleButton = (stu) => {
     console.log(stu);
-    if (stu[1].startsWith("Confirm")) {
+    if (stu[2].startsWith("Confirm")) {
       confirmFriendRequest(stu[0][1]);
+    } else if (stu[2].startsWith("View")) {
+      navigate("/friendprofilepage", {
+        state: {
+          username: location.state.username,
+          friend: stu[0][1],
+        },
+      });
     }
   };
 

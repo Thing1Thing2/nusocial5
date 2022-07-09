@@ -9,7 +9,7 @@ import QuickLinks from "./pages/QuickLinks/QuickLinks";
 import Profile from "./pages/Profile/Profile";
 import NewsAndNots from "./pages/NewsAndNots/NewsAndNots";
 import Group from "./pages/Group/Group";
-
+import FriendProfilePage from "./pages/FriendProfilePage.jsx/FriendProfilePage";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
@@ -21,6 +21,7 @@ root.render(
       <Route path="/profile" element={<Profile />} />
       <Route path="/newsandnots" element={<NewsAndNots />} />
       <Route path="/group" element={<Group />} />
+      <Route path="/friendprofilepage" element={<FriendProfilePage />} />
     </Routes>
   </BrowserRouter>
 );

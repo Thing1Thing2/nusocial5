@@ -224,7 +224,7 @@ const RightBar = ({ username }) => {
         />
         <div className="Friend">
           {Users.map((u) => (
-            <Online key={u[0]} user={u} />
+            <Online key={u[0]} user={u} username={username} />
           ))}
         </div>
         <div

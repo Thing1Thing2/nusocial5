@@ -50,11 +50,10 @@ const ProfileMidGroup = ({ groupName, username }) => {
       settings
     )
       .then((info) => {
-        console.log(info);
-        info.text();
+        info.json();
       })
       .then((info) => {
-        info.text();
+        console.log(info);
       });
   };
 
@@ -75,11 +74,10 @@ const ProfileMidGroup = ({ groupName, username }) => {
       settings
     )
       .then((number) => {
-        console.log(number);
         number.text();
       })
       .then((info) => {
-        info.text();
+        console.log(info);
       });
   };
 

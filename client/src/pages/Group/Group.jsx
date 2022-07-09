@@ -11,7 +11,7 @@ const Group = () => {
     <div>
       <div className="groupHeader">
         <Header
-          title={location.state.group}
+          title={location.state.groupName}
           showHeaderCenter={true}
           showHeaderRight={true}
           link="/home"
@@ -23,7 +23,7 @@ const Group = () => {
           <LeftBar />
         </div>
         <div className="groupBodyMid">
-          <ProfileMid username={location.state.group} />
+          <ProfileMid username={location.state.groupName} />
         </div>
       </div>
     </div>

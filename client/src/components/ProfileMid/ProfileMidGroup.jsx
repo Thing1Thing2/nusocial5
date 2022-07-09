@@ -37,6 +37,9 @@ const ProfileMidGroup = ({ groupName, username }) => {
   };
 
   const getGroupData = async () => {
+    let description = "";
+    let profilePicURL = "";
+    let coverPicURL = "";
     const settings = {
       method: "POST",
       headers: {
@@ -48,18 +51,21 @@ const ProfileMidGroup = ({ groupName, username }) => {
     await fetch(
       "https://nusocial5.herokuapp.com/api/groupnames/getGroupData",
       settings
-    )
-      .then(async (dataBio) => {
-        await dataBio.json();
-      })
-      .then((dataBio) => {
-        setDesc(dataBio.description);
-        setProfilePic(dataBio.profilePictureURL);
-        setCoverPic(dataBio.coverPictureURL);
-      });
+    ).then((dataBio) => {
+      let databio = dataBio.json();
+      description = databio.description;
+      profilePicURL = databio.profilePictureURL;
+      coverPicURL = databio.coverPictureURL;
+      console.log(description + profilePicURL + coverPicURL);
+    });
+
+    setDesc(description);
+    setProfilePic(profilePicURL);
+    setCoverPic(coverPicURL);
   };
 
   const getNumOfMembers = async () => {
+    let num = 0;
     const settings = {
       method: "POST",
       headers: {
@@ -71,13 +77,12 @@ const ProfileMidGroup = ({ groupName, username }) => {
     await fetch(
       "https://nusocial5.herokuapp.com/api/groupmemberships/getNumOfMembers",
       settings
-    )
-      .then(async (number) => {
-        await number.text();
-      })
-      .then((num) => {
-        setNumOfMembers(num);
-      });
+    ).then((number) => {
+      let int = number.text();
+      num = int;
+      console.log(num);
+    });
+    setNumOfMembers(num);
   };
 
   return (

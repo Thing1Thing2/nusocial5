@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./profile.css";
+import "./friendProfilePage.css";
 import Header from "../../components/Header/Header";
 import LeftBar from "../../components/LeftBar/LeftBar";
 import { ImageList, ImageListItem } from "@mui/material";

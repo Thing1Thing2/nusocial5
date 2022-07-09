@@ -27,7 +27,7 @@ const LeftBar = ({ username }) => {
     };
 
     fetch(
-      "https://nusocial5.herokuapp.com/api/groupnames/allGroups",
+      "https://nusocial5.herokuapp.com/api/groupnames/allMyGroups",
       settings
     ).then(async (result) => {
       let groups = await result.json();

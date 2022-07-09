@@ -34,7 +34,6 @@ const AddPost = ({ username }) => {
   return (
     <div>
       <div className="AddPost">
-        {username}
         <form onSubmit={(e) => submitPost(e)}>
           <input
             type="text"

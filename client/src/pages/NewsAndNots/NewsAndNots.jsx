@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NewsAndNots.css";
 import Header from "../../components/Header/Header";
 import { useLocation } from "react-router-dom";
@@ -143,6 +143,7 @@ const NewsAndNots = () => {
       });
   };
 
+  useEffect(() => getAllNewsAndNots(), []);
   return (
     <div>
       <div className="header">

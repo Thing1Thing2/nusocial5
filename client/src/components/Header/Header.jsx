@@ -74,7 +74,6 @@ const Header = ({
     )
       .then((response) => response.text())
       .then((data) => {
-        console.log(data);
         url = data;
       });
     setProfilePic(url);

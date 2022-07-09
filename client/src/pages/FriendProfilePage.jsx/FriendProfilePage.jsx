@@ -28,34 +28,6 @@ const FriendProfilePage = () => {
     showConfirmedFriends();
     getBio();
   };
-  const getProfilePicture = async (name) => {
-    let url;
-    console.log("getting profile pic");
-    const data = {
-      username: name,
-    };
-    const settings = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    await fetch(
-      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
-      settings
-    )
-      .then((response) => response.text())
-      .then((data) => {
-        console.log(data);
-        url = data;
-      });
-    setProfilePic(url);
-  };
-  const [profilePic, setProfilePic] = useState(
-    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
-  );
 
   const getCoverPicture = async (name) => {
     let url;
@@ -109,6 +81,34 @@ const FriendProfilePage = () => {
   };
 
   const [numOfFriends, setNumOfFriends] = useState(0);
+
+  const getProfilePicture = async (name) => {
+    let url;
+    const data = {
+      username: location.state.friend,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        url = data;
+      });
+    setProfilePic(url);
+  };
+
+  const [profilePic, setProfilePic] = useState(
+    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+  );
 
   const getBio = async () => {
     const data = {

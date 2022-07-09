@@ -79,7 +79,7 @@ const News = ({ username }) => {
           />
         ))}
       </div>
-      <AddPost />
+      <AddPost username={username} />
       <input
         type="submit"
         placeholder="refresh feed"

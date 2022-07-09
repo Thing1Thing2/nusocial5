@@ -8,9 +8,9 @@ const Online = ({ user }) => {
       <div className="rightBarAvatarContainer">
         <Avatar src={user[1]} alt="" />
         {user[3] === true ? (
-          <span className="rightBarOnline">{user[3]}</span>
+          <span className="rightBarOnline"></span>
         ) : (
-          <span className="rightBarOffline">{user[3]}</span>
+          <span className="rightBarOffline"></span>
         )}
       </div>
       <div className="rightBarUsername">{user[0]}</div>

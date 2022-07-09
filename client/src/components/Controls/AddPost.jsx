@@ -7,10 +7,11 @@ const AddPost = (username) => {
     title: "",
   });
   function submitPost(e) {
+    console.log("username given: " + username);
     e.preventDefault();
     const fileField = document.querySelector('input[id="photo"]');
     const formData = new FormData();
-    formData.append("username", postData.username);
+    formData.append("username", username);
     formData.append("image", fileField.files[0]);
     formData.append("body", postData.body);
     formData.append("title", postData.title);

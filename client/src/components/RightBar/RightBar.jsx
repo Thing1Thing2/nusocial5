@@ -4,6 +4,7 @@ import "./rightBar.css";
 import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import AddProfilePic from "../Controls/AddProfilePic";
 
 const RightBar = ({ username }) => {
   const navigate = useNavigate();
@@ -75,30 +76,6 @@ const RightBar = ({ username }) => {
     });
   };
 
-  function addProfilePicture(e) {
-    e.preventDefault();
-    const fileField = document.querySelector('input[id="profilePic"]');
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("photo", fileField.files[0]);
-    const settings = {
-      method: "POST",
-      body: formData,
-    };
-    fetch(
-      "https://nusocial5.herokuapp.com/api/students/addProfilePicture",
-      settings
-    )
-      .then((response) => response.text())
-      .then((data) => {
-        window.alert(data);
-      })
-      .catch((error) => {
-        console.log(error);
-        window.alert(error);
-      });
-  }
-
   const [Users, setUsers] = useState([]);
   const showConfirmedFriends = async () => {
     setUsers([]);
@@ -166,15 +143,7 @@ const RightBar = ({ username }) => {
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">
-        <form onSubmit={(e) => addProfilePicture(e)}>
-          <input
-            type="file"
-            id="profilePic"
-            name="filename"
-            placeholder="upload profile picture"
-          />
-          <input type="submit" placeholder="submit image" />
-        </form>
+        <AddProfilePic username={username} />
         <input
           type="submit"
           placeholder="refresh feed"

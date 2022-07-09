@@ -140,6 +140,7 @@ const RightBar = ({ username }) => {
         "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
         settings
       );
+      picURL = await picURL.text();
       let info = {
         username: f[0],
       };
@@ -156,6 +157,7 @@ const RightBar = ({ username }) => {
         "https://nusocial5.herokuapp.com/api/students/isOnline",
         settingsInfo
       );
+      online = await online.text();
       setUsers((list) => [...list, [f[0], picURL, f[2], online]]);
     });
   };

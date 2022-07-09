@@ -4,6 +4,7 @@ import { Trending, Events } from "../test-data/test-data";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CreateGroup from "../Controls/CreateGroup";
+import PropTypes from "prop-types";
 
 const LeftBar = ({ username }) => {
   const navigate = useNavigate();
@@ -123,3 +124,7 @@ const LeftBar = ({ username }) => {
 };
 
 export default LeftBar;
+
+LeftBar.propTypes = {
+  username: PropTypes.string,
+};

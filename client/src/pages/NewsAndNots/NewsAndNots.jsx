@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./NewsAndNots.css";
 import Header from "../../components/Header/Header";
 import { useLocation } from "react-router-dom";

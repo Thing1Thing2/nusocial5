@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 const AddPost = (username) => {
   const [postData, setPostData] = useState({
@@ -34,6 +35,7 @@ const AddPost = (username) => {
   return (
     <div>
       <div className="AddPost">
+        {username}
         <form onSubmit={(e) => submitPost(e)}>
           <input
             type="text"
@@ -61,3 +63,7 @@ const AddPost = (username) => {
 };
 
 export default AddPost;
+
+AddPost.propTypes = {
+  username: PropTypes.string,
+};

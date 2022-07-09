@@ -42,8 +42,23 @@ const leaveGroup = async (req, res) => {};
 
 const gainAdminAccess = async (req, res) => {};
 
+const getNumOfMembers = async (req, res) => {
+  let num = 0;
+  await GroupMemberships.findAll({
+    where: {
+      groupName: req.body.groupName,
+    },
+  }).then((count) => {
+    console.log(count);
+    console.log(count.length);
+    num = count.length;
+  });
+  res.status(200).send("" + num);
+};
+
 module.exports = {
   joinGroup,
   leaveGroup,
   gainAdminAccess,
+  getNumOfMembers,
 };

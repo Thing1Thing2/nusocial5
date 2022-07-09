@@ -139,8 +139,23 @@ const allMyGroups = async (req, res) => {
   }
 };
 
+const getGroupData = async (req, res) => {
+  GroupNames.findOne({
+    where: {
+      groupName: req.body.groupName,
+    },
+  })
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("error occurred getting group data");
+    });
+};
 module.exports = {
   addGroup,
   allGroups,
   allMyGroups,
+  getGroupData,
 };

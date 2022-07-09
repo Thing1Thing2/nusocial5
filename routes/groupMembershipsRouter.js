@@ -11,5 +11,9 @@ groupMembershipsRouter.post(
   "/gainAdminAccess",
   groupMembershipsController.gainAdminAccess
 );
+groupMembershipsRouter.post(
+  "/getNumOfMembers",
+  groupMembershipsController.getNumOfMembers
+);
 
 module.exports = groupMembershipsRouter;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Users, Deadlines } from "../test-data/test-data";
+import { Deadlines } from "../test-data/test-data";
 import "./rightBar.css";
 import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
@@ -97,6 +97,72 @@ const RightBar = ({ username }) => {
       });
   }
 
+  const [Users, setUsers] = useState([]);
+  const showConfirmedFriends = async () => {
+    setUsers([]);
+
+    const info = {
+      username: username,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+
+    let res = await fetch(
+      "https://nusocial5.herokuapp.com/api/friends/getAllConfirmedFriends",
+      settings
+    );
+    let arr = await res.json();
+    let pic;
+    arr.forEach(async (f) => {
+      pic =
+        "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg";
+      let data = {
+        username: f[0],
+      };
+
+      const settings = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      let picURL = await fetch(
+        "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+        settings
+      );
+      let picurl = await picURL.text();
+      pic = picurl;
+
+      let info = {
+        chatId: f[2],
+      };
+
+      let settingsInfo = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(info),
+      };
+      let latestMsg = await fetch(
+        "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",
+        settingsInfo
+      );
+
+      latestMsg = await latestMsg.text();
+      setUsers((list) => [...list, [f[0], pic, f[2], latestMsg]]);
+    });
+  };
+
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">
@@ -153,7 +219,7 @@ const RightBar = ({ username }) => {
         <div className="containerTitle">Friends & Recent Chat</div>
         <div className="Friend">
           {Users.map((u) => (
-            <Online key={u.id} user={u} />
+            <Online key={u[0]} user={u} />
           ))}
         </div>
         <div className="showMore">Show more</div>

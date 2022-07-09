@@ -6,10 +6,10 @@ const Online = ({ user }) => {
   return (
     <div className="rightBarFriend">
       <div className="rightBarAvatarContainer">
-        <Avatar src={user.avatar} alt="" />
+        <Avatar src={user[1]} alt="" />
         <span className="rightBarOnline"></span>
       </div>
-      <div className="rightBarUsername">{user.userName}</div>
+      <div className="rightBarUsername">{user[0]}</div>
     </div>
   );
 };

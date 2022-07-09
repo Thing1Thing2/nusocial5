@@ -5,6 +5,7 @@ import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CreateGroup from "../Controls/CreateGroup";
 import JoinGroup from "../Controls/JoinGroup";
+import ViewGroup from "../Controls/ViewGroup";
 
 const LeftBar = ({ username }) => {
   const navigate = useNavigate();
@@ -64,7 +65,8 @@ const LeftBar = ({ username }) => {
               <div className="groupName">{u[0]}</div>
               <div className="groupDescription">{u[2]}</div>
             </div>
-            <JoinGroup username={username} groupName={u[0]} />
+
+            <ViewGroup username={username} groupName={u[0]} />
           </div>
         ))}
         <div className="showMore">Show more</div>

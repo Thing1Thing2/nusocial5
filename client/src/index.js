@@ -9,7 +9,7 @@ import QuickLinks from "./pages/QuickLinks/QuickLinks";
 import Profile from "./pages/Profile/Profile";
 import NewsAndNots from "./pages/NewsAndNots/NewsAndNots";
 import Group from "./pages/Group/Group";
-import FriendProfilePage from "./pages/FriendProfilePage.jsx/FriendProfilePage";
+import FriendProfilePage from "./pages/FriendProfilePage/FriendProfilePage";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>

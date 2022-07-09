@@ -101,6 +101,7 @@ const ProfileMidGroup = ({ groupName, username }) => {
       settings
     ).then(async (member) => {
       let m = await member.text();
+      console.log(m.type);
       if (m.type === "admin") {
         setMemberAdmin(true);
       }

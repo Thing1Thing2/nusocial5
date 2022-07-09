@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CreateGroup = (username) => {
+const CreateGroup = ({ username }) => {
   function handle(e) {
     const newdata = { ...groupData };
     newdata[e.target.id] = e.target.value;

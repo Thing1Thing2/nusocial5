@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddPost = (username) => {
+const AddPost = ({ username }) => {
   const [postData, setPostData] = useState({
     body: "",
     title: "",

@@ -1,6 +1,6 @@
 import React from "react";
 
-const AddProfilePic = (username) => {
+const AddProfilePic = ({ username }) => {
   function addProfilePicture(e) {
     e.preventDefault();
     const fileField = document.querySelector('input[id="profilePic"]');

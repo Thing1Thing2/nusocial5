@@ -87,6 +87,7 @@ const ProfileMidGroup = ({ groupName, username }) => {
   const isAdmin = async () => {
     const data = {
       groupName: groupName,
+      username: username,
     };
     const settings = {
       method: "POST",
@@ -102,7 +103,7 @@ const ProfileMidGroup = ({ groupName, username }) => {
     ).then(async (member) => {
       let m = await member.text();
       console.log(m);
-      if (m.type === "admin") {
+      if (m === "admin") {
         setMemberAdmin(true);
       }
     });

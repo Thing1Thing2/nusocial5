@@ -4,6 +4,9 @@ import { ImageList, ImageListItem } from "@mui/material";
 import { ProfileAlbumList } from "../test-data/test-data";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
+import AddBioGroup from "../Controls/AddBioGroup";
+import AddCoverPicGroup from "../Controls/AddCoverPicGroup";
+import AddProfilePictureGroup from "../Controls/AddProfilePictureGroup";
 
 //import ReactPlayer from 'react-player'
 
@@ -22,6 +25,7 @@ const ProfileMidGroup = ({ groupName, username }) => {
   window.onload = () => {
     getGroupData();
     getNumOfMembers();
+    isAdmin();
   };
 
   const [coverPic, setCoverPic] = useState(
@@ -78,6 +82,31 @@ const ProfileMidGroup = ({ groupName, username }) => {
     });
   };
 
+  const [memberAdmin, setMemberAdmin] = useState(false);
+
+  const isAdmin = async () => {
+    const data = {
+      groupName: groupName,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/groupmemberships/isAdmin",
+      settings
+    ).then(async (member) => {
+      let m = await member.text();
+      if (m.type === "admin") {
+        setMemberAdmin(true);
+      }
+    });
+  };
+
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
@@ -98,10 +127,28 @@ const ProfileMidGroup = ({ groupName, username }) => {
                 <FaceTwoToneIcon sx={{ fontSize: 40 }} />
               </div>
               <div className="bio">BIO</div>
+              {memberAdmin ? (
+                <AddBioGroup groupName={groupName} username={username} />
+              ) : (
+                <></>
+              )}
             </div>
             <div className="bioDetails">{desc}</div>
           </div>
           <div className="profileAlbum">
+            {memberAdmin ? (
+              <AddCoverPicGroup groupName={groupName} username={username} />
+            ) : (
+              <></>
+            )}
+            {memberAdmin ? (
+              <AddProfilePictureGroup
+                groupName={groupName}
+                username={username}
+              />
+            ) : (
+              <></>
+            )}
             <div className="albumTitle">
               <div className="albumIcon">
                 <PhotoLibraryIcon sx={{ fontSize: 40 }} />

@@ -15,5 +15,15 @@ groupMembershipsRouter.post(
   "/getNumOfMembers",
   groupMembershipsController.getNumOfMembers
 );
+groupMembershipsRouter.post("/isAdmin", groupMembershipsController.isAdmin);
+groupMembershipsRouter.post("/addBio", groupMembershipsController.addBio);
+groupMembershipsRouter.post(
+  "/changeProfilePicture",
+  groupMembershipsController.changeProfilePicture
+);
+groupMembershipsRouter.post(
+  "/addCoverPicture",
+  groupMembershipsController.addCoverPicture
+);
 
 module.exports = groupMembershipsRouter;

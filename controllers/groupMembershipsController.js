@@ -49,11 +49,111 @@ const getNumOfMembers = async (req, res) => {
       groupName: req.body.groupName,
     },
   }).then((count) => {
-    console.log(count);
-    console.log(count.length);
     num = count.length;
   });
   res.status(200).send("" + num);
+};
+
+const isAdmin = async (req, res) => {
+  await GroupMemberships.findOne({
+    where: {
+      groupName: req.body.groupName,
+      username: req.body.username,
+    },
+  }).then((count) => {
+    res.status(200).send(count);
+  });
+};
+
+const addBio = async (req, res) => {
+  await GroupMemberships.findOne({
+    where: {
+      username: req.body.username,
+      groupName: req.body.groupName,
+      type: "admin",
+    },
+  }).then((admin) => {
+    if (admin) {
+      admin
+        .update({
+          description: req.body.description,
+          where: {
+            groupName: req.body.groupName,
+          },
+        })
+        .then((result) => {
+          res.status(200).send("Added bio");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(200).send("error occurred");
+        });
+    } else {
+      res.status(200).send("You do not have to rights to change this group");
+    }
+  });
+};
+
+const addCoverPicture = async (req, res) => {
+  if (req.files) {
+    if (req.files.photo) {
+      const file = req.files.photo;
+      let imageURL;
+      cloudinary.uploader.upload(
+        file.tempFilePath,
+        async function (err, result) {
+          imageURL = result.url;
+          let groupName = req.body.groupName;
+
+          await GroupNames.update(
+            { coverPictureURL: imageURL },
+            { where: { groupName: groupName } }
+          )
+            .then(function (item) {
+              res.status(200).send("Added picture");
+            })
+            .catch(function (err) {
+              res.status(200).send("error occured");
+            });
+        }
+      );
+    } else {
+      res.status(200).send("make sure you send a photo");
+    }
+  } else {
+    res.status(200).send("send an image");
+  }
+};
+
+const changeProfilePicture = async (req, res) => {
+  if (req.files) {
+    if (req.files.photo) {
+      const file = req.files.photo;
+      let imageURL;
+      cloudinary.uploader.upload(
+        file.tempFilePath,
+        async function (err, result) {
+          imageURL = result.url;
+          let groupName = req.body.groupName;
+
+          await GroupNames.update(
+            { profilePictureURL: imageURL },
+            { where: { groupName: groupName } }
+          )
+            .then(function (item) {
+              res.status(200).send("Added picture");
+            })
+            .catch(function (err) {
+              res.status(200).send("error occured");
+            });
+        }
+      );
+    } else {
+      res.status(200).send("make sure you send a photo");
+    }
+  } else {
+    res.status(200).send("send an image");
+  }
 };
 
 module.exports = {
@@ -61,4 +161,8 @@ module.exports = {
   leaveGroup,
   gainAdminAccess,
   getNumOfMembers,
+  isAdmin,
+  addBio,
+  addCoverPicture,
+  changeProfilePicture,
 };

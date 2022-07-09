@@ -2,7 +2,8 @@ import React from "react";
 import "./group.css";
 import Header from "../../components/Header/Header";
 import LeftBar from "../../components/LeftBar/LeftBar";
-import ProfileMid from "../../components/ProfileMid/ProfileMid";
+import ProfileMidGroup from "../../components/ProfileMid/ProfileMidGroup";
+
 import { useLocation } from "react-router-dom";
 
 const Group = () => {
@@ -20,10 +21,13 @@ const Group = () => {
       </div>
       <div className="groupBody">
         <div className="groupBodyLeft">
-          <LeftBar />
+          <LeftBar username={location.state.username} />
         </div>
         <div className="groupBodyMid">
-          <ProfileMid username={location.state.groupName} />
+          <ProfileMidGroup
+            username={location.state.username}
+            groupName={location.state.groupName}
+          />
         </div>
       </div>
     </div>

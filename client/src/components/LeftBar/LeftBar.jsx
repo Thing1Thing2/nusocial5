@@ -26,13 +26,11 @@ const LeftBar = ({ username }) => {
       },
       body: JSON.stringify(info),
     };
-
     fetch(
       "https://nusocial5.herokuapp.com/api/groupnames/allMyGroups",
       settings
     ).then(async (result) => {
       let groups = await result.json();
-      console.log(groups);
       groups.forEach(async (group) => {
         setGroups((list) => [
           ...list,

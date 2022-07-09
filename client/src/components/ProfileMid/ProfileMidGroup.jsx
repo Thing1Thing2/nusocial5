@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./profile.css";
 import { ImageList, ImageListItem } from "@mui/material";
 import { ProfileAlbumList } from "../test-data/test-data";
-import News from "../NewsPanel/News";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 
@@ -17,7 +16,7 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-const ProfileMid = ({ groupName }) => {
+const ProfileMidGroup = ({ groupName }) => {
   const [groupData, setGroupData] = useState([]);
 
   window.onload = () => {
@@ -138,4 +137,4 @@ const ProfileMid = ({ groupName }) => {
   );
 };
 
-export default ProfileMid;
+export default ProfileMidGroup;

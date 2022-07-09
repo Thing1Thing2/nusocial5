@@ -11,7 +11,7 @@ const ViewGroup = ({ username, groupName }) => {
           navigate("/group", {
             state: {
               username: username,
-              friend: groupName,
+              groupName: groupName,
             },
           })
         }

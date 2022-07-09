@@ -3,7 +3,6 @@ import "./personalChat.css";
 import SideBar from "./SideBar";
 import ChatBar from "./ChatBar";
 import Header from "../../components/Header/Header";
-import io from "socket.io-client";
 import { useLocation } from "react-router-dom";
 
 //SideBar contains contacts

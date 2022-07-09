@@ -3,7 +3,7 @@ import "./sideBarChat.css";
 import { Avatar } from "@mui/material";
 import "./sideBarChat.css";
 
-const SideBarChat = ({ chatName, clickAction, latestMsg }) => {
+const SideBarChat = ({ chatName, clickAction }) => {
   /*
     (1) Show friends list with whom there is no
         chat history

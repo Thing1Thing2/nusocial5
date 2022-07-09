@@ -156,7 +156,7 @@ const RightBar = ({ username }) => {
         "https://nusocial5.herokuapp.com/api/students/isOnline",
         settingsInfo
       );
-      setUsers((list) => [...list, [f[0], picURL.text(), f[2], online.text()]]);
+      setUsers((list) => [...list, [f[0], picURL, f[2], online]]);
     });
   };
 

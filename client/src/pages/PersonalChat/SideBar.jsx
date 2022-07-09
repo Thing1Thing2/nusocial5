@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 import SideBarChat from "./SideBarChat";
 
-function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
+function SideBar({ getClickedChat, isOnline, username, chatHistory }) {
   const [chats, setChats] = useState([]);
   const [chat, setChat] = useState("");
 
@@ -43,7 +43,6 @@ function SideBar({ socket, getClickedChat, isOnline, username, chatHistory }) {
     getClickedChat(chat, chatId);
     console.log("chat was clicked: " + chat);
     console.log(chatId);
-    socket(chatId);
     getAllMessages(chatId);
     const data = {
       username: chat,

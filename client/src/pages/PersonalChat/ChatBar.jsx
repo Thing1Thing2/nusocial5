@@ -11,13 +11,7 @@ import {
 import Picker from "emoji-picker-react";
 import Draggable from "react-draggable";
 
-const clickedMenu = () => {
-  console.log("clicked menu");
-};
-
-const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
-  const anchorPoint = { x: 0, y: 0 };
-  const show = false;
+const ChatBar = ({ username, chat, chatId, isOnline, chatHistory }) => {
   const [input, setInput] = useState("");
 
   const [showPicker, setShowPicker] = useState(false);
@@ -46,21 +40,10 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
       )
         .then((res) => res.text())
         .then((msg) => console.log(msg));
-      /*
-      const data = {
-        username: username,
-        chat: "ourchats",
-        body: input,
-      };
-      
-      */
+
       setInputs((list) => [...list, messageData]);
 
       try {
-        //socket(messageData);
-        /*
-       
-          */
         setInput("");
       } catch (err) {
         console.log(err);
@@ -180,27 +163,6 @@ const ChatBar = ({ socket, username, chat, chatId, isOnline, chatHistory }) => {
         />
 
         <Mic />
-      </div>
-      <div className="contextMenu">
-        {show ? (
-          <ul
-            className="menu"
-            style={{
-              top: anchorPoint.y,
-              left: anchorPoint.x,
-            }}
-          >
-            <li onClick={clickedMenu}>Share to..</li>
-            <li>Cut</li>
-            <li>Copy</li>
-            <li>Paste</li>
-            <hr className="divider" />
-            <li>Refresh</li>
-            <li>Exit</li>
-          </ul>
-        ) : (
-          <> </>
-        )}
       </div>
     </div>
   );

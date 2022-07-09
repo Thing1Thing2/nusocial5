@@ -158,6 +158,7 @@ const RightBar = ({ username }) => {
         settingsInfo
       );
       online = await online.text();
+      console.log(picURL);
       setUsers((list) => [...list, [f[0], picURL, f[2], online]]);
     });
   };

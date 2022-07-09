@@ -12,8 +12,9 @@ const AddBioGroup = ({ username, groupName }) => {
   const addBio = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("bio", bioData.bio);
+    formData.append("description", bioData.bio);
     formData.append("username", username);
+    formData.append("groupName", groupName);
     const settings = {
       method: "POST",
       body: formData,

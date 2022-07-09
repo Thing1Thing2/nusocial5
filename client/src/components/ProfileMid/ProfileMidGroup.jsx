@@ -51,6 +51,9 @@ const ProfileMidGroup = ({ groupName, username }) => {
     ).then(async (info) => {
       let gd = await info.json();
       console.log(gd);
+      setProfilePic(gd.profilePictureURL);
+      setCoverPic(gd.coverPictureURL);
+      setDesc(gd.description);
     });
   };
 
@@ -71,7 +74,7 @@ const ProfileMidGroup = ({ groupName, username }) => {
       settings
     ).then(async (number) => {
       let n = await number.text();
-      console.log(n);
+      setNumOfMembers(n);
     });
   };
 

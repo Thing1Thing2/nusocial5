@@ -3,7 +3,7 @@ import "./leftBar.css";
 import { Trending, Events } from "../test-data/test-data";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import CreateGroup from "../Controls/createGroup";
+import CreateGroup from "../Controls/CreateGroup";
 
 const LeftBar = ({ username }) => {
   const navigate = useNavigate();

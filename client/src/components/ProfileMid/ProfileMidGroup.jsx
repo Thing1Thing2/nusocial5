@@ -32,14 +32,14 @@ const ProfileMidGroup = ({ groupName, username }) => {
   );
 
   const [numOfMembers, setNumOfMembers] = useState("0");
-  const data = {
-    groupName: groupName,
-  };
 
   const getGroupData = async () => {
     let description = "";
     let profilePicURL = "";
     let coverPicURL = "";
+    const data = {
+      groupName: groupName,
+    };
     const settings = {
       method: "POST",
       headers: {
@@ -52,7 +52,7 @@ const ProfileMidGroup = ({ groupName, username }) => {
       "https://nusocial5.herokuapp.com/api/groupnames/getGroupData",
       settings
     ).then((dataBio) => {
-      let databio = dataBio.json();
+      let databio = dataBio.text();
       description = databio.description;
       profilePicURL = databio.profilePictureURL;
       coverPicURL = databio.coverPictureURL;
@@ -66,6 +66,9 @@ const ProfileMidGroup = ({ groupName, username }) => {
 
   const getNumOfMembers = async () => {
     let num = 0;
+    const data = {
+      groupName: groupName,
+    };
     const settings = {
       method: "POST",
       headers: {

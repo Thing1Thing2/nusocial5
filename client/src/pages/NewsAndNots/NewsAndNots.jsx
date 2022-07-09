@@ -106,13 +106,17 @@ const NewsAndNots = () => {
     if (stu[2].startsWith("Confirm")) {
       confirmFriendRequest(stu[0][1]);
     } else if (stu[2].startsWith("View")) {
-      navigate("/friendprofilepage", {
-        state: {
-          username: location.state.username,
-          friend: stu[0][1],
-        },
-      });
+      navigateToFriendPage(stu[0][1]);
     }
+  };
+
+  const navigateToFriendPage = (friendName) => {
+    navigate("/friendprofilepage", {
+      state: {
+        username: location.state.username,
+        friend: friendName,
+      },
+    });
   };
 
   const confirmFriendRequest = (friendUsername) => {

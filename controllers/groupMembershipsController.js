@@ -55,14 +55,15 @@ const getNumOfMembers = async (req, res) => {
 };
 
 const isAdmin = async (req, res) => {
-  await GroupMemberships.findOne({
+  console.log(req.body);
+  let g = await GroupMemberships.findOne({
+    attributes: ["type"],
     where: {
       groupName: req.body.groupName,
       username: req.body.username,
     },
-  }).then((count) => {
-    res.status(200).send(count.type);
   });
+  res.status(200).send(g.type);
 };
 
 const addBio = async (req, res) => {

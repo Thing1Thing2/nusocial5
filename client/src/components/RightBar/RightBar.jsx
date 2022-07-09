@@ -3,8 +3,10 @@ import { Deadlines } from "../test-data/test-data";
 import "./rightBar.css";
 import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const RightBar = ({ username }) => {
+  const navigate = useNavigate();
   const sendFriendRequest = async (friendUsername) => {
     const data = {
       username: username,
@@ -142,7 +144,7 @@ const RightBar = ({ username }) => {
       pic = picurl;
 
       let info = {
-        chatId: f[0],
+        username: f[0],
       };
 
       let settingsInfo = {
@@ -157,7 +159,7 @@ const RightBar = ({ username }) => {
         "https://nusocial5.herokuapp.com/api/students/isOnline",
         settingsInfo
       );
-
+      console.log(pic);
       online = await online.text();
       setUsers((list) => [...list, [f[0], pic, f[2], online]]);
     });
@@ -228,7 +230,18 @@ const RightBar = ({ username }) => {
             <Online key={u[0]} user={u} />
           ))}
         </div>
-        <div className="showMore">Show more</div>
+        <div
+          className="showMore"
+          onClick={() =>
+            navigate("/personalChat", {
+              state: {
+                username: username,
+              },
+            })
+          }
+        >
+          Show more
+        </div>
       </div>
     </div>
   );

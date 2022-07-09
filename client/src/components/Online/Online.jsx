@@ -7,7 +7,7 @@ const Online = ({ user }) => {
     <div className="rightBarFriend">
       <div className="rightBarAvatarContainer">
         <Avatar src={user[1]} alt="" />
-        <span className="rightBarOnline"></span>
+        <span className="rightBarOnline">{user[3]}</span>
       </div>
       <div className="rightBarUsername">{user[0]}</div>
     </div>

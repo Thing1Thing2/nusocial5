@@ -10,7 +10,6 @@ import { useLocation } from "react-router-dom";
 // ChatBar shows chat history and section to write and send message
 // Header is by default shown on top to allow navigation to other pages
 const PersonalChat = ({ username }) => {
-  const socket = io.connect("https://nusocial5.herokuapp.com/");
   const [clickedChat, setClickedChat] = useState("");
   const [clickedChatId, setClickedChatId] = useState("");
   const [isOnline, setIsOnline] = useState("offline");
@@ -31,14 +30,6 @@ const PersonalChat = ({ username }) => {
     setIsOnline(online);
   };
 
-  const setSocket = (chatId) => {
-    socket.emit("join_room", chatId);
-  };
-
-  const sendMessageSocket = async (data) => {
-    await socket.emit("send_message", data);
-  };
-
   return (
     <div className="PersonalChat">
       <div className="personalchat">
@@ -52,14 +43,12 @@ const PersonalChat = ({ username }) => {
         <div className="personalchat_body">
           {console.log(clickedChat)}
           <SideBar
-            socket={setSocket}
             getClickedChat={getClickedChat}
             isOnline={getIsOnline}
             username={location.state.username}
             chatHistory={getChatHistory}
           />
           <ChatBar
-            socket={sendMessageSocket}
             username={location.state.username}
             chat={clickedChat}
             chatId={clickedChatId}

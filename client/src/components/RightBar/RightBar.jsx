@@ -142,7 +142,7 @@ const RightBar = ({ username }) => {
       pic = picurl;
 
       let info = {
-        chatId: f[2],
+        chatId: f[0],
       };
 
       let settingsInfo = {
@@ -153,13 +153,13 @@ const RightBar = ({ username }) => {
         },
         body: JSON.stringify(info),
       };
-      let latestMsg = await fetch(
-        "https://nusocial5.herokuapp.com/api/personalchats/latestMessage",
+      let online = await fetch(
+        "https://nusocial5.herokuapp.com/api/students/isOnline",
         settingsInfo
       );
 
-      latestMsg = await latestMsg.text();
-      setUsers((list) => [...list, [f[0], pic, f[2], latestMsg]]);
+      online = await online.text();
+      setUsers((list) => [...list, [f[0], pic, f[2], online]]);
     });
   };
 

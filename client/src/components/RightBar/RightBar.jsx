@@ -217,6 +217,12 @@ const RightBar = ({ username }) => {
       </div>
       <div className="rightbarComponentContainer">
         <div className="containerTitle">Friends & Recent Chat</div>
+        <input
+          type="submit"
+          placeholder="refresh feed"
+          onClick={showConfirmedFriends}
+          value="refresh suggestion"
+        />
         <div className="Friend">
           {Users.map((u) => (
             <Online key={u[0]} user={u} />

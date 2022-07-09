@@ -13,7 +13,7 @@ const AddProfilePictureGroup = ({ username, groupName }) => {
       body: formData,
     };
     fetch(
-      "https://nusocial5.herokuapp.com/api/groupmemberships/addProfilePicture",
+      "https://nusocial5.herokuapp.com/api/groupmemberships/changeProfilePicture",
       settings
     )
       .then((response) => response.text())

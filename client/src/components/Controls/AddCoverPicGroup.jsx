@@ -3,7 +3,7 @@ import React from "react";
 const AddCoverPicGroup = (groupName, username) => {
   const addCoverPicture = (e) => {
     e.preventDefault();
-    const fileField = document.querySelector('input[id="profilePic"]');
+    const fileField = document.querySelector('input[id="photoPic"]');
     const formData = new FormData();
     formData.append("username", username);
     formData.append("groupName", groupName);
@@ -30,7 +30,7 @@ const AddCoverPicGroup = (groupName, username) => {
       <form onSubmit={(e) => addCoverPicture(e)}>
         <input
           type="file"
-          id="photo"
+          id="photoPic"
           name="filename"
           placeholder="upload cover picture"
         />

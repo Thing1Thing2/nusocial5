@@ -5,28 +5,12 @@ import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddProfilePic from "../Controls/AddProfilePic";
+import JoinGroup from "../Controls/JoinGroup";
+import SendFriendRequest from "../Controls/SendFriendRequest";
 
 const RightBar = ({ username }) => {
   const navigate = useNavigate();
-  const sendFriendRequest = async (friendUsername) => {
-    const data = {
-      username: username,
-      friend: friendUsername,
-    };
-    const settings = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    fetch("https://nusocial5.herokuapp.com/api/friends/addFriend", settings)
-      .then((response) => response.json())
-      .then((data) => {
-        window.alert(data);
-      });
-  };
+
   const [friendsSuggestion, setFriendsSuggestion] = useState([]);
   const getAllStudents = async () => {
     setFriendsSuggestion([]);
@@ -67,12 +51,11 @@ const RightBar = ({ username }) => {
       )
         .then((response) => response.text())
         .then((data) => {
-          pic = data;
+          if (count <= 5) {
+            count += 1;
+            setFriendsSuggestion((list) => [...list, [stu.username, data]]);
+          }
         });
-      if (count <= 5) {
-        count += 1;
-        setFriendsSuggestion((list) => [...list, [stu.username, pic]]);
-      }
     });
   };
 
@@ -140,6 +123,37 @@ const RightBar = ({ username }) => {
     });
   };
 
+  const [Groups, setGroups] = useState([]);
+  const getAllGroups = () => {
+    setGroups([]);
+    const info = {
+      username: username,
+    };
+
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+
+    fetch(
+      "https://nusocial5.herokuapp.com/api/groupnames/allGroups",
+      settings
+    ).then(async (result) => {
+      let groups = await result.json();
+      console.log(groups);
+      groups.forEach(async (group) => {
+        setGroups((list) => [
+          ...list,
+          [group.groupName, group.profilePictureURL, group.description],
+        ]);
+      });
+    });
+  };
+
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">
@@ -147,7 +161,10 @@ const RightBar = ({ username }) => {
         <input
           type="submit"
           placeholder="refresh feed"
-          onClick={getAllStudents}
+          onClick={() => {
+            getAllStudents();
+            getAllGroups();
+          }}
           value="refresh suggestion"
         />
         <div className="containerTitle">Suggestions For You</div>
@@ -160,12 +177,20 @@ const RightBar = ({ username }) => {
               <div className="friendSuggestionName">{u[0]}</div>
             </div>
             <div className="friendSuggestionRight">
-              <button
-                className="sendFriendRequest"
-                onClick={() => sendFriendRequest(u[0])}
-              >
-                Friend request
-              </button>
+              <SendFriendRequest username={username} friendUsername={u[0]} />
+            </div>
+          </div>
+        ))}
+        {Groups.map((u) => (
+          <div className="friendSuggestionRequest">
+            <div className="friendSuggestionLeft">
+              <div className="friendSuggestionAvatar">
+                <Avatar src={u[1]} />
+              </div>
+              <div className="friendSuggestionName">{u[0]}</div>
+            </div>
+            <div className="friendSuggestionRight">
+              <JoinGroup username={username} groupName={u[0]} />
             </div>
           </div>
         ))}

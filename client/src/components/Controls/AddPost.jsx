@@ -2,12 +2,11 @@ import React, { useState } from "react";
 
 const AddPost = (username) => {
   const [postData, setPostData] = useState({
-    username: username,
     body: "",
     title: "",
   });
   function submitPost(e) {
-    console.log("username given: " + username);
+    console.log("username given: " + username.toString());
     e.preventDefault();
     const fileField = document.querySelector('input[id="photo"]');
     const formData = new FormData();

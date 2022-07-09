@@ -3,43 +3,12 @@ import "./leftBar.css";
 import { Trending, Events } from "../test-data/test-data";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import CreateGroup from "../Controls/createGroup";
 
 const LeftBar = ({ username }) => {
   const navigate = useNavigate();
 
   const [Groups, setGroups] = useState([]);
-
-  const [groupData, setGroupData] = useState({
-    groupName: "",
-    description: "",
-  });
-
-  function handle(e) {
-    const newdata = { ...groupData };
-    newdata[e.target.id] = e.target.value;
-    setGroupData(newdata);
-  }
-
-  const createGroup = (e) => {
-    e.preventDefault();
-    const fileField = document.querySelector('input[type="file"]');
-    const formData = new FormData();
-    formData.append("groupName", groupData.groupName);
-    formData.append("image", fileField.files[0]);
-    formData.append("description", groupData.description);
-    const settings = {
-      method: "POST",
-      body: formData,
-    };
-    fetch(
-      "https://nusocial5.herokuapp.com/api/groupnames/addGroupName",
-      settings
-    )
-      .then((result) => result.text())
-      .then((msg) => {
-        window.alert(msg);
-      });
-  };
 
   const getAllGroups = () => {
     setGroups([]);
@@ -97,27 +66,7 @@ const LeftBar = ({ username }) => {
   return (
     <div className="leftBar">
       <div className="leftBarComponentContainer">
-        <form onSubmit={(e) => createGroup(e)}>
-          <input
-            type="text"
-            placeholder="Enter Group Name"
-            id="groupName"
-            onChange={(e) => handle(e)}
-          />
-          <input
-            type="text"
-            placeholder="Entre Group Description"
-            id="description"
-            onChange={(e) => handle(e)}
-          />
-          <input
-            type="file"
-            id="image"
-            name="filename"
-            placeholder="upload post picture"
-          />
-          <input type="submit" placeholder="submit group create request" />
-        </form>
+        <CreateGroup username={username} />
         <input
           type="submit"
           placeholder="refresh feed"

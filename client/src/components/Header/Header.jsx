@@ -14,7 +14,6 @@ const Header = ({
   showHeaderCenter,
   showHeaderRight,
   username,
-  socket,
 }) => {
   window.onload = () => {
     getProfilePicture(username);

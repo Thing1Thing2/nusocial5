@@ -84,9 +84,8 @@ const ChatBar = ({ username, chat, chatId, isOnline, chatHistory }) => {
   const [profilePic, setProfilePic] = useState(
     "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
   );
-  window.onload = () => {
-    getProfilePicture(username);
-  };
+
+  getProfilePicture(username);
 
   const [inputs, setInputs] = useState([]);
   return (

@@ -7,7 +7,11 @@ const Online = ({ user }) => {
     <div className="rightBarFriend">
       <div className="rightBarAvatarContainer">
         <Avatar src={user[1]} alt="" />
-        <span className="rightBarOnline">{user[3]}</span>
+        {user[3] === true ? (
+          <span className="rightBarOnline">{user[3]}</span>
+        ) : (
+          <span className="rightBarOffline">{user[3]}</span>
+        )}
       </div>
       <div className="rightBarUsername">{user[0]}</div>
     </div>

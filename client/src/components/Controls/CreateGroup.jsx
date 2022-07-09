@@ -13,6 +13,7 @@ const CreateGroup = ({ username }) => {
     formData.append("groupName", groupData.groupName);
     formData.append("image", fileField.files[0]);
     formData.append("description", groupData.description);
+    formData.append("username", username);
     const settings = {
       method: "POST",
       body: formData,

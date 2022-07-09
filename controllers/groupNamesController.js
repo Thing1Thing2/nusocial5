@@ -37,7 +37,18 @@ const addGroup = async (req, res) => {
               profilePictureURL: imageURL,
             })
               .then(async function (item) {
-                res.status(200).send("created group");
+                GroupMemberships.create({
+                  username: req.body.username,
+                  groupName: req.body.groupName,
+                  type: "admin",
+                })
+                  .then((result) => {
+                    res.status(200).send("created group");
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    res.status(200).send("error occured");
+                  });
               })
               .catch(function (err) {
                 console.log(err);

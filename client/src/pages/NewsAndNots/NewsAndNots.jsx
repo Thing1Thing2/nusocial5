@@ -105,8 +105,6 @@ const NewsAndNots = () => {
     console.log(stu);
     if (stu[2].startsWith("Confirm")) {
       confirmFriendRequest(stu[0][1]);
-    } else if (stu[2].startsWith("View")) {
-      navigateToFriendPage(stu[0][1]);
     }
   };
 

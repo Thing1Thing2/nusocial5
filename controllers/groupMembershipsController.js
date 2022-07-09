@@ -61,7 +61,7 @@ const isAdmin = async (req, res) => {
       username: req.body.username,
     },
   }).then((count) => {
-    res.status(200).send(count);
+    res.status(200).send(count.type);
   });
 };
 

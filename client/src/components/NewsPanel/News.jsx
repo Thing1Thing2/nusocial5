@@ -3,39 +3,9 @@ import "./news.css";
 import NewsFeed from "./NewsFeed";
 import { NewsData } from "../test-data/test-data";
 import Post from "../Post/Post";
+import AddPost from "../Controls/AddPost.jsx";
 
 const News = ({ username }) => {
-  function submitPost(e) {
-    e.preventDefault();
-    const fileField = document.querySelector('input[id="photo"]');
-    const formData = new FormData();
-    formData.append("username", postData.username);
-    formData.append("image", fileField.files[0]);
-    formData.append("body", postData.body);
-    formData.append("title", postData.title);
-    const settings = {
-      method: "POST",
-      body: formData,
-    };
-    fetch("https://nusocial5.herokuapp.com/api/posts/addPost", settings)
-      .then((response) => response.text())
-      .then((msg) => {
-        window.alert(msg);
-      });
-  }
-
-  function handle(e) {
-    const newdata = { ...postData };
-    newdata[e.target.id] = e.target.value;
-    setPostData(newdata);
-  }
-
-  const [postData, setPostData] = useState({
-    username: username,
-    body: "",
-    title: "",
-  });
-
   const [PostList, setPostList] = useState([]);
 
   const getAllPosts = async () => {
@@ -109,35 +79,13 @@ const News = ({ username }) => {
           />
         ))}
       </div>
-      <div className="AddPost">
-        <form onSubmit={(e) => submitPost(e)}>
-          <input
-            type="text"
-            placeholder="Entre message title"
-            id="title"
-            onChange={(e) => handle(e)}
-          />
-          <input
-            type="text"
-            placeholder="Entre message body"
-            id="body"
-            onChange={(e) => handle(e)}
-          />
-          <input
-            type="file"
-            id="photo"
-            name="filename"
-            placeholder="upload post picture"
-          />
-          <input type="submit" placeholder="submit post" />
-        </form>
-        <input
-          type="submit"
-          placeholder="refresh feed"
-          onClick={getAllPosts}
-          value="refresh suggestion"
-        />
-      </div>
+      <AddPost />
+      <input
+        type="submit"
+        placeholder="refresh feed"
+        onClick={getAllPosts}
+        value="refresh suggestion"
+      />
 
       <div className="newsFeed">
         {PostList.map((post) => (

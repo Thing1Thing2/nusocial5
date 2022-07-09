@@ -143,7 +143,6 @@ const NewsAndNots = () => {
       });
   };
 
-  useEffect(() => getAllNewsAndNots(), []);
   return (
     <div>
       <div className="header">

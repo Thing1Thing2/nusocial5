@@ -49,8 +49,8 @@ const ProfileMidGroup = ({ groupName, username }) => {
       "https://nusocial5.herokuapp.com/api/groupnames/getGroupData",
       settings
     )
-      .then((dataBio) => {
-        dataBio.text();
+      .then(async (dataBio) => {
+        await dataBio.json();
       })
       .then((result) => {
         console.log(result);
@@ -58,7 +58,6 @@ const ProfileMidGroup = ({ groupName, username }) => {
   };
 
   const getNumOfMembers = async () => {
-    let num = 0;
     const data = {
       groupName: groupName,
     };
@@ -73,12 +72,13 @@ const ProfileMidGroup = ({ groupName, username }) => {
     await fetch(
       "https://nusocial5.herokuapp.com/api/groupmemberships/getNumOfMembers",
       settings
-    ).then((number) => {
-      let int = number.text();
-      num = int;
-      console.log(num);
-    });
-    setNumOfMembers(num);
+    )
+      .then(async (number) => {
+        await number.text();
+      })
+      .then((result) => {
+        console.log(result);
+      });
   };
 
   return (

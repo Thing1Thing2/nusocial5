@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header/Header";
 import "./QuickLinks.css";
 import { useLocation } from "react-router-dom";
 import AddLink from "../../components/Controls/AddLink";
+import Link from "./Link.js";
 
 const QuickLinks = () => {
+  const [Links, setLinks] = useState([]);
   const getLinks = () => {
+    setLinks([]);
     const data = {
       username: location.state.username,
     };
@@ -21,6 +24,13 @@ const QuickLinks = () => {
       async (arr) => {
         let links = await arr.json();
         console.log(links);
+        links.forEach((l) => {
+          setLinks((list) => [
+            ...list,
+            [l.link, l.imgsrc, l.createdBy, l.info],
+          ]);
+        });
+        console.log(Links);
       }
     );
   };
@@ -34,11 +44,24 @@ const QuickLinks = () => {
         link="/home"
         username={location.state.username}
       />
+
       <button className="getLinks" onClick={getLinks}>
         Get Links
       </button>
       <div className="addLink">
         <AddLink />
+      </div>
+      <div className="links">
+        {Links.map((u) => (
+          <div className="link">
+            <Link
+              info={u.info}
+              imgsrc={u.imgsrc}
+              createdBy={u.createdBy}
+              link={u.link}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

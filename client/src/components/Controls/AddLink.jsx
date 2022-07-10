@@ -26,10 +26,7 @@ const AddLink = (username) => {
       method: "POST",
       body: formData,
     };
-    fetch(
-      "https://nusocial5.herokuapp.com/api/groupmemberships/addCoverPicture",
-      settings
-    )
+    fetch("https://nusocial5.herokuapp.com/api/links/addLink", settings)
       .then((response) => response.text())
       .then((data) => {
         setMsg(data);

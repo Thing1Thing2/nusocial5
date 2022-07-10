@@ -3,18 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 const ViewGroup = ({ username, groupName }) => {
   const navigate = useNavigate();
-  const [profilePic, setProfilePic] = useState(
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Fischotter%2C_Lutra_Lutra.JPG/640px-Fischotter%2C_Lutra_Lutra.JPG"
-  );
-  const [coverPic, setCoverPic] = useState(
-    "https://static.theprint.in/wp-content/uploads/2021/04/Sea_Otter._Little_Tutka_Bay_Alaska-scaled-e1617874012943.jpg?compress=true&quality=80&w=376&dpr=2.6"
-  );
-  const [desc, setDesc] = useState("");
-  const [numOfMembers, setNumOfMembers] = useState(0);
-  const [memberAdmin, setMemberAdmin] = useState(false);
   const data = {
-    profilePic: "",
-    coverPic: "",
+    profilePic:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Fischotter%2C_Lutra_Lutra.JPG/640px-Fischotter%2C_Lutra_Lutra.JPG",
+    coverPic:
+      "https://static.theprint.in/wp-content/uploads/2021/04/Sea_Otter._Little_Tutka_Bay_Alaska-scaled-e1617874012943.jpg?compress=true&quality=80&w=376&dpr=2.6",
     bio: "",
     numOfMembers: 0,
     memberAdmin: false,
@@ -39,9 +32,6 @@ const ViewGroup = ({ username, groupName }) => {
       ).then(async (info) => {
         let gd = await info.json();
         console.log(gd);
-        setProfilePic(gd.profilePictureURL);
-        setCoverPic(gd.coverPictureURL);
-        setDesc(gd.description);
         if (gd.profilePictureURL !== null || gd.profilePictureURL !== "") {
           data.profilePic = gd.profilePictureURL;
         }
@@ -65,7 +55,6 @@ const ViewGroup = ({ username, groupName }) => {
         settings
       ).then(async (number) => {
         let n = await number.text();
-        setNumOfMembers(n);
         data.numOfMembers = n;
       });
     };
@@ -85,7 +74,6 @@ const ViewGroup = ({ username, groupName }) => {
       ).then(async (member) => {
         let m = await member.text();
         if (m === "admin") {
-          setMemberAdmin(true);
           data.memberAdmin = true;
         }
       });
@@ -99,11 +87,7 @@ const ViewGroup = ({ username, groupName }) => {
       state: {
         username: username,
         groupName: groupName,
-        profilePicture: data.profilePic,
-        coverPicture: data.coverPic,
-        bio: data.bio,
-        numOfMembers: data.numOfMembers,
-        isAdmin: data.memberAdmin,
+        data: data,
       },
     });
   };

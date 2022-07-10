@@ -19,24 +19,18 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-const ProfileMidGroup = ({
-  groupName,
-  username,
-  bio,
-  coverPic,
-  profilePic,
-  numOfMembers,
-  memberAdmin,
-}) => {
+const ProfileMidGroup = ({ groupName, username, data }) => {
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
-        <img className="profileCoverImg" src={coverPic} alt="" />
+        <img className="profileCoverImg" src={data.coverPic} alt="" />
         <div className="profileAvatarInfoContainer">
-          <img className="profileAvatar" src={profilePic} alt="" />
+          <img className="profileAvatar" src={data.profilePic} alt="" />
           <div className="profileInfoContainer">
             <div className="profileName">{groupName}</div>
-            <div className="profileFriendsNumber">{numOfMembers} Member(s)</div>
+            <div className="profileFriendsNumber">
+              {data.numOfMembers} Member(s)
+            </div>
           </div>
         </div>
       </div>
@@ -48,21 +42,21 @@ const ProfileMidGroup = ({
                 <FaceTwoToneIcon sx={{ fontSize: 40 }} />
               </div>
               <div className="bio">BIO</div>
-              {memberAdmin ? (
+              {data.memberAdmin ? (
                 <AddBioGroup groupName={groupName} username={username} />
               ) : (
                 <></>
               )}
             </div>
-            <div className="bioDetails">{bio}</div>
+            <div className="bioDetails">{data.bio}</div>
           </div>
           <div className="profileAlbum">
-            {memberAdmin ? (
+            {data.memberAdmin ? (
               <AddCoverPicGroup groupName={groupName} username={username} />
             ) : (
               <></>
             )}
-            {memberAdmin ? (
+            {data.memberAdmin ? (
               <AddProfilePictureGroup
                 groupName={groupName}
                 username={username}

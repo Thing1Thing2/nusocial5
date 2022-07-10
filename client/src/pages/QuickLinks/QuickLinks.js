@@ -50,14 +50,9 @@ const QuickLinks = () => {
         <AddLink username={location.state.username} />
       </div>
       <div className="links">
-        {Links.map((u) => (
+        {Links.forEach((u) => (
           <div className="link">
-            <Link
-              info={u.info}
-              imgsrc={u.imgsrc}
-              createdBy={u.createdBy}
-              link={u.link}
-            />
+            <Link info={u[0]} imgsrc={u[1]} createdBy={u[2]} link={u[3]} />
           </div>
         ))}
       </div>

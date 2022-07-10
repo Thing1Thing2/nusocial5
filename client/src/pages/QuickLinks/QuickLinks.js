@@ -6,12 +6,16 @@ import AddLink from "../../components/Controls/AddLink";
 
 const QuickLinks = () => {
   const getLinks = () => {
+    const data = {
+      username: location.state.username,
+    };
     const settings = {
-      method: "GET",
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(data),
     };
     fetch("https://nusocial5.herokuapp.com/api/links/getLinks", settings)
       .then(async (arr) => {

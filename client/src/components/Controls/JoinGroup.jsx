@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import { Alert } from "@mui/material";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const JoinGroup = ({ groupName, username }) => {
+  const [msg, setMsg] = useState("");
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState("error");
   const joinGroup = async (groupName) => {
     const info = {
       username: username,
@@ -20,11 +27,32 @@ const JoinGroup = ({ groupName, username }) => {
     )
       .then((result) => result.text())
       .then((result) => {
-        window.alert(result);
+        setMsg(result);
       });
   };
   return (
     <div>
+      <Collapse in={open}>
+        <Alert
+          severity={severity}
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              {" "}
+              <CloseIcon fontSize="inherit" />{" "}
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          {msg}
+        </Alert>
+      </Collapse>
       <button
         className="postBottomSendButton"
         onClick={() => joinGroup(groupName)}

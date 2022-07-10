@@ -32,7 +32,7 @@ const AddBioGroup = ({ username, groupName }) => {
     )
       .then((result) => result.text())
       .then((msg) => {
-        if (msg === "success") {
+        if (msg === "Added bio") {
           setSeverity("success");
         } else {
           setSeverity("error");

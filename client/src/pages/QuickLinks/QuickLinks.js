@@ -49,7 +49,7 @@ const QuickLinks = () => {
         Get Links
       </button>
       <div className="addLink">
-        <AddLink />
+        <AddLink username={location.state.username} />
       </div>
       <div className="links">
         {Links.map((u) => (

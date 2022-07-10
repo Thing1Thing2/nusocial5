@@ -25,10 +25,8 @@ const QuickLinks = () => {
         let links = await arr.json();
         console.log(links);
         links.forEach((l) => {
-          setLinks((list) => [
-            ...list,
-            [l.link, l.imgsrc, l.createdBy, l.info],
-          ]);
+          console.log(l);
+          setLinks((list) => [...list, [l.link, l.image, l.createdBy, l.info]]);
         });
         console.log(Links);
       }

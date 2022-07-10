@@ -3,8 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 const ViewGroup = ({ username, groupName }) => {
   const navigate = useNavigate();
-  const [profilePic, setProfilePic] = useState("");
-  const [coverPic, setCoverPic] = useState("");
+  const [profilePic, setProfilePic] = useState(
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Fischotter%2C_Lutra_Lutra.JPG/640px-Fischotter%2C_Lutra_Lutra.JPG"
+  );
+  const [coverPic, setCoverPic] = useState(
+    "https://static.theprint.in/wp-content/uploads/2021/04/Sea_Otter._Little_Tutka_Bay_Alaska-scaled-e1617874012943.jpg?compress=true&quality=80&w=376&dpr=2.6"
+  );
   const [desc, setDesc] = useState("");
   const [numOfMembers, setNumOfMembers] = useState(0);
   const [memberAdmin, setMemberAdmin] = useState(false);
@@ -38,8 +42,12 @@ const ViewGroup = ({ username, groupName }) => {
         setProfilePic(gd.profilePictureURL);
         setCoverPic(gd.coverPictureURL);
         setDesc(gd.description);
-        data.profilePic = gd.profilePictureURL;
-        data.coverPic = gd.coverPictureURL;
+        if (gd.profilePictureURL !== null || gd.profilePictureURL !== "") {
+          data.profilePic = gd.profilePictureURL;
+        }
+        if (gd.coverPictureURL !== null || gd.coverPictureURL !== "") {
+          data.coverPic = gd.coverPictureURL;
+        }
         data.bio = gd.description;
       });
     };

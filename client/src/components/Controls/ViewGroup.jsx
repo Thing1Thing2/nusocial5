@@ -9,7 +9,7 @@ const ViewGroup = ({ username, groupName }) => {
   const [numOfMembers, setNumOfMembers] = useState(0);
   const [memberAdmin, setMemberAdmin] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const getGroupData = async () => {
       const data = {
         groupName: groupName,
@@ -72,13 +72,12 @@ const ViewGroup = ({ username, groupName }) => {
         settings
       ).then(async (member) => {
         let m = await member.text();
-        console.log(m);
         if (m === "admin") {
           setMemberAdmin(true);
         }
       });
     };
-    getGroupData();
+    await getGroupData();
     getNumOfMembers();
     isAdmin();
     console.log(profilePic);

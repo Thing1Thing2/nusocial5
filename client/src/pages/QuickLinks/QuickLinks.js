@@ -51,13 +51,12 @@ const QuickLinks = () => {
       <div className="links">
         {Links.forEach((u) => (
           <div className="link">
-            <div>
-              {u[3]}
-              <a href={u[0]}>
-                <img alt={u[3]} src={u[1]} />
-              </a>
-              {u[2]}
-            </div>
+            whu won't this render!
+            {u[3]}
+            <a href={u[0]}>
+              <img alt={u[3]} src={u[1]} />
+            </a>
+            {u[2]}
           </div>
         ))}
       </div>

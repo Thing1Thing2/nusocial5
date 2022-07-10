@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CreateGroup from "../Controls/CreateGroup";
 import JoinGroup from "../Controls/JoinGroup";
 import ViewGroup from "../Controls/ViewGroup";
-import NewTag from "../Controls/newTag";
+import NewTag from "../Controls/NewTag";
 
 const LeftBar = ({ username }) => {
   const navigate = useNavigate();

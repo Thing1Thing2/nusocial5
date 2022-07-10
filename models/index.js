@@ -40,10 +40,7 @@ db.groupNames = require("./groupNamesModel.js")(sequelize, DataTypes);
 db.groupMemberships = require("./groupMemberships.js")(sequelize, DataTypes);
 db.personalchats = require("./personalChatsModel.js")(sequelize, DataTypes);
 db.links = require("./linksModel.js")(sequelize, DataTypes);
-db.testsanddeadlines = require("./testsAndDeadlinesModel.js")(
-  sequelize,
-  DataTypes
-);
+db.testsanddeadlines = require("./testsAndDeadlines.js")(sequelize, DataTypes);
 db.trendingtags = require("./trendingTagsModel.js")(sequelize, DataTypes);
 
 //associations

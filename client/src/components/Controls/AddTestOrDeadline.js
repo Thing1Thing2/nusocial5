@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 const AddTestOrDeadline = ({ username }) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("error");
+  const [severity, setSeverity] = useState("info");
   const [testOrDeadline, setTestOrDeadline] = useState({
     module: "",
     type: "",

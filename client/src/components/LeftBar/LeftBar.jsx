@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CreateGroup from "../Controls/CreateGroup";
 import JoinGroup from "../Controls/JoinGroup";
 import ViewGroup from "../Controls/ViewGroup";
+import NewTag from "../Controls/newTag";
 
 const LeftBar = ({ username }) => {
   const navigate = useNavigate();
@@ -70,6 +71,7 @@ const LeftBar = ({ username }) => {
         <div className="showMore">Show more</div>
       </div>
       <div className="leftBarComponentContainer">
+        <NewTag />
         <div className="containerTitle">Trending</div>
         {Trending.map((u) => (
           <div className="trending">{u.trend}</div>

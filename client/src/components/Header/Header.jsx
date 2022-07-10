@@ -135,7 +135,6 @@ const Header = ({
                   navigate("/personalChat", {
                     state: {
                       username: location.state.username,
-                      socket: location.state.socket,
                     },
                   })
                 }

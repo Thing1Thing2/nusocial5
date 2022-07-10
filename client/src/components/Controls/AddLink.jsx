@@ -4,7 +4,7 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const AddLink = (username) => {
+const AddLink = ({ username }) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState("info");

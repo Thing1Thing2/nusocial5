@@ -78,6 +78,14 @@ const ViewGroup = ({ username, groupName }) => {
         }
       });
     };
+    getGroupData();
+    getNumOfMembers();
+    isAdmin();
+    console.log(profilePic);
+    console.log(coverPic);
+    console.log(desc);
+    console.log(numOfMembers);
+    console.log(memberAdmin);
 
     navigate("/group", {
       state: {

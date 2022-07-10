@@ -4,8 +4,9 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const addTag = () => {
-  return <div>addTag</div>;
+const addTag = ({ username }) => {
+  const createTag = () => {};
+  return <div></div>;
 };
 
 export default addTag;

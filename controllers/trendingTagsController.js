@@ -11,6 +11,16 @@ const verifyTag = (tag) => {
 const createTag = async (req, res) => {
   const tagVerified = verifyTag(req.body.tag);
   if (tagVerified) {
+    TrendingTags.create({
+      tag: req.body.tag,
+    })
+      .then((result) => {
+        res.status(200).send("Created tag");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(200).send("error occurred");
+      });
   } else {
     res
       .status(200)
@@ -18,19 +28,8 @@ const createTag = async (req, res) => {
         "Send a valid tag starting with # and containing at least one character"
       );
   }
-
-  TrendingTags.create({
-    tag: req.body.tag,
-  })
-    .then((result) => {
-      res.status(200).send("Created tag");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(200).send("error occurred");
-    });
 };
 
-module.export = {
+module.exports = {
   createTag,
 };

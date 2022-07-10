@@ -7,6 +7,7 @@ import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import AddBioGroup from "../Controls/AddBioGroup";
 import AddCoverPicGroup from "../Controls/AddCoverPicGroup";
 import AddProfilePictureGroup from "../Controls/AddProfilePictureGroup";
+import ViewGroup from "../Controls/ViewGroup";
 
 //import ReactPlayer from 'react-player'
 
@@ -20,6 +21,9 @@ function srcset(image, size, rows = 1, cols = 1) {
 }
 
 const ProfileMidGroup = ({ groupName, username, data }) => {
+  window.onload = () => {
+    <ViewGroup username={username} groupName={groupName} />;
+  };
   return (
     <div className="profileMid">
       <div className="profileTopContainer">

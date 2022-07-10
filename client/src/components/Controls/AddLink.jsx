@@ -14,6 +14,7 @@ const AddLink = (username) => {
   });
 
   const addLink = (e) => {
+    console.log(username);
     setOpen(false);
     e.preventDefault();
     const fileField = document.querySelector('input[id="photoPic"]');

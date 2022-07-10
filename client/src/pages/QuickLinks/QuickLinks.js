@@ -3,7 +3,6 @@ import Header from "../../components/Header/Header";
 import "./QuickLinks.css";
 import { useLocation } from "react-router-dom";
 import AddLink from "../../components/Controls/AddLink";
-import Link from "./Link.js";
 
 const QuickLinks = () => {
   const [Links, setLinks] = useState([]);
@@ -52,7 +51,13 @@ const QuickLinks = () => {
       <div className="links">
         {Links.forEach((u) => (
           <div className="link">
-            <Link link={u[0]} imgsrc={u[1]} createdBy={u[2]} info={u[3]} />
+            <div>
+              {u[3]}
+              <a href={u[0]}>
+                <img alt={u[3]} src={u[1]} />
+              </a>
+              {u[2]}
+            </div>
           </div>
         ))}
       </div>

@@ -8,19 +8,15 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     module: { type: DataTypes.STRING, allowNull: false },
-    createdBy: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     type: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     date: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    time: { type: DataTypes.TIME, allowNull: false },
+    time: { type: DataTypes.STRING, allowNull: false },
     createdBy: {
       type: DataTypes.STRING,
       allowNull: false,

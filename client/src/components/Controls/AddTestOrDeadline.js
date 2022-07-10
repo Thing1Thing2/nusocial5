@@ -92,6 +92,7 @@ const AddTestOrDeadline = ({ username }) => {
           id="time"
           onChange={(e) => handle(e)}
         />
+        <button onClick={(e) => addTestOrDeadline(e)}>Submit</button>
       </form>
     </div>
   );

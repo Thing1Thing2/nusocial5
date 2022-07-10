@@ -17,13 +17,12 @@ const QuickLinks = () => {
       },
       body: JSON.stringify(data),
     };
-    fetch("https://nusocial5.herokuapp.com/api/links/getLinks", settings)
-      .then(async (arr) => {
-        await arr.text();
-      })
-      .then((d) => {
-        console.log(d);
-      });
+    fetch("https://nusocial5.herokuapp.com/api/links/getLinks", settings).then(
+      async (arr) => {
+        let links = await arr.json();
+        console.log(links);
+      }
+    );
   };
   const location = useLocation();
   return (

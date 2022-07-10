@@ -48,18 +48,7 @@ const QuickLinks = () => {
       <div className="addLink">
         <AddLink username={location.state.username} />
       </div>
-      <div className="links">
-        {Links.forEach((u) => (
-          <div className="link">
-            whu won't this render!
-            {u[3]}
-            <a href={u[0]}>
-              <img alt={u[3]} src={u[1]} />
-            </a>
-            {u[2]}
-          </div>
-        ))}
-      </div>
+      <div className="links">{Links}</div>
     </div>
   );
 };

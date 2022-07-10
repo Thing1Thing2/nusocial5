@@ -9,7 +9,7 @@ const verifyTag = (tag) => {
   return tag.startsWith("#") && tag !== "#";
 };
 const createTag = async (req, res) => {
-  const tagVerified = verifyTag(tag);
+  const tagVerified = verifyTag(req.body.tag);
   if (tagVerified) {
   } else {
     res
@@ -20,8 +20,15 @@ const createTag = async (req, res) => {
   }
 
   TrendingTags.create({
-    tag: "",
-  });
+    tag: req.body.tag,
+  })
+    .then((result) => {
+      res.status(200).send("Created tag");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("error occurred");
+    });
 };
 
 module.export = {

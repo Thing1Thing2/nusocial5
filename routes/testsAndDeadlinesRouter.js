@@ -3,8 +3,12 @@ const testsAndDeadlinesController = require("../controllers/testsAndDeadlinesCon
 const testsAndDeadlinesRouter = require("express").Router();
 
 testsAndDeadlinesRouter.post(
-  "/createTag",
-  testsAndDeadlinesController.createTag
+  "/addTestOrDeadline",
+  testsAndDeadlinesController.addTestOrDeadline
+);
+testsAndDeadlinesRouter.post(
+  "/deleteTestOrDeadline",
+  testsAndDeadlinesController.deleteTestOrDeadline
 );
 
 module.exports = testsAndDeadlinesRouter;

@@ -73,14 +73,14 @@ const AddLink = (username) => {
           id="link"
           name="link"
           placeholder="link url"
-          onClick={(e) => handle(e)}
+          onChange={(e) => handle(e)}
         />
         <input
           type="text"
           id="info"
           name="info"
           placeholder="describe the link"
-          onClick={(e) => handle(e)}
+          onChange={(e) => handle(e)}
         />
         <input
           type="file"

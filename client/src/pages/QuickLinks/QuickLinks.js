@@ -22,7 +22,7 @@ const QuickLinks = () => {
     };
     fetch("https://nusocial5.herokuapp.com/api/links/getLinks", settings).then(
       async (arr) => {
-        let links = await arr.text();
+        let links = await arr.json();
         console.log(links);
         links.forEach((l) => {
           setLinks((list) => [

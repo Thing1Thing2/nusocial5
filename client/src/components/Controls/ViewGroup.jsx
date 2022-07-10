@@ -16,17 +16,18 @@ const ViewGroup = ({ username, groupName }) => {
     memberAdmin: false,
   };
   const handleClick = async () => {
+    const dataGroup = {
+      groupName: groupName,
+      username: username,
+    };
     const getGroupData = async () => {
-      const data = {
-        groupName: groupName,
-      };
       const settings = {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataGroup),
       };
       await fetch(
         "https://nusocial5.herokuapp.com/api/groupnames/getGroupData",
@@ -43,16 +44,13 @@ const ViewGroup = ({ username, groupName }) => {
       });
     };
     const getNumOfMembers = async () => {
-      const data = {
-        groupName: groupName,
-      };
       const settings = {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataGroup),
       };
       await fetch(
         "https://nusocial5.herokuapp.com/api/groupmemberships/getNumOfMembers",
@@ -65,17 +63,13 @@ const ViewGroup = ({ username, groupName }) => {
     };
 
     const isAdmin = async () => {
-      const data = {
-        groupName: groupName,
-        username: username,
-      };
       const settings = {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataGroup),
       };
       await fetch(
         "https://nusocial5.herokuapp.com/api/groupmemberships/isAdmin",
@@ -89,8 +83,9 @@ const ViewGroup = ({ username, groupName }) => {
       });
     };
     await getGroupData();
-    getNumOfMembers();
-    isAdmin();
+    await getNumOfMembers();
+    await isAdmin();
+    console.log(data);
 
     navigate("/group", {
       state: {

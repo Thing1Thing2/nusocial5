@@ -7,8 +7,9 @@ import CloseIcon from "@mui/icons-material/Close";
 const SendFriendRequest = ({ username, friendUsername }) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("error");
+  const [severity, setSeverity] = useState("info");
   const sendFriendRequest = async () => {
+    setOpen(false);
     const data = {
       username: username,
       friend: friendUsername,
@@ -25,6 +26,7 @@ const SendFriendRequest = ({ username, friendUsername }) => {
       .then((response) => response.json())
       .then((data) => {
         setMsg(data);
+        setOpen(true);
       });
   };
   return (

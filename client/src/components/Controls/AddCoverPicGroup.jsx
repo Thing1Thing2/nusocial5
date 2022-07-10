@@ -7,8 +7,9 @@ import CloseIcon from "@mui/icons-material/Close";
 const AddCoverPicGroup = (groupName, username) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("error");
+  const [severity, setSeverity] = useState("info");
   const addCoverPicture = (e) => {
+    setOpen(false);
     e.preventDefault();
     const fileField = document.querySelector('input[id="photoPic"]');
     const formData = new FormData();
@@ -31,6 +32,7 @@ const AddCoverPicGroup = (groupName, username) => {
         console.log(error);
         setMsg("error");
       });
+    setOpen(true);
   };
   return (
     <div>

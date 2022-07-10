@@ -7,8 +7,9 @@ import CloseIcon from "@mui/icons-material/Close";
 const JoinGroup = ({ groupName, username }) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("error");
+  const [severity, setSeverity] = useState("info");
   const joinGroup = async (groupName) => {
+    setOpen(false);
     const info = {
       username: username,
       groupName: groupName,
@@ -28,6 +29,7 @@ const JoinGroup = ({ groupName, username }) => {
       .then((result) => result.text())
       .then((result) => {
         setMsg(result);
+        setOpen(true);
       });
   };
   return (

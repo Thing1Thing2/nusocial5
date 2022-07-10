@@ -7,8 +7,9 @@ import CloseIcon from "@mui/icons-material/Close";
 const AddProfilePictureGroup = ({ username, groupName }) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("error");
+  const [severity, setSeverity] = useState("info");
   const addProfilePicture = (e) => {
+    setOpen(false);
     e.preventDefault();
     const fileField = document.querySelector('input[id="profilePic"]');
     const formData = new FormData();
@@ -31,6 +32,7 @@ const AddProfilePictureGroup = ({ username, groupName }) => {
         console.log(error);
         setMsg("error");
       });
+    setOpen(true);
   };
   return (
     <div>

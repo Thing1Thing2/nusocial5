@@ -7,12 +7,13 @@ import CloseIcon from "@mui/icons-material/Close";
 const AddPost = ({ username }) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("error");
+  const [severity, setSeverity] = useState("info");
   const [postData, setPostData] = useState({
     body: "",
     title: "",
   });
   function submitPost(e) {
+    setOpen(false);
     console.log("username given: " + username.toString());
     e.preventDefault();
     const fileField = document.querySelector('input[id="photo"]');
@@ -29,6 +30,7 @@ const AddPost = ({ username }) => {
       .then((response) => response.text())
       .then((msg) => {
         setMsg(msg);
+        setOpen(true);
       });
   }
 

@@ -7,13 +7,14 @@ import CloseIcon from "@mui/icons-material/Close";
 const CreateGroup = ({ username }) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("error");
+  const [severity, setSeverity] = useState("info");
   function handle(e) {
     const newdata = { ...groupData };
     newdata[e.target.id] = e.target.value;
     setGroupData(newdata);
   }
   const createGroup = (e) => {
+    setOpen(false);
     e.preventDefault();
     const fileField = document.querySelector('input[type="file"]');
     const formData = new FormData();
@@ -32,6 +33,7 @@ const CreateGroup = ({ username }) => {
       .then((result) => result.text())
       .then((msg) => {
         setMsg(msg);
+        setOpen(true);
       });
   };
   const [groupData, setGroupData] = useState({

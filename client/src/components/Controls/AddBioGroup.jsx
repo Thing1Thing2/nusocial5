@@ -17,6 +17,7 @@ const AddBioGroup = ({ username, groupName }) => {
     setBioData(newdata);
   }
   const addBio = (e) => {
+    setOpen(false);
     e.preventDefault();
     const formData = new FormData();
     formData.append("description", bioData.bio);

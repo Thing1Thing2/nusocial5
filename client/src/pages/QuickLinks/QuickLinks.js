@@ -8,7 +8,7 @@ const QuickLinks = () => {
   const getLinks = () => {
     fetch("https://nusocial5.herokuapp.com/api/links/getLinks")
       .then(async (arr) => {
-        await arr.json();
+        await arr.text();
       })
       .then((d) => {
         console.log(d);

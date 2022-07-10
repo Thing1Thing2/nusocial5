@@ -1,11 +1,13 @@
 import React from "react";
 
-const Link = () => {
+const Link = ({ link, imgsrc, createdBy, info }) => {
   return (
     <div>
-      <a href="https://myedurec.nus.edu.sg/psp/cs90prd/?cmd=login">
-        <img alt="MyEduRec" src="" />
+      {info}
+      <a href={link}>
+        <img alt={info} src={imgsrc} />
       </a>
+      {createdBy}
     </div>
   );
 };

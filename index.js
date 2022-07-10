@@ -71,6 +71,8 @@ const personalChatsRouter = require("./routes/personalChatsRouter.js");
 app.use("/api/personalchats", personalChatsRouter);
 const linksRouter = require("./routes/linksRouter.js");
 app.use("/api/links", linksRouter);
+const testsAndDeadlinesRouter = require("./routes/testsAndDeadlinesRouter.js");
+app.use("/api/testsanddeadlines", testsAndDeadlinesRouter);
 
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.

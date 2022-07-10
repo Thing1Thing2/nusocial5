@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import AddProfilePic from "../Controls/AddProfilePic";
 import JoinGroup from "../Controls/JoinGroup";
 import SendFriendRequest from "../Controls/SendFriendRequest";
+import AddTestOrDeadline from "../Controls/AddTestOrDeadline";
 
 const RightBar = ({ username }) => {
   const navigate = useNavigate();
@@ -199,6 +200,7 @@ const RightBar = ({ username }) => {
       <div className="upcomingDeadline">
         <div className="rightbarComponentContainer">
           <div className="containerTitle">Upcoming Tests & Deadlines</div>
+          <AddTestOrDeadline username={username} />
           {Deadlines.map((u) => (
             <div className="deadlineAndTest">
               <div className="moduleName">{u.module}</div>

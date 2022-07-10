@@ -2,18 +2,13 @@ const testsAndDeadlinesController = require("../controllers/testsAndDeadlinesCon
 
 const testsAndDeadlinesRouter = require("express").Router();
 
-testsAndDeadlinesRouter.post("/addTest", testsAndDeadlinesController.addTest);
 testsAndDeadlinesRouter.post(
-  "/removeTest",
-  testsAndDeadlinesController.removeTest
+  "/addTestOrDeadline",
+  testsAndDeadlinesController.addTestOrDeadline
 );
 testsAndDeadlinesRouter.post(
-  "/addDeadline",
-  testsAndDeadlinesController.addDeadline
-);
-testsAndDeadlinesRouter.post(
-  "/deleteDeadline",
-  testsAndDeadlinesController.deleteDeadline
+  "/deleteTestOrDeadline",
+  testsAndDeadlinesController.deleteTestOrDeadline
 );
 
 module.exports = testsAndDeadlinesRouter;

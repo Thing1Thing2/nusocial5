@@ -21,7 +21,7 @@ const AddLink = (username) => {
     formData.append("username", username);
     formData.append("info", linkData.info);
     formData.append("link", linkData.link);
-    formData.append("photo", fileField.files[0]);
+    formData.append("image", fileField.files[0]);
     const settings = {
       method: "POST",
       body: formData,

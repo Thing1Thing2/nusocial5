@@ -27,7 +27,7 @@ const AddTestOrDeadline = ({ username }) => {
     formData.append("type", testOrDeadline.type);
     formData.append("date", testOrDeadline.date);
     formData.append("time", testOrDeadline.time);
-    formData.append("createdBy", username);
+    formData.append("username", username);
     const settings = {
       method: "POST",
       body: formData,
@@ -40,6 +40,7 @@ const AddTestOrDeadline = ({ username }) => {
       .then((msg) => {
         setOpen(true);
         setMsg(msg);
+        console.log(msg);
       });
   };
 

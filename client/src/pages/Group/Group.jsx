@@ -27,6 +27,9 @@ const Group = () => {
           <ProfileMidGroup
             username={location.state.username}
             groupName={location.state.groupName}
+            profilePic={location.state.profilePic}
+            coverPic={location.state.coverPic}
+            bio={location.state.bio}
           />
         </div>
       </div>

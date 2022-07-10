@@ -19,96 +19,15 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-const ProfileMidGroup = ({ groupName, username }) => {
-  const [desc, setDesc] = useState("bio");
-
-  window.onload = () => {
-    getGroupData();
-    getNumOfMembers();
-    isAdmin();
-  };
-
-  const [coverPic, setCoverPic] = useState(
-    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
-  );
-  const [profilePic, setProfilePic] = useState(
-    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
-  );
-
-  const [numOfMembers, setNumOfMembers] = useState("0");
-
-  const getGroupData = async () => {
-    const data = {
-      groupName: groupName,
-    };
-    const settings = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    await fetch(
-      "https://nusocial5.herokuapp.com/api/groupnames/getGroupData",
-      settings
-    ).then(async (info) => {
-      let gd = await info.json();
-      console.log(gd);
-      setProfilePic(gd.profilePictureURL);
-      setCoverPic(gd.coverPictureURL);
-      setDesc(gd.description);
-    });
-  };
-
-  const getNumOfMembers = async () => {
-    const data = {
-      groupName: groupName,
-    };
-    const settings = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    await fetch(
-      "https://nusocial5.herokuapp.com/api/groupmemberships/getNumOfMembers",
-      settings
-    ).then(async (number) => {
-      let n = await number.text();
-      setNumOfMembers(n);
-    });
-  };
-
-  const [memberAdmin, setMemberAdmin] = useState(false);
-
-  const isAdmin = async () => {
-    const data = {
-      groupName: groupName,
-      username: username,
-    };
-    const settings = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    await fetch(
-      "https://nusocial5.herokuapp.com/api/groupmemberships/isAdmin",
-      settings
-    ).then(async (member) => {
-      let m = await member.text();
-      console.log(m);
-      if (m === "admin") {
-        setMemberAdmin(true);
-      }
-    });
-  };
-
+const ProfileMidGroup = ({
+  groupName,
+  username,
+  bio,
+  coverPic,
+  profilePic,
+  numOfMembers,
+  memberAdmin,
+}) => {
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
@@ -135,7 +54,7 @@ const ProfileMidGroup = ({ groupName, username }) => {
                 <></>
               )}
             </div>
-            <div className="bioDetails">{desc}</div>
+            <div className="bioDetails">{bio}</div>
           </div>
           <div className="profileAlbum">
             {memberAdmin ? (

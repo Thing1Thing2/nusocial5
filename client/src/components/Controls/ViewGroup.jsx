@@ -8,7 +8,13 @@ const ViewGroup = ({ username, groupName }) => {
   const [desc, setDesc] = useState("");
   const [numOfMembers, setNumOfMembers] = useState(0);
   const [memberAdmin, setMemberAdmin] = useState(false);
-
+  const data = {
+    profilePic: "",
+    coverPic: "",
+    bio: "",
+    numOfMembers: 0,
+    memberAdmin: false,
+  };
   const handleClick = async () => {
     const getGroupData = async () => {
       const data = {
@@ -31,6 +37,9 @@ const ViewGroup = ({ username, groupName }) => {
         setProfilePic(gd.profilePictureURL);
         setCoverPic(gd.coverPictureURL);
         setDesc(gd.description);
+        data.profilePic = gd.profilePictureURL;
+        data.coverPic = gd.coverPictureURL;
+        data.bio = gd.description;
       });
     };
     const getNumOfMembers = async () => {
@@ -51,6 +60,7 @@ const ViewGroup = ({ username, groupName }) => {
       ).then(async (number) => {
         let n = await number.text();
         setNumOfMembers(n);
+        data.numOfMembers = n;
       });
     };
 
@@ -74,27 +84,23 @@ const ViewGroup = ({ username, groupName }) => {
         let m = await member.text();
         if (m === "admin") {
           setMemberAdmin(true);
+          data.memberAdmin = true;
         }
       });
     };
     await getGroupData();
     getNumOfMembers();
     isAdmin();
-    console.log(profilePic);
-    console.log(coverPic);
-    console.log(desc);
-    console.log(numOfMembers);
-    console.log(memberAdmin);
 
     navigate("/group", {
       state: {
         username: username,
         groupName: groupName,
-        profilePicture: profilePic,
-        coverPicture: coverPic,
-        bio: desc,
-        numOfMembers: numOfMembers,
-        isAdmin: memberAdmin,
+        profilePicture: data.profilePic,
+        coverPicture: data.coverPic,
+        bio: data.bio,
+        numOfMembers: data.numOfMembers,
+        isAdmin: data.memberAdmin,
       },
     });
   };

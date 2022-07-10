@@ -44,6 +44,8 @@ db.testsanddeadlines = require("./testsAndDeadlinesModel.js")(
   sequelize,
   DataTypes
 );
+db.trendingtags = require("./trendingTagsModel.js")(sequelize, DataTypes);
+
 //associations
 db.students.hasMany(db.friends, { foreignKey: "username" });
 db.friends.belongsTo(db.students, { foreignKey: "username" });

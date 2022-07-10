@@ -19,7 +19,7 @@ const AddTestOrDeadline = ({ username }) => {
     newdata[e.target.id] = e.target.value;
     setTestOrDeadline(newdata);
   }
-  const addBio = (e) => {
+  const addTestOrDeadline = (e) => {
     setOpen(false);
     e.preventDefault();
     const formData = new FormData();
@@ -66,7 +66,7 @@ const AddTestOrDeadline = ({ username }) => {
           {msg}
         </Alert>
       </Collapse>
-      <form onSubmit={(e) => addBio(e)}>
+      <form onSubmit={(e) => addTestOrDeadline(e)}>
         <input
           type="text"
           placeholder="module"

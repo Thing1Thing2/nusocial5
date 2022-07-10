@@ -6,9 +6,13 @@ import AddLink from "../../components/Controls/AddLink";
 
 const QuickLinks = () => {
   const getLinks = () => {
-    fetch("https://nusocial5.herokuapp.com/api/links/getLinks").then((arr) => {
-      console.log(arr.body);
-    });
+    fetch("https://nusocial5.herokuapp.com/api/links/getLinks")
+      .then(async (arr) => {
+        await arr.json();
+      })
+      .then((d) => {
+        console.log(d);
+      });
   };
   const location = useLocation();
   return (

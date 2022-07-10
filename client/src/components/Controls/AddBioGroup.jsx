@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import { Alert } from "@mui/material";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const AddBioGroup = ({ username, groupName }) => {
+  const [msg, setMsg] = useState("");
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState("error");
   const [bioData, setBioData] = useState({
     bio: "",
   });
@@ -25,11 +32,38 @@ const AddBioGroup = ({ username, groupName }) => {
     )
       .then((result) => result.text())
       .then((msg) => {
-        window.alert(msg);
+        if (msg === "success") {
+          setSeverity("success");
+        } else {
+          setSeverity("error");
+        }
+        setOpen(true);
+        setMsg(msg);
       });
   };
   return (
     <div>
+      <Collapse in={open}>
+        <Alert
+          severity={severity}
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              {" "}
+              <CloseIcon fontSize="inherit" />{" "}
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          {msg}
+        </Alert>
+      </Collapse>
       <form onSubmit={(e) => addBio(e)}>
         <input
           type="text"

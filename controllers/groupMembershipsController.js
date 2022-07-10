@@ -73,15 +73,18 @@ const addBio = async (req, res) => {
       groupName: req.body.groupName,
       type: "admin",
     },
-  }).then((admin) => {
+  }).then(async (admin) => {
     if (admin) {
-      admin
-        .update({
+      await GroupNames.update(
+        {
           description: req.body.description,
+        },
+        {
           where: {
             groupName: req.body.groupName,
           },
-        })
+        }
+      )
         .then((result) => {
           res.status(200).send("Added bio");
         })
@@ -90,7 +93,9 @@ const addBio = async (req, res) => {
           res.status(200).send("error occurred");
         });
     } else {
-      res.status(200).send("You do not have to rights to change this group");
+      res
+        .status(200)
+        .send("You do not have to rights to change this group bio");
     }
   });
 };

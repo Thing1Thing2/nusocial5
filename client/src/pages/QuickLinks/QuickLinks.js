@@ -52,7 +52,7 @@ const QuickLinks = () => {
       <div className="links">
         {Links.forEach((u) => (
           <div className="link">
-            <Link info={u[0]} imgsrc={u[1]} createdBy={u[2]} link={u[3]} />
+            <Link link={u[0]} imgsrc={u[1]} createdBy={u[2]} info={u[3]} />
           </div>
         ))}
       </div>

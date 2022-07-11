@@ -4,6 +4,7 @@ import NewsFeed from "./NewsFeed";
 import { NewsData } from "../test-data/test-data";
 import Post from "../Post/Post";
 import AddPost from "../Controls/AddPost.jsx";
+import AddNews from "../Controls/addNews";
 
 const News = ({ username }) => {
   const [PostList, setPostList] = useState([]);
@@ -70,6 +71,7 @@ const News = ({ username }) => {
   return (
     <>
       <div className="News">
+        <AddNews username={username} />
         {NewsData.map((news) => (
           <NewsFeed
             img={news.img}

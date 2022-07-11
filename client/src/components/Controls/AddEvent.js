@@ -16,7 +16,6 @@ const AddEvent = ({ username }) => {
   });
   function addEvent(e) {
     setOpen(false);
-    console.log("username given: " + username.toString());
     e.preventDefault();
     const fileField = document.querySelector('input[id="photo"]');
     const formData = new FormData();

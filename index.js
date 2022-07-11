@@ -79,6 +79,8 @@ const trendingRouter = require("./routes/trendingRouter.js");
 app.use("/api/trending", trendingRouter);
 const recentEventsRouter = require("./routes/recentEventsRouter.js");
 app.use("/api/recentevents", recentEventsRouter);
+const newsRouter = require("./routes/newsRouter.js");
+app.use("/api/news", newsRouter);
 
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.

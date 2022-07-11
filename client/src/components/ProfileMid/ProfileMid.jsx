@@ -193,7 +193,8 @@ const ProfileMid = ({ username }) => {
       "https://nusocial5.herokuapp.com/api/students/albumImages",
       settings
     ).then(async (results) => {
-      let imgs = await results.json();
+      console.log(results);
+      let imgs = await results.text();
       console.log(imgs);
       setImages(imgs);
     });

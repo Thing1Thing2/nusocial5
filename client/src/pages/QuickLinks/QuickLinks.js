@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import "./QuickLinks.css";
 import { useLocation } from "react-router-dom";
 import AddLink from "../../components/Controls/AddLink";
+import DeleteLink from "../../components/Controls/DeleteLink";
 
 const QuickLinks = () => {
   const [Links, setLinks] = useState([]);
@@ -23,9 +24,12 @@ const QuickLinks = () => {
       async (arr) => {
         let links = await arr.json();
         console.log(links);
-        links.forEach((l) => {
+        links.forEach(async (l) => {
           console.log(l);
-          setLinks((list) => [...list, [l.link, l.image, l.createdBy, l.info]]);
+          await setLinks((list) => [
+            ...list,
+            [l.link, l.image, l.createdBy, l.info],
+          ]);
         });
         console.log(Links);
       }

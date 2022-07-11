@@ -30,6 +30,9 @@ const createTag = async (req, res) => {
   }
 };
 
+const getTrending = async (req, res) => {};
+
 module.exports = {
   createTag,
+  getTrending,
 };

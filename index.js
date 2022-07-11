@@ -75,6 +75,8 @@ const testsAndDeadlinesRouter = require("./routes/testsAndDeadlinesRouter.js");
 app.use("/api/testsanddeadlines", testsAndDeadlinesRouter);
 const trendingTagsRouter = require("./routes/trendingTagsRouter.js");
 app.use("/api/trendingtags", trendingTagsRouter);
+const trendingRouter = require("./routes/trendingRouter.js");
+app.use("/api/trending", trendingRouter);
 
 // The "catchall" handler: for any request that doessn't
 // match one above, send back React's index.html file.

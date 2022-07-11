@@ -42,6 +42,7 @@ db.personalchats = require("./personalChatsModel.js")(sequelize, DataTypes);
 db.links = require("./linksModel.js")(sequelize, DataTypes);
 db.testsanddeadlines = require("./testsAndDeadlines.js")(sequelize, DataTypes);
 db.trendingtags = require("./trendingTagsModel.js")(sequelize, DataTypes);
+db.trending = require("./trendingModel.js")(sequelize, DataTypes);
 
 //associations
 db.students.hasMany(db.friends, { foreignKey: "username" });
@@ -57,6 +58,9 @@ db.groupMemberships.belongsTo(db.students, { foreignKey: "username" });
 db.friends.hasMany(db.personalchats, { foreignKey: "chatId" });
 
 db.personalchats.belongsTo(db.friends, { foreignKey: "chatId" });
+
+db.trending.hasMany(db.trendingtags, { foreignKey: "tag" });
+db.trendingtags.belongsTo(db.trending, { foreignKey: "tag" });
 
 db.sequelize.sync({ force: false }).then(() => {
   console.log("yes re-sync done!");

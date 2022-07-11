@@ -61,6 +61,7 @@ const LeftBar = ({ username }) => {
       settings
     ).then(async (result) => {
       let tags = await result.json();
+      console.log(tags);
       setTrendingTags(tags);
     });
   };

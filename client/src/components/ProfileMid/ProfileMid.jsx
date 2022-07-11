@@ -327,15 +327,11 @@ const ProfileMid = ({ username }) => {
                 cols={4}
                 rowHeight={121}
               >
-                {ProfileAlbumList.map((item) => (
-                  <ImageListItem
-                    key={item.img}
-                    cols={item.cols || 1}
-                    rows={item.rows || 1}
-                  >
+                {Images.map((item) => (
+                  <ImageListItem key={item[0]} cols={item[3]} rows={item[2]}>
                     <img
-                      {...srcset(item.img, 121, item.rows, item.cols)}
-                      alt={item.title}
+                      {...srcset(item[0], 121, item[2], item[3])}
+                      alt={item[1]}
                       loading="lazy"
                     />
                   </ImageListItem>

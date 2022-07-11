@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./profile.css";
 import { ImageList, ImageListItem } from "@mui/material";
-import { ProfileAlbumList } from "../test-data/test-data";
 import News from "../NewsPanel/News";
 import FaceTwoToneIcon from "@mui/icons-material/FaceTwoTone";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
@@ -208,6 +207,18 @@ const ProfileMid = ({ username }) => {
         console.log(img);
         console.log(Images);
       });
+      while (count <= 11) {
+        if (count === 0 || count === 5 || count === 8) {
+          Images.push(["", `picture${count}`, 2, 2]);
+        } else if (count === 3 || count === 4 || count === 11) {
+          Images.push(["", `picture${count}`, 1, 2]);
+        } else {
+          Images.push(["", `picture${count}`, 1, 1]);
+        }
+        count += 1;
+        console.log(count);
+        console.log(Images);
+      }
     });
   };
 

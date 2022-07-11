@@ -177,6 +177,7 @@ const ProfileMid = ({ username }) => {
   };
 
   const [Images, setImages] = useState([]);
+  const [n, setN] = useState(0);
   const albumImages = async () => {
     const data = {
       username: username,
@@ -197,8 +198,9 @@ const ProfileMid = ({ username }) => {
       let imgs = await results.json();
       console.log(imgs);
       setImages(imgs);
+      setN(imgs.length);
+      console.log(n);
     });
-    console.log(Images.length);
     ProfileAlbumList = [
       {
         img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",

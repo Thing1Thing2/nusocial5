@@ -26,6 +26,7 @@ const QuickLinks = () => {
         setLinks(links);
       }
     );
+    console.log(Links);
   };
   const location = useLocation();
   return (
@@ -46,7 +47,7 @@ const QuickLinks = () => {
       </div>
 
       <div className="links">
-        {Links.map((l) => {
+        {Links.forEach((l) => {
           <div className="link">
             <a href={l[0]}>
               {l[1]}

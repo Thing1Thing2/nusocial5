@@ -30,7 +30,9 @@ const createTag = async (req, res) => {
   }
 };
 
-const getTrending = async (req, res) => {};
+const getTrending = async (req, res) => {
+  //get tags in order of postsCount decreasing (positive relationship between postsCount and tag popularity)
+};
 
 module.exports = {
   createTag,

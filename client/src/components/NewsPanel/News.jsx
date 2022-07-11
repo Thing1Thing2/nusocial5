@@ -71,19 +71,18 @@ const News = ({ username }) => {
 
   const getNews = () => {
     setNews([]);
-    const info = {};
+    const data = {
+      username: username,
+    };
     const settings = {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(info),
+      body: JSON.stringify(data),
     };
-    fetch(
-      "https://nusocial5.herokuapp.com/api/groupmemberships/changeProfilePicture",
-      settings
-    )
+    fetch("https://nusocial5.herokuapp.com/api/news/getNews", settings)
       .then(async (arr) => {
         let data = await arr.json();
         setNews(data);

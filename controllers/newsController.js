@@ -50,6 +50,20 @@ const addNews = async (req, res) => {
   }
 };
 
+const getNews = async (req, res) => {
+  let arr = [];
+  News.findAll()
+    .then((news) => {
+      news.forEach((news) => arr.push([news.title, news.coverImage, news.url]));
+      res.status(200).send(arr);
+    })
+    .catch(function (err) {
+      res.status(200).send("error occured");
+      console.log(err);
+    });
+};
+
 module.exports = {
   addNews,
+  getNews,
 };

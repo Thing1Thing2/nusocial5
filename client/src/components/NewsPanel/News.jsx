@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./news.css";
 import NewsFeed from "./NewsFeed";
-import { NewsData } from "../test-data/test-data";
 import Post from "../Post/Post";
 import AddPost from "../Controls/AddPost.jsx";
 import AddNews from "../Controls/AddNews.jsx";
@@ -68,16 +67,43 @@ const News = ({ username }) => {
     });
   };
 
+  const [News, setNews] = useState([]);
+
+  const getNews = () => {
+    setNews([]);
+    const info = {};
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+    fetch(
+      "https://nusocial5.herokuapp.com/api/groupmemberships/changeProfilePicture",
+      settings
+    )
+      .then(async (arr) => {
+        let data = await arr.json();
+        setNews(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
+      <AddNews username={username} />
+      <button onClick={getNews}>Get News</button>
       <div className="News">
-        <AddNews username={username} />
-        {NewsData.map((news) => (
+        {News.map((news) => (
           <NewsFeed
-            img={news.img}
-            profileIcon={news.profileIcon}
-            title={news.title}
-            link={news.link}
+            img={news[1]}
+            profileIcon={news[1]}
+            title={news[0]}
+            link={news[2]}
           />
         ))}
       </div>

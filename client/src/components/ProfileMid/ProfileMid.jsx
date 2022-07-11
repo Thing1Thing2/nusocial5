@@ -196,9 +196,10 @@ const ProfileMid = ({ username }) => {
     ).then(async (results) => {
       console.log(results);
       let imgs = await results.json();
+      let nn = await imgs.length;
       console.log(imgs);
       setImages(imgs);
-      setN(imgs.length);
+      setN(nn);
       console.log(n);
     });
     ProfileAlbumList = [

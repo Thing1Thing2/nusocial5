@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "./leftBar.css";
-import { Trending, Events } from "../test-data/test-data";
+import { Events } from "../test-data/test-data";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CreateGroup from "../Controls/CreateGroup";
-import JoinGroup from "../Controls/JoinGroup";
 import ViewGroup from "../Controls/ViewGroup";
 import NewTag from "../Controls/NewTag";
 import AddEvent from "../Controls/AddEvent";
@@ -42,6 +41,30 @@ const LeftBar = ({ username }) => {
     });
   };
 
+  const [TrendingTags, setTrendingTags] = useState([]);
+  const getTrendingTags = async () => {
+    setTrendingTags([]);
+    const info = {
+      username: username,
+    };
+
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+    fetch(
+      "https://nusocial5.herokuapp.com/api/trendingtags/getTrending",
+      settings
+    ).then(async (result) => {
+      let tags = await result.json();
+      setTrendingTags(tags);
+    });
+  };
+
   return (
     <div className="leftBar">
       <div className="leftBarComponentContainer">
@@ -73,9 +96,10 @@ const LeftBar = ({ username }) => {
       </div>
       <div className="leftBarComponentContainer">
         <NewTag />
+        <button onClick={getTrendingTags}>Refresh Trending</button>
         <div className="containerTitle">Trending</div>
-        {Trending.map((u) => (
-          <div className="trending">{u.trend}</div>
+        {TrendingTags.map((u) => (
+          <div className="trending">{u[0]}</div>
         ))}
         <div className="showMore">Show more</div>
       </div>

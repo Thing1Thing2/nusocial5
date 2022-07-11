@@ -2,6 +2,7 @@ const db = require("../models");
 
 const { Op } = require("sequelize");
 const sequelize = require("sequelize");
+const { posts } = require("../models");
 
 const Trending = db.trending;
 const Posts = db.posts;
@@ -41,56 +42,44 @@ const verifyType = (type) => {
   );
 };
 const addTag = async (req, res) => {
+  console.log("add tag");
   let guardCode =
     (await verifyTag(req.body.tag)) &&
     (await findTag(req.body.tag, req.body.eventID)) &&
     (await verifyType(req.body.type));
   if (guardCode) {
-    if (req.body.type === "Post") {
-      Posts.findOne({
-        where: {
-          postID: req.body.eventID,
-        },
-      }).then((foundPost) => {
-        if (foundPost) {
-          Trending.create({
-            eventID: req.body.eventID,
-            type: req.body.type,
+    Trending.create({
+      eventID: req.body.eventID,
+      type: req.body.type,
+      tag: req.body.tag,
+    }).then(async (result) => {
+      const postsCount = await TrendingTags.findOne(
+        { attributes: ["postsCount"] },
+        {
+          where: {
             tag: req.body.tag,
-          })
-            .then((result) => {
-              let postsCount = TrendingTags.findOne(
-                { attributes: ["postsCount"] },
-                {
-                  where: {
-                    tag: req.body.tag,
-                  },
-                }
-              );
-              res.status(200).send("added tag");
-            })
-            .catch((err) => {
-              console.log(err);
-              res.status(200).send("error occurred");
-            });
-        } else {
-          res.status(200).send("This post is not backed up");
+          },
         }
-      });
-    } else if (req.body.type === "Test" || req.body.type === "Deadline") {
-      Trending.create({
-        eventID: req.body.eventID,
-        type: req.body.type,
-        tag: req.body.tag,
-      })
-        .then((result) => {
+      );
+      console.log(postsCount.postsCount);
+      const num = parseInt(postsCount.postsCount) + 1;
+      console.log(num);
+      TrendingTags.update(
+        { postsCount: num },
+        {
+          where: {
+            tag: req.body.tag,
+          },
+        }
+      )
+        .then((Result) => {
           res.status(200).send("added tag");
         })
         .catch((err) => {
           console.log(err);
-          res.status(200).send("error occurred");
+          res.status(200).send("error updating tag record");
         });
-    }
+    });
   } else {
     res.status(200).send("Send a valid tag or eventID");
   }

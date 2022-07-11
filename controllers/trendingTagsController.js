@@ -32,6 +32,18 @@ const createTag = async (req, res) => {
 
 const getTrending = async (req, res) => {
   //get tags in order of postsCount decreasing (positive relationship between postsCount and tag popularity)
+  TrendingTags.findAll({ order: [["postsCount", "DESC"]] })
+    .then((results) => {
+      let arr = [];
+      results.forEach((r) => {
+        arr.push(r.tag);
+      });
+      res.status(200).send(arr);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("error occurred");
+    });
 };
 
 module.exports = {

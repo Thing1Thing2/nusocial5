@@ -48,7 +48,12 @@ const QuickLinks = () => {
       <div className="addLink">
         <AddLink username={location.state.username} />
       </div>
-      <div className="links">{Links}</div>
+
+      <div className="links">
+        {Links.forEach((l) => {
+          <div className="link">{l}</div>;
+        })}
+      </div>
     </div>
   );
 };

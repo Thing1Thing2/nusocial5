@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./leftBar.css";
-import { Events } from "../test-data/test-data";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CreateGroup from "../Controls/CreateGroup";
@@ -66,6 +65,30 @@ const LeftBar = ({ username }) => {
     });
   };
 
+  const [Events, setEvents] = useState([]);
+  const getEvents = () => {
+    setEvents([]);
+    const info = {
+      username: username,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+    fetch(
+      "https://nusocial5.herokuapp.com/api/recentevents/getEvents",
+      settings
+    ).then(async (result) => {
+      let events = await result.json();
+      console.log(events);
+      setEvents(events);
+    });
+  };
+
   return (
     <div className="leftBar">
       <div className="leftBarComponentContainer">
@@ -100,21 +123,25 @@ const LeftBar = ({ username }) => {
         <button onClick={getTrendingTags}>Refresh Trending</button>
         <div className="containerTitle">Trending</div>
         {TrendingTags.map((u) => (
-          <div className="trending">{u[0]}</div>
+          <div className="trending">{u}</div>
         ))}
         <div className="showMore">Show more</div>
       </div>
       <div className="leftBarComponentContainer">
+        <button onClick={getEvents}>Refresh Events</button>
         <div className="containerTitle">Recent Events</div>
         <AddEvent username={username} />
         {Events.map((u) => (
           <div className="event">
             <div className="eventAvatar">
-              <Avatar src={u.avatar} alt="" />
+              <Avatar src={u[4]} alt="" />
             </div>
             <div className="eventContainerRight">
-              <div className="eventName">{u.name}</div>
-              <div className="eventTime">{u.time}</div>
+              <div className="eventName">{u[0]}</div>
+              <div className="eventTime">
+                {u[1]}
+                {u[2]}
+              </div>
             </div>
           </div>
         ))}

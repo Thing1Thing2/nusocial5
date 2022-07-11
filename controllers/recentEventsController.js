@@ -54,6 +54,22 @@ const addEvent = async (req, res) => {
   }
 };
 
+const getEvents = async (req, res) => {
+  RecentEvents.findAll()
+    .then((results) => {
+      let arr = [];
+      results.forEach((r) => {
+        arr.push([r.eventName, r.date, r.time, r.url, r.image]);
+      });
+      res.status(200).send(arr);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("error occurred");
+    });
+};
+
 module.exports = {
   addEvent,
+  getEvents,
 };

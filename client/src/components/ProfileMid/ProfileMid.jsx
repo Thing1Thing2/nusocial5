@@ -176,8 +176,7 @@ const ProfileMid = ({ username }) => {
     setBio(dataBio);
   };
 
-  const [Images, setImages] = useState([]);
-  const [n, setN] = useState(0);
+  let Images = [];
   const albumImages = async () => {
     const data = {
       username: username,
@@ -197,7 +196,7 @@ const ProfileMid = ({ username }) => {
       let imgs = await results.json();
       let count = 0;
       imgs.forEach(async (img) => {
-        await setImages((list) => [...list, img]);
+        Images.push([img]);
         count += 1;
         console.log(count);
         console.log(img);

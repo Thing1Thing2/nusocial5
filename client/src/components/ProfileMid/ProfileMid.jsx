@@ -177,7 +177,7 @@ const ProfileMid = ({ username }) => {
   };
 
   const [Images, setImages] = useState([]);
-  const albumImages = async () => {
+  const albumImages = () => {
     const data = {
       username: username,
     };
@@ -189,7 +189,7 @@ const ProfileMid = ({ username }) => {
       },
       body: JSON.stringify(data),
     };
-    await fetch(
+    fetch(
       "https://nusocial5.herokuapp.com/api/students/albumImages",
       settings
     ).then(async (results) => {

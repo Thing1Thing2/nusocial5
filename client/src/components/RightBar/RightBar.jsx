@@ -226,9 +226,12 @@ const RightBar = ({ username }) => {
           <button onClick={getTestsAndDeadlines}>Refresh Trending</button>
           {TestsAndDeadlines.map((u) => (
             <div className="deadlineAndTest">
-              <div className="moduleName">{u.module}</div>
-              <div className="deadlineOrTest">{u.type}</div>
-              <div className="date">{u.date}</div>
+              <div className="moduleName">{u[0]}</div>
+              <div className="deadlineOrTest">{u[1]}</div>
+              <div className="date">
+                {u[2]}
+                {u[3]}
+              </div>
             </div>
           ))}
           <div className="showMore">Show more</div>

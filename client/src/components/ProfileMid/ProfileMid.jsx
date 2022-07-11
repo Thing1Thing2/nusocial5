@@ -194,70 +194,15 @@ const ProfileMid = ({ username }) => {
       "https://nusocial5.herokuapp.com/api/students/albumPictures",
       settings
     ).then(async (results) => {
-      console.log(results);
       let imgs = await results.json();
-      setImages(imgs);
+      let count = 0;
+      imgs.forEach((img) => {
+        setImages((list) => [...list, img]);
+        count += 1;
+        console.log(count);
+      });
+      console.log(Images);
     });
-    ProfileAlbumList = [
-      {
-        img: Images[0],
-        title: "Picture1",
-        rows: 2,
-        cols: 2,
-      },
-      {
-        img: Images[1],
-        title: "Picture2",
-      },
-      {
-        img: Images[2],
-        title: "Picture3",
-      },
-      {
-        img: Images[3],
-        title: "Picture4",
-        cols: 2,
-      },
-      {
-        img: Images[4],
-        title: "Picture5",
-        cols: 2,
-      },
-      {
-        img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-        title: "Picture6",
-        author: "@arwinneil",
-        rows: 2,
-        cols: 2,
-      },
-      {
-        img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-        title: "Picture7",
-      },
-      {
-        img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-        title: "Picture8",
-      },
-      {
-        img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-        title: "Picture9",
-        rows: 2,
-        cols: 2,
-      },
-      {
-        img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-        title: "Picture10",
-      },
-      {
-        img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-        title: "Picture11",
-      },
-      {
-        img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-        title: "Picture12",
-        cols: 2,
-      },
-    ];
   };
 
   let ProfileAlbumList = [

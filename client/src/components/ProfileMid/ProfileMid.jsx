@@ -201,8 +201,8 @@ const ProfileMid = ({ username }) => {
         count += 1;
         console.log(count);
         console.log(img);
+        console.log(Images);
       });
-      console.log(Images);
     });
   };
 

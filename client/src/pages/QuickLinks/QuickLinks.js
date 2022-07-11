@@ -24,12 +24,17 @@ const QuickLinks = () => {
       async (arr) => {
         let links = await arr.json();
         console.log(links);
-        links.forEach(async (l) => {
+        links.forEach((l) => {
           console.log(l);
-          await setLinks((list) => [
-            ...list,
-            [l.link, l.image, l.createdBy, l.info],
-          ]);
+          console.log(l.link);
+          console.log(l.image);
+          console.log(l.createdBy);
+          console.log(l.info);
+          let link = l.link;
+          let image = l.image;
+          let createdBy = l.createdBy;
+          let info = l.info;
+          setLinks((list) => [...list, [link, image, createdBy, info]]);
         });
         console.log(Links);
       }

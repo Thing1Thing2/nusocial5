@@ -196,7 +196,13 @@ const ProfileMid = ({ username }) => {
       let imgs = await results.json();
       let count = 0;
       imgs.forEach(async (img) => {
-        Images.push([img]);
+        if (count === 0 || count === 5 || count === 8) {
+          Images.push([img, `picture${count}`, 2, 2]);
+        } else if (count === 3 || count === 4 || count === 11) {
+          Images.push([img, `picture${count}`, 1, 2]);
+        } else {
+          Images.push([img, `picture${count}`, 1, 1]);
+        }
         count += 1;
         console.log(count);
         console.log(img);
@@ -210,59 +216,59 @@ const ProfileMid = ({ username }) => {
       img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
       title: "Breakfast",
       rows: 2,
-      cols: 2,
+      cols: 2, //0
     },
     {
       img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
+      title: "Burger", //1
     },
     {
       img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
+      title: "Camera", //2
     },
     {
       img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
       title: "Coffee",
-      cols: 2,
+      cols: 2, //3
     },
     {
       img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
       title: "Hats",
-      cols: 2,
+      cols: 2, //4
     },
     {
       img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
       title: "Honey",
       author: "@arwinneil",
       rows: 2,
-      cols: 2,
+      cols: 2, //5
     },
     {
       img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-      title: "Basketball",
+      title: "Basketball", //6
     },
     {
       img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-      title: "Fern",
+      title: "Fern", //7
     },
     {
       img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
       title: "Mushrooms",
       rows: 2,
-      cols: 2,
+      cols: 2, //8
     },
     {
       img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-      title: "Tomato basil",
+      title: "Tomato basil", //9
     },
     {
       img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-      title: "Sea star",
+      title: "Sea star", //10
     },
     {
       img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
       title: "Bike",
-      cols: 2,
+      cols: 2, //11
     },
   ];
 

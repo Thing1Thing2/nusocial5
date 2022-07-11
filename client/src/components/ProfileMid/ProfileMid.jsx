@@ -196,34 +196,30 @@ const ProfileMid = ({ username }) => {
     ).then(async (results) => {
       console.log(results);
       let imgs = await results.json();
-      let nn = await imgs.length;
-      console.log(imgs);
       setImages(imgs);
-      setN(nn);
-      console.log(n);
     });
     ProfileAlbumList = [
       {
-        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        img: Images[0],
         title: "Picture1",
         rows: 2,
         cols: 2,
       },
       {
-        img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
+        img: Images[1],
         title: "Picture2",
       },
       {
-        img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+        img: Images[2],
         title: "Picture3",
       },
       {
-        img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+        img: Images[3],
         title: "Picture4",
         cols: 2,
       },
       {
-        img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+        img: Images[4],
         title: "Picture5",
         cols: 2,
       },

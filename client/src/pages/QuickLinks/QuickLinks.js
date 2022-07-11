@@ -8,7 +8,7 @@ import DeleteLink from "../../components/Controls/DeleteLink";
 const QuickLinks = () => {
   const [Links, setLinks] = useState([]);
   const getLinks = () => {
-    Links = [];
+    setLinks([]);
     const data = {
       username: location.state.username,
     };

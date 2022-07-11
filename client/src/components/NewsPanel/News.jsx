@@ -4,7 +4,7 @@ import NewsFeed from "./NewsFeed";
 import { NewsData } from "../test-data/test-data";
 import Post from "../Post/Post";
 import AddPost from "../Controls/AddPost.jsx";
-import AddNews from "../Controls/addNews";
+import AddNews from "../Controls/AddNews.jsx";
 
 const News = ({ username }) => {
   const [PostList, setPostList] = useState([]);

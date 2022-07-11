@@ -47,15 +47,15 @@ const QuickLinks = () => {
       </div>
 
       <div className="links">
-        {Links.forEach((l) => {
+        {Links.map((l) => (
           <div className="link">
             <a href={l[0]}>
               {l[1]}
               createBy: {l[3]}
               <img src={l[2]} alt={l[1]} />
             </a>
-          </div>;
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );

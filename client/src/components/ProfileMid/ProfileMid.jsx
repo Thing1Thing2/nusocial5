@@ -176,6 +176,29 @@ const ProfileMid = ({ username }) => {
     setBio(dataBio);
   };
 
+  const [Images, setImages] = useState([]);
+  const albumImages = async () => {
+    const data = {
+      username: username,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/albumImages",
+      settings
+    ).then(async (results) => {
+      let imgs = await results.json();
+      console.log(imgs);
+      setImages(imgs);
+    });
+  };
+
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
@@ -224,21 +247,18 @@ const ProfileMid = ({ username }) => {
               Album
             </div>
             <div className="albumDetail">
+              <button onClick={albumImages}>Refresh Images</button>
               <ImageList
                 sx={{ width: 400, height: 450, margin: 0 }}
                 variant="quilted"
                 cols={4}
                 rowHeight={121}
               >
-                {ProfileAlbumList.map((item) => (
-                  <ImageListItem
-                    key={item.img}
-                    cols={item.cols || 1}
-                    rows={item.rows || 1}
-                  >
+                {Images.map((item) => (
+                  <ImageListItem key={item} cols={item || 1} rows={item || 1}>
                     <img
-                      {...srcset(item.img, 121, item.rows, item.cols)}
-                      alt={item.title}
+                      {...srcset(item, 121, 0, 0)}
+                      alt={item}
                       loading="lazy"
                     />
                   </ImageListItem>

@@ -1,6 +1,7 @@
 const db = require("../models");
 
 const bcrypt = require("bcryptjs");
+const { posts, links } = require("../models");
 var cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
@@ -12,6 +13,9 @@ cloudinary.config({
 // create main Model
 const Student = db.students;
 const Friends = db.friends;
+const News = db.news;
+const Links = db.links;
+const RecentEvents = db.recentevents;
 
 // main work
 
@@ -319,6 +323,58 @@ const getBio = async (req, res) => {
     });
 };
 
+const albumPictures = async (req, res) => {
+  let imgArray = [];
+  let accountImages = await Student.findOne({
+    attributes: ["profilePictureURL", "coverPictureURL"],
+    where: {
+      username: req.body.username,
+    },
+  });
+  let profilePic = accountImages.profilePictureURL;
+  let coverPic = accountImages.coverPictureURL;
+  imgArray.push(profilePic);
+  imgArray.push(coverPic);
+  let postsImages = await posts.findAll({
+    attributes: ["image"],
+    where: {
+      from: req.body.username,
+    },
+  });
+  postsImages.forEach((pic) => {
+    imgArray.push(pic.image);
+  });
+  let newsImages = await News.findAll({
+    attributes: ["coverImage"],
+    where: {
+      createdBy: req.body.username,
+    },
+  });
+  newsImages.forEach((pic) => {
+    imgArray.push(pic.coverImage);
+  });
+  let linksImages = await links.findAll({
+    attributes: ["image"],
+    where: {
+      createdBy: req.body.username,
+    },
+  });
+  linksImages.forEach((pic) => {
+    console.log(pic.image);
+    imgArray.push(pic.image);
+  });
+  let eventsImages = await RecentEvents.findAll({
+    attributes: ["image"],
+    where: {
+      createdBy: req.body.username,
+    },
+  });
+  eventsImages.forEach((pic) => {
+    imgArray.push(pic.image);
+  });
+  res.status(200).send(imgArray);
+};
+
 module.exports = {
   addStudent,
   logoutStudent,
@@ -330,4 +386,5 @@ module.exports = {
   getCoverPicture,
   addBio,
   getBio,
+  albumPictures,
 };

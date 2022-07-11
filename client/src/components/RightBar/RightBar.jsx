@@ -223,7 +223,7 @@ const RightBar = ({ username }) => {
         <div className="rightbarComponentContainer">
           <div className="containerTitle">Upcoming Tests & Deadlines</div>
           <AddTestOrDeadline username={username} />
-          <button onClick={getTestsAndDeadlines}>Refresh Trending</button>
+          <button onClick={getTestsAndDeadlines}>Refresh Deadlines</button>
           {TestsAndDeadlines.map((u) => (
             <div className="deadlineAndTest">
               <div className="moduleName">{u[0]}</div>

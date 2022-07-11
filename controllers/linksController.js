@@ -69,8 +69,12 @@ const addLink = async (req, res) => {
 };
 
 const getLinks = async (req, res) => {
+  let arr = [];
   Links.findAll().then((result) => {
-    res.status(200).send(result);
+    result.forEach((result) => {
+      arr.push([result.link, result.info, result.image, result.createdBy]);
+    });
+    res.status(200).send(arr);
   });
 };
 

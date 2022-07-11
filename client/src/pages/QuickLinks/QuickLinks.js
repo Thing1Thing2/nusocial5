@@ -6,7 +6,7 @@ import AddLink from "../../components/Controls/AddLink";
 import DeleteLink from "../../components/Controls/DeleteLink";
 
 const QuickLinks = () => {
-  let Links = [];
+  const [Links, setLinks] = useState([]);
   const getLinks = () => {
     Links = [];
     const data = {
@@ -23,11 +23,7 @@ const QuickLinks = () => {
     fetch("https://nusocial5.herokuapp.com/api/links/getLinks", settings).then(
       async (arr) => {
         let links = await arr.json();
-        console.log(links);
-        links.forEach((l) => {
-          Links.push(l);
-        });
-        console.log(Links);
+        setLinks(links);
       }
     );
   };
@@ -52,10 +48,10 @@ const QuickLinks = () => {
       <div className="links">
         {Links.map((l) => {
           <div className="link">
-            <a href={l.link}>
-              {l.info}
-              createBy: {l.createdBy}
-              <img src={l.image} alt={l.info} />
+            <a href={l[0]}>
+              {l[1]}
+              createBy: {l[3]}
+              <img src={l[2]} alt={l[1]} />
             </a>
           </div>;
         })}

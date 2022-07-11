@@ -16,10 +16,10 @@ const AddNews = ({ username }) => {
   function addNews(e) {
     setOpen(false);
     e.preventDefault();
-    const fileField = document.querySelector('input[id="photo"]');
+    const fileField = document.querySelector('input[id="coverImage"]');
     const formData = new FormData();
-    formData.append("username", username);
     formData.append("coverImage", fileField.files[0]);
+    formData.append("username", username);
     formData.append("url", newsData.url);
     formData.append("title", newsData.title);
     const settings = {
@@ -79,7 +79,7 @@ const AddNews = ({ username }) => {
 
           <input
             type="file"
-            id="photo"
+            id="coverImage"
             name="filename"
             placeholder="upload news picture"
           />

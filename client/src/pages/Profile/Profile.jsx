@@ -72,6 +72,8 @@ const Profile = () => {
           <LeftBar username={location.state.username} />
         </div>
         <div className="profileBodyMid">
+          Images
+          {Images}
           <ProfileMid username={location.state.username} Images={Images} />
         </div>
       </div>

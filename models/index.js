@@ -43,6 +43,7 @@ db.links = require("./linksModel.js")(sequelize, DataTypes);
 db.testsanddeadlines = require("./testsAndDeadlines.js")(sequelize, DataTypes);
 db.trendingtags = require("./trendingTagsModel.js")(sequelize, DataTypes);
 db.trending = require("./trendingModel.js")(sequelize, DataTypes);
+db.recentevents = require("./recentEventsModel.js")(sequelize, DataTypes);
 
 //associations
 db.students.hasMany(db.friends, { foreignKey: "username" });

@@ -169,6 +169,7 @@ const Post = ({ post, username }) => {
   const [openPost, setOpenPost] = useState(true);
   return (
     <div className="postContainer">
+      <AddTag eventID={post[8]} type="Post" />
       <Collapse in={openPost} fontSize="inherit">
         <div className="postTop">
           <div className="avatarContainer">
@@ -245,7 +246,6 @@ const Post = ({ post, username }) => {
           <button className="postBottomSendButton" onClick={deletePost}>
             Delete Post
           </button>
-          <AddTag eventID={post[8]} type="Post" />
         </div>
       </Collapse>
     </div>

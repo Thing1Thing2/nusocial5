@@ -16,11 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     time: { type: DataTypes.STRING, allowNull: false },
-    picture: {
-      type: DataTypes.STRING,
-    },
     url: {
       type: DataTypes.STRING,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     createdBy: {
       type: DataTypes.STRING,

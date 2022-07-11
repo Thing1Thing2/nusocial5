@@ -7,6 +7,7 @@ import CreateGroup from "../Controls/CreateGroup";
 import JoinGroup from "../Controls/JoinGroup";
 import ViewGroup from "../Controls/ViewGroup";
 import NewTag from "../Controls/NewTag";
+import AddEvent from "../Controls/AddEvent";
 
 const LeftBar = ({ username }) => {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ const LeftBar = ({ username }) => {
       </div>
       <div className="leftBarComponentContainer">
         <div className="containerTitle">Recent Events</div>
+        <AddEvent username={username} />
         {Events.map((u) => (
           <div className="event">
             <div className="eventAvatar">

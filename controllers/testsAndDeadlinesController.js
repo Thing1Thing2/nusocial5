@@ -35,7 +35,23 @@ const deleteTestOrDeadline = async (req, res) => {
     });
 };
 
+const getTestsAndDeadlines = async (req, res) => {
+  TestsAndDeadlines.findAll()
+    .then((results) => {
+      let arr = [];
+      results.forEach((r) => {
+        arr.push([r.module, r.type, r.date, r.time]);
+      });
+      res.status(200).send(arr);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("Error occurred");
+    });
+};
+
 module.exports = {
   addTestOrDeadline,
   deleteTestOrDeadline,
+  getTestsAndDeadlines,
 };

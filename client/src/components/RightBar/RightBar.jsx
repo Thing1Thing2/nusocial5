@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Deadlines } from "../test-data/test-data";
 import "./rightBar.css";
 import Online from "../Online/Online";
 import { Avatar } from "@mui/material";
@@ -155,6 +154,29 @@ const RightBar = ({ username }) => {
     });
   };
 
+  const [TestsAndDeadlines, setTestsAndDeadlines] = useState([]);
+  const getTestsAndDeadlines = () => {
+    setTestsAndDeadlines([]);
+    const info = {
+      username: username,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+    fetch(
+      "https://nusocial5.herokuapp.com/api/testsanddeadlines/getTestsAndDeadlines",
+      settings
+    ).then(async (result) => {
+      let testsAndDeadlines = await result.json();
+      console.log(testsAndDeadlines);
+      setTestsAndDeadlines(testsAndDeadlines);
+    });
+  };
   return (
     <div className="rightBar">
       <div className="rightbarComponentContainer">
@@ -201,7 +223,8 @@ const RightBar = ({ username }) => {
         <div className="rightbarComponentContainer">
           <div className="containerTitle">Upcoming Tests & Deadlines</div>
           <AddTestOrDeadline username={username} />
-          {Deadlines.map((u) => (
+          <button onClick={getTestsAndDeadlines}>Refresh Trending</button>
+          {TestsAndDeadlines.map((u) => (
             <div className="deadlineAndTest">
               <div className="moduleName">{u.module}</div>
               <div className="deadlineOrTest">{u.type}</div>

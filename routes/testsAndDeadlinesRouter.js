@@ -10,5 +10,8 @@ testsAndDeadlinesRouter.post(
   "/deleteTestOrDeadline",
   testsAndDeadlinesController.deleteTestOrDeadline
 );
-
+testsAndDeadlinesRouter.post(
+  "/getTestsAndDeadlines",
+  testsAndDeadlinesController.getTestsAndDeadlines
+);
 module.exports = testsAndDeadlinesRouter;

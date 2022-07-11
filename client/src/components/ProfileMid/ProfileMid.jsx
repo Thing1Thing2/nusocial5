@@ -196,10 +196,11 @@ const ProfileMid = ({ username }) => {
     ).then(async (results) => {
       let imgs = await results.json();
       let count = 0;
-      imgs.forEach((img) => {
-        setImages((list) => [...list, img]);
+      imgs.forEach(async (img) => {
+        await setImages((list) => [...list, img]);
         count += 1;
         console.log(count);
+        console.log(img);
       });
       console.log(Images);
     });

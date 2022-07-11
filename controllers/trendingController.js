@@ -59,6 +59,14 @@ const addTag = async (req, res) => {
             tag: req.body.tag,
           })
             .then((result) => {
+              let postsCount = TrendingTags.findOne(
+                { attributes: ["postsCount"] },
+                {
+                  where: {
+                    tag: req.body.tag,
+                  },
+                }
+              );
               res.status(200).send("added tag");
             })
             .catch((err) => {

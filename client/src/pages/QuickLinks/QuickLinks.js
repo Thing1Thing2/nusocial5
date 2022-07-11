@@ -6,9 +6,9 @@ import AddLink from "../../components/Controls/AddLink";
 import DeleteLink from "../../components/Controls/DeleteLink";
 
 const QuickLinks = () => {
-  const [Links, setLinks] = useState([]);
+  let Links = [];
   const getLinks = () => {
-    setLinks([]);
+    Links = [];
     const data = {
       username: location.state.username,
     };
@@ -25,7 +25,7 @@ const QuickLinks = () => {
         let links = await arr.json();
         console.log(links);
         links.forEach((l) => {
-          setLinks((list) => [...list, [l]]);
+          Links.push(l);
         });
         console.log(Links);
       }

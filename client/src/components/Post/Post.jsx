@@ -9,7 +9,7 @@ import Picker from "emoji-picker-react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Collapse } from "@mui/material";
 import Comment from "../Comments/Comment";
-import AddTag from "../Controls/addTag";
+import AddTag from "../Controls/AddTag";
 
 const Post = ({ post, username }) => {
   const [likes, setLikes] = useState(post[6]);

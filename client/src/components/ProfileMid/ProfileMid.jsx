@@ -198,9 +198,7 @@ const ProfileMid = ({ username }) => {
       console.log(imgs);
       setImages(imgs);
     });
-
-    let n = await Images.length;
-    console.log(n);
+    console.log(Images.length);
     ProfileAlbumList = [
       {
         img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",

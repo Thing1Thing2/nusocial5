@@ -190,11 +190,11 @@ const ProfileMid = ({ username }) => {
       body: JSON.stringify(data),
     };
     fetch(
-      "https://nusocial5.herokuapp.com/api/students/albumImages",
+      "https://nusocial5.herokuapp.com/api/students/albumPictures",
       settings
     ).then(async (results) => {
       console.log(results);
-      let imgs = await results.text();
+      let imgs = await results.json();
       console.log(imgs);
       setImages(imgs);
     });

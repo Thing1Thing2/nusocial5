@@ -4,7 +4,7 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const DeleteLink = ({ username }) => {
+const DeleteLink = ({ username, info, link }) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState("info");
@@ -13,6 +13,8 @@ const DeleteLink = ({ username }) => {
     setOpen(false);
     const data = {
       username: username,
+      info: info,
+      link: link,
     };
     const settings = {};
     fetch("https://nusocial5.herokuapp.com/api/links/deleteLink", settings)

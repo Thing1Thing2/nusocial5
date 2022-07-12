@@ -1,18 +1,4 @@
 const db = require("../models");
-var giphy = require("giphy-wrapper")("    4LNVpKcyYsZK9sTvTBxYQiTToKf9TIsz");
-
-var textJob = new cronJob("0 18 * * *", function () {
-  giphy.search("puppy", 10, 0, function (err, data) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-
-    var gifs = data.data;
-    var gif = gifs[Math.floor(Math.random() * gifs.length)];
-    console.log(gif);
-  });
-});
 
 const TestsAndDeadlines = db.testsanddeadlines;
 

@@ -4,8 +4,6 @@ import "./QuickLinks.css";
 import { useLocation } from "react-router-dom";
 import AddLink from "../../components/Controls/AddLink";
 import DeleteLink from "../../components/Controls/DeleteLink";
-import ReactGiphySearchbox from "react-giphy-searchbox";
-
 const QuickLinks = () => {
   const [Links, setLinks] = useState([]);
   const getLinks = () => {
@@ -62,17 +60,6 @@ const QuickLinks = () => {
             </a>
           </div>
         ))}
-      </div>
-
-      <div className="gif">
-        <ReactGiphySearchbox
-          apiKey="4LNVpKcyYsZK9sTvTBxYQiTToKf9TIsz"
-          onSelect={(item) => console.log(item)}
-          masonryConfig={[
-            { columns: 2, imageWidth: 110, gutter: 5 },
-            { mq: "700px", columns: 3, imageWidth: 110, gutter: 5 },
-          ]}
-        />
       </div>
     </div>
   );

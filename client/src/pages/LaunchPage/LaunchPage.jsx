@@ -277,7 +277,6 @@ const LaunchPage = () => {
             </form>
           </div>
         </div>
-
         <Content handleSign={handleSign} />
       </div>
     </div>

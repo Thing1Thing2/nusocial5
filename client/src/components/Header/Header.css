@@ -30,6 +30,7 @@
   border-radius: 20px;
   align-items: center;
   font-family: "JetBrains Mono", monospace;
+  margin-left: 20%;
 }
 
 .searchInput {

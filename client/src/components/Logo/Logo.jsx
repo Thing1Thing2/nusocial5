@@ -9,12 +9,9 @@ const Logo = ({ link, title, username }) => {
     <div
       className="logoAndHeader"
       onClick={() =>
-        navigate(
-          { link },
-          {
-            state: { username: username },
-          }
-        )
+        navigate(link, {
+          state: { username: username },
+        })
       }
     >
       <div className="logo">

@@ -63,9 +63,7 @@ const LaunchPage = () => {
       });
   }
 
-  //Registration handlers and variables
-
-  const [msgReg, setMsgReg] = useState(""); //for setting Alert message
+  const [msgReg, setMsgReg] = useState("");
   const [openReg, setOpenReg] = useState(false);
   const [severityReg, setSeverityReg] = useState("error");
 
@@ -194,6 +192,10 @@ const LaunchPage = () => {
               onSubmit={(e) => submitRegistrationForm(e)}
             >
               <h2 className="title">Register</h2>
+              <h5>
+                Please enter a valid email address for us to be able to help you
+                in case you forget your password.
+              </h5>
               <div id="alert">
                 <Collapse in={openReg}>
                   <Alert

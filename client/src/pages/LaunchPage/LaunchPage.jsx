@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LaunchPage.css";
-import { ReactComponent as Lpimgregister } from "./lpimg.svg";
-import { ReactComponent as Lpimglogin } from "./lpimglogin.svg";
 import PersonIcon from "@mui/icons-material/Person";
 import HttpsIcon from "@mui/icons-material/Https";
 import EmailIcon from "@mui/icons-material/Email";
@@ -10,6 +8,7 @@ import { Alert } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import Content from "./Content";
 
 const LaunchPage = () => {
   const navigate = useNavigate();
@@ -192,7 +191,7 @@ const LaunchPage = () => {
               onSubmit={(e) => submitRegistrationForm(e)}
             >
               <h2 className="title">Register</h2>
-              <h5>
+              <h5 style="text-align:justify">
                 Please enter a valid email address for us to be able to help you
                 in case you forget your password.
               </h5>
@@ -279,39 +278,7 @@ const LaunchPage = () => {
           </div>
         </div>
 
-        <div className="panelsContainer">
-          <div className="panel leftPanel">
-            <div className="content">
-              <h3>What is NUSocial?</h3>
-              <p>
-                NUSocial is an all-in-one social media platform designed for
-                National University of Singapore students providing a wide range
-                of functions helping them to socialize, communicate, find a
-                group of students with same hobbies, catch up with their
-                studying schedules, submissions deadline,... Register an account
-                to join with NUSocial community.
-              </p>
-              <p>Register an account to join with NUSocial community.</p>
-              <button onClick={handleSign} className="btn transparent">
-                Register
-              </button>
-            </div>
-            <Lpimglogin className="image" alt="" />
-          </div>
-          <div className="panel rightPanel">
-            <div className="content">
-              <h3>Already have an account?</h3>
-              <p>
-                Login with your account here to communicate with your friends,
-                people in NUS
-              </p>
-              <button onClick={handleSign} className="btn transparent">
-                Login
-              </button>
-            </div>
-            <Lpimgregister className="image" alt="" />
-          </div>
-        </div>
+        <Content handleSign={handleSign} />
       </div>
     </div>
   );

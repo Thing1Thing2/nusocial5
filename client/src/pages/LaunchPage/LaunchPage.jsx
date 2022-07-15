@@ -191,7 +191,7 @@ const LaunchPage = () => {
               onSubmit={(e) => submitRegistrationForm(e)}
             >
               <h2 className="title">Register</h2>
-              <h5 style="text-align:justify">
+              <h5>
                 Please enter a valid email address for us to be able to help you
                 in case you forget your password.
               </h5>

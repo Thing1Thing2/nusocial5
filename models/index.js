@@ -45,7 +45,7 @@ db.trendingtags = require("./trendingTagsModel.js")(sequelize, DataTypes);
 db.trending = require("./trendingModel.js")(sequelize, DataTypes);
 db.recentevents = require("./recentEventsModel.js")(sequelize, DataTypes);
 db.news = require("./newsModel.js")(sequelize, DataTypes);
-
+db.guests = require("./guestsModel.js")(sequelize, DataTypes);
 //associations
 db.students.hasMany(db.friends, { foreignKey: "username" });
 db.friends.belongsTo(db.students, { foreignKey: "username" });

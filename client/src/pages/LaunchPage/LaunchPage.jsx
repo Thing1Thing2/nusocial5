@@ -111,6 +111,28 @@ const LaunchPage = () => {
       });
   }
 
+  const anonGuest = () => {
+    const data = {};
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    fetch("https://nusocial5.herokuapp.com/api/guests/newGuest", settings)
+      .then((response) => response.text())
+      .then(async (msg) => {
+        if (!msg.startsWith("error")) {
+          console.log(msg[0]);
+          navigate("/home", { state: { username: "guest" + msg[0] } });
+        } else {
+          console.log(msg);
+        }
+      });
+  };
+
   return (
     <div className="launchPage">
       <div className="container" ref={container}>
@@ -177,12 +199,7 @@ const LaunchPage = () => {
                 id="submitLogin"
                 className="btn solid"
               />
-              <p
-                className="guest"
-                onClick={() =>
-                  navigate("/home", { state: { username: "guest" } })
-                }
-              >
+              <p className="guest" onClick={anonGuest}>
                 Or continue as an anonymous guest
               </p>
             </form>
@@ -266,12 +283,7 @@ const LaunchPage = () => {
                 id="submitRegister"
                 className="btn solid"
               />
-              <p
-                className="guest"
-                onClick={() =>
-                  navigate("/home", { state: { username: "guest" } })
-                }
-              >
+              <p className="guest" onClick={anonGuest}>
                 Or continue as an anonymous guest
               </p>
             </form>

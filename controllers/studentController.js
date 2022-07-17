@@ -16,6 +16,7 @@ const Friends = db.friends;
 const News = db.news;
 const Links = db.links;
 const RecentEvents = db.recentevents;
+const Guests = db.guests;
 
 // main work
 
@@ -174,7 +175,17 @@ const logoutStudent = async (req, res) => {
         console.log(err);
       });
   } else {
-    res.status(200).send("You are a guest or unauthorised user");
+    Guests.destroy({
+      where: {
+        guestID: req.body.guestID,
+      },
+    })
+      .then((done) => {
+        res.status(200).send("successfully logged out guest");
+      })
+      .catch((err) => {
+        res.status(200).send("You are an unauthorised user");
+      });
   }
 };
 

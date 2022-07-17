@@ -22,8 +22,18 @@ const Header = ({
   const navigate = useNavigate();
   const [selected, setSelected] = useState("");
   const logoutFetch = () => {
+    let guestID = 0;
+    if (location.state.username.startsWith("guest")) {
+      let username = location.state.username;
+      console.log(username);
+      username = username.replace("guest", "");
+      console.log(username);
+      guestID = username;
+      console.log(guestID);
+    }
     const data = {
       username: location.state.username,
+      guestID: guestID,
     };
     const settings = {
       method: "POST",
@@ -40,7 +50,7 @@ const Header = ({
       .then((response) => response.text())
       .then((data) => {
         console.log(data);
-        if (data === "successfully logged out") {
+        if (data.startsWith("successfully logged out")) {
           navigate("/");
         }
       });

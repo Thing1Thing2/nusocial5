@@ -73,7 +73,7 @@ const AddPost = ({ username }) => {
           />
           <input
             type="text"
-            placeholder="Entre message body"
+            placeholder="Enter message body"
             id="body"
             onChange={(e) => handle(e)}
           />

@@ -33,10 +33,8 @@ const addPost = async (req, res) => {
             if (postC) {
               postsCountp1 = postC.postsCount + 1;
               console.log("updatedPostsCount is : " + postsCountp1);
-              const title = req.body.title;
               let info = {
                 from: username,
-                title: title,
                 postID: username + postsCountp1,
                 body: body,
                 image: imageURL,
@@ -72,7 +70,7 @@ const addPost = async (req, res) => {
 };
 
 const deletePost = async (req, res) => {
-  Posts.destroy({ where: { title: req.body.title, from: req.body.username } })
+  Posts.destroy({ where: { postID: req.body.postID, from: req.body.username } })
     .then((del) => {
       res.status(200).send("Deleted post");
     })

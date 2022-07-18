@@ -5,8 +5,7 @@ const Guests = db.guests;
 const newGuest = async (req, res) => {
   Guests.create({})
     .then((done) => {
-      let guestId = [];
-      guestId.push(done.guestID);
+      let guestId = [done.guestID];
       res.status(200).send(guestId);
     })
     .catch(function (err) {

@@ -125,8 +125,9 @@ const LaunchPage = () => {
       .then((response) => response.text())
       .then(async (msg) => {
         if (!msg.startsWith("error")) {
-          console.log(msg[0]);
-          navigate("/home", { state: { username: "guest" + msg[0] } });
+            let guestID = msg.replace("[", "");
+          guestID = guestID.replace("]", "");
+          navigate("/home", { state: { username: "guest" + guestID } });
         } else {
           console.log(msg);
         }

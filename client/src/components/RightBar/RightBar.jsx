@@ -10,8 +10,8 @@ import AddTestOrDeadline from "../Controls/AddTestOrDeadline";
 
 const RightBar = ({ username }) => {
   const navigate = useNavigate();
-
   const [friendsSuggestion, setFriendsSuggestion] = useState([]);
+  let guest = username.includes("guest");
   const getAllStudents = async () => {
     setFriendsSuggestion([]);
     const data = {
@@ -177,94 +177,115 @@ const RightBar = ({ username }) => {
       setTestsAndDeadlines(testsAndDeadlines);
     });
   };
-  return (
-    <div className="rightBar">
-      <div className="rightbarComponentContainer">
-        <AddProfilePic username={username} />
-        <input
-          type="submit"
-          placeholder="refresh feed"
-          onClick={() => {
-            getAllStudents();
-            getAllGroups();
-          }}
-          value="refresh suggestion"
-        />
-        <div className="containerTitle">Suggestions For You</div>
-        {friendsSuggestion.map((u) => (
+  if (guest) {
+    return (
+      <div onClick={() => navigate("/")}>
+        Login to explore further:
+        <div className="containerTitle">
           <div className="friendSuggestionRequest">
-            <div className="friendSuggestionLeft">
-              <div className="friendSuggestionAvatar">
-                <Avatar src={u[1]} />
-              </div>
-              <div className="friendSuggestionName">{u[0]}</div>
-            </div>
-            <div className="friendSuggestionRight">
-              <SendFriendRequest username={username} friendUsername={u[0]} />
-            </div>
+            <div className="friendSuggestionLeft">Suggestions For You</div>
           </div>
-        ))}
-        {Groups.map((u) => (
-          <div className="friendSuggestionRequest">
-            <div className="friendSuggestionLeft">
-              <div className="friendSuggestionAvatar">
-                <Avatar src={u[1]} />
-              </div>
-              <div className="friendSuggestionName">{u[0]}</div>
-            </div>
-            <div className="friendSuggestionRight">
-              <JoinGroup username={username} groupName={u[0]} />
-            </div>
+        </div>
+        <div className="upcomingDeadline">
+          <div className="rightbarComponentContainer">
+            <div className="containerTitle">Upcoming Tests & Deadlines</div>
           </div>
-        ))}
-        <div className="showMore">Show more</div>
-      </div>
-      <div className="upcomingDeadline">
+        </div>
         <div className="rightbarComponentContainer">
-          <div className="containerTitle">Upcoming Tests & Deadlines</div>
-          <AddTestOrDeadline username={username} />
-          <button onClick={getTestsAndDeadlines}>Refresh Deadlines</button>
-          {TestsAndDeadlines.map((u) => (
-            <div className="deadlineAndTest">
-              <div className="moduleName">{u[0]}</div>
-              <div className="deadlineOrTest">{u[1]}</div>
-              <div className="date">
-                {u[2]}
-                {u[3]}
+          <div className="containerTitle">Friends & Recent Chat</div>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="rightBar">
+        <div className="rightbarComponentContainer">
+          <AddProfilePic username={username} />
+          <input
+            type="submit"
+            placeholder="refresh feed"
+            onClick={() => {
+              getAllStudents();
+              getAllGroups();
+            }}
+            value="refresh suggestion"
+          />
+          <div className="containerTitle">Suggestions For You</div>
+          {friendsSuggestion.map((u) => (
+            <div className="friendSuggestionRequest">
+              <div className="friendSuggestionLeft">
+                <div className="friendSuggestionAvatar">
+                  <Avatar src={u[1]} />
+                </div>
+                <div className="friendSuggestionName">{u[0]}</div>
+              </div>
+              <div className="friendSuggestionRight">
+                <SendFriendRequest username={username} friendUsername={u[0]} />
+              </div>
+            </div>
+          ))}
+          {Groups.map((u) => (
+            <div className="friendSuggestionRequest">
+              <div className="friendSuggestionLeft">
+                <div className="friendSuggestionAvatar">
+                  <Avatar src={u[1]} />
+                </div>
+                <div className="friendSuggestionName">{u[0]}</div>
+              </div>
+              <div className="friendSuggestionRight">
+                <JoinGroup username={username} groupName={u[0]} />
               </div>
             </div>
           ))}
           <div className="showMore">Show more</div>
         </div>
-      </div>
-      <div className="rightbarComponentContainer">
-        <div className="containerTitle">Friends & Recent Chat</div>
-        <input
-          type="submit"
-          placeholder="refresh feed"
-          onClick={showConfirmedFriends}
-          value="refresh suggestion"
-        />
-        <div className="Friend">
-          {Users.map((u) => (
-            <Online key={u[0]} user={u} username={username} />
-          ))}
+        <div className="upcomingDeadline">
+          <div className="rightbarComponentContainer">
+            <div className="containerTitle">Upcoming Tests & Deadlines</div>
+            <AddTestOrDeadline username={username} />
+            <button onClick={getTestsAndDeadlines}>Refresh Deadlines</button>
+            {TestsAndDeadlines.map((u) => (
+              <div className="deadlineAndTest">
+                <div className="moduleName">{u[0]}</div>
+                <div className="deadlineOrTest">{u[1]}</div>
+                <div className="date">
+                  {u[2]}
+                  {u[3]}
+                </div>
+              </div>
+            ))}
+            <div className="showMore">Show more</div>
+          </div>
         </div>
-        <div
-          className="showMore"
-          onClick={() =>
-            navigate("/personalChat", {
-              state: {
-                username: username,
-              },
-            })
-          }
-        >
-          Show more
+        <div className="rightbarComponentContainer">
+          <div className="containerTitle">Friends & Recent Chat</div>
+          <input
+            type="submit"
+            placeholder="refresh feed"
+            onClick={showConfirmedFriends}
+            value="refresh suggestion"
+          />
+          <div className="Friend">
+            {Users.map((u) => (
+              <Online key={u[0]} user={u} username={username} />
+            ))}
+          </div>
+          <div
+            className="showMore"
+            onClick={() =>
+              navigate("/personalChat", {
+                state: {
+                  username: username,
+                },
+              })
+            }
+          >
+            Show more
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default RightBar;

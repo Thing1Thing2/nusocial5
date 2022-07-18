@@ -231,9 +231,6 @@ const RightBar = ({ username }) => {
                 </div>
                 <div className="friendSuggestionName">{u[0]}</div>
               </div>
-              <div className="friendSuggestionRight">
-                <JoinGroup username={username} groupName={u[0]} />
-              </div>
             </div>
           ))}
         </div>

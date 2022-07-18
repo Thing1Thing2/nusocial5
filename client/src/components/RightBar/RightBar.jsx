@@ -154,6 +154,34 @@ const RightBar = ({ username }) => {
     });
   };
 
+  const getAllPublicGroups = () => {
+    setGroups([]);
+    const info = {};
+
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    };
+
+    fetch(
+      "https://nusocial5.herokuapp.com/api/groupnames/getPublicGroups",
+      settings
+    ).then(async (result) => {
+      let groups = await result.json();
+      console.log(groups);
+      groups.forEach(async (group) => {
+        setGroups((list) => [
+          ...list,
+          [group.groupName, group.profilePictureURL, group.description],
+        ]);
+      });
+    });
+  };
+
   const [TestsAndDeadlines, setTestsAndDeadlines] = useState([]);
   const getTestsAndDeadlines = () => {
     setTestsAndDeadlines([]);
@@ -179,12 +207,35 @@ const RightBar = ({ username }) => {
   };
   if (guest) {
     return (
-      <div onClick={() => navigate("/")}>
-        Login to explore further:
+      <div>
+        <div className="redirect guest" onClick={() => navigate("/")}>
+          {" "}
+          Login to explore further:
+        </div>
+
+        <input
+          type="submit"
+          placeholder="refresh feed"
+          onClick={() => {
+            getAllPublicGroups();
+          }}
+          value="refresh suggestion"
+        />
         <div className="containerTitle">
-          <div className="friendSuggestionRequest">
-            <div className="friendSuggestionLeft">Suggestions For You</div>
-          </div>
+          Public Groups:
+          {Groups.map((u) => (
+            <div className="friendSuggestionRequest">
+              <div className="friendSuggestionLeft">
+                <div className="friendSuggestionAvatar">
+                  <Avatar src={u[1]} />
+                </div>
+                <div className="friendSuggestionName">{u[0]}</div>
+              </div>
+              <div className="friendSuggestionRight">
+                <JoinGroup username={username} groupName={u[0]} />
+              </div>
+            </div>
+          ))}
         </div>
         <div className="upcomingDeadline">
           <div className="rightbarComponentContainer">

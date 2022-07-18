@@ -6,6 +6,7 @@ import AddPost from "../Controls/AddPost.jsx";
 import AddNews from "../Controls/AddNews.jsx";
 
 const News = ({ username }) => {
+  let guest = username.includes("guest");
   const [PostList, setPostList] = useState([]);
 
   const getAllPosts = async () => {
@@ -91,36 +92,53 @@ const News = ({ username }) => {
         console.log(error);
       });
   };
+  if (guest) {
+    return (
+      <>
+        <button onClick={getNews}>Get News</button>
+        <div className="News">
+          {News.map((news) => (
+            <NewsFeed
+              img={news[1]}
+              profileIcon={news[1]}
+              title={news[0]}
+              link={news[2]}
+            />
+          ))}
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <AddNews username={username} />
+        <button onClick={getNews}>Get News</button>
+        <div className="News">
+          {News.map((news) => (
+            <NewsFeed
+              img={news[1]}
+              profileIcon={news[1]}
+              title={news[0]}
+              link={news[2]}
+            />
+          ))}
+        </div>
+        <AddPost username={username} />
+        <input
+          type="submit"
+          placeholder="refresh feed"
+          onClick={getAllPosts}
+          value="refresh suggestion"
+        />
 
-  return (
-    <>
-      <AddNews username={username} />
-      <button onClick={getNews}>Get News</button>
-      <div className="News">
-        {News.map((news) => (
-          <NewsFeed
-            img={news[1]}
-            profileIcon={news[1]}
-            title={news[0]}
-            link={news[2]}
-          />
-        ))}
-      </div>
-      <AddPost username={username} />
-      <input
-        type="submit"
-        placeholder="refresh feed"
-        onClick={getAllPosts}
-        value="refresh suggestion"
-      />
-
-      <div className="newsFeed">
-        {PostList.map((post) => (
-          <Post post={post} username={post[1]} />
-        ))}
-      </div>
-    </>
-  );
+        <div className="newsFeed">
+          {PostList.map((post) => (
+            <Post post={post} username={post[1]} />
+          ))}
+        </div>
+      </>
+    );
+  }
 };
 
 export default News;

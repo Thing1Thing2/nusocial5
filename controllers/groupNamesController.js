@@ -153,9 +153,25 @@ const getGroupData = async (req, res) => {
       res.status(200).send("error occurred getting group data");
     });
 };
+
+const getPublicGroups = async (req, res) => {
+  GroupNames.findAll({
+    where: {
+      private: false,
+    },
+  })
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("error occurred getting group data");
+    });
+};
 module.exports = {
   addGroup,
   allGroups,
   allMyGroups,
   getGroupData,
+  getPublicGroups,
 };

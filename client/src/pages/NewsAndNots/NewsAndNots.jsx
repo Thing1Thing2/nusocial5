@@ -100,6 +100,7 @@ const NewsAndNots = () => {
   };
 
   const location = useLocation();
+  let guest = location.state.username.includes("guest");
 
   const handleButton = (stu) => {
     console.log(stu);
@@ -141,40 +142,59 @@ const NewsAndNots = () => {
       });
   };
 
-  return (
-    <div>
-      <div className="header">
-        <Header
-          title="News and Notifications"
-          showHeaderCenter={true}
-          showHeaderRight={true}
-          link="/home"
-          username={location.state.username}
-        />
-      </div>
+  if (guest) {
+    return (
       <div>
-        <input
-          type="submit"
-          placeholder="refresh feed"
-          onClick={getAllNewsAndNots}
-          value="refresh suggestion"
-        />
-        {allNews.map((u) => (
-          <div className="friendSuggestionRequest">
-            <Avatar src={u[3]} />
-            <div className="friendSuggestionLeft">
-              <div className="friendSuggestionName">{u[1]}</div>
-            </div>
-            <div className="friendSuggestionRight">
-              <button className="sendFriendRequest" onClick={handleButton(u)}>
-                {u[2]}
-              </button>
-            </div>
-          </div>
-        ))}
+        <div className="header">
+          <Header
+            title="News and Notifications"
+            showHeaderCenter={true}
+            showHeaderRight={true}
+            link="/home"
+            username={location.state.username}
+          />
+        </div>
+        <div className="redirect guest" onClick={() => navigate("/")}>
+          Login to view notifications
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div>
+        <div className="header">
+          <Header
+            title="News and Notifications"
+            showHeaderCenter={true}
+            showHeaderRight={true}
+            link="/home"
+            username={location.state.username}
+          />
+        </div>
+        <div>
+          <input
+            type="submit"
+            placeholder="refresh feed"
+            onClick={getAllNewsAndNots}
+            value="refresh suggestion"
+          />
+          {allNews.map((u) => (
+            <div className="friendSuggestionRequest">
+              <Avatar src={u[3]} />
+              <div className="friendSuggestionLeft">
+                <div className="friendSuggestionName">{u[1]}</div>
+              </div>
+              <div className="friendSuggestionRight">
+                <button className="sendFriendRequest" onClick={handleButton(u)}>
+                  {u[2]}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 };
 
 export default NewsAndNots;

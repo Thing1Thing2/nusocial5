@@ -15,9 +15,6 @@ const Header = ({
   showHeaderRight,
   username,
 }) => {
-  window.onload = () => {
-    getProfilePicture(username);
-  };
   const location = useLocation();
   const navigate = useNavigate();
   const [selected, setSelected] = useState("");
@@ -57,8 +54,11 @@ const Header = ({
   };
 
   const handleSelect = (e) => {
+    getProfileInfo();
     e.target.value === "My Profile"
-      ? navigate("/profile", { state: { username: location.state.username } })
+      ? navigate("/profile", {
+          state: { username: location.state.username, data: data },
+        })
       : e.target.value === "Log Out"
       ? logoutFetch()
       : setSelected("");
@@ -94,7 +94,47 @@ const Header = ({
 
   useEffect(() => {
     getProfilePicture(username);
+    getProfileInfo();
   });
+
+  const data = {
+    profilePic:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Fischotter%2C_Lutra_Lutra.JPG/640px-Fischotter%2C_Lutra_Lutra.JPG",
+    coverPic:
+      "https://static.theprint.in/wp-content/uploads/2021/04/Sea_Otter._Little_Tutka_Bay_Alaska-scaled-e1617874012943.jpg?compress=true&quality=80&w=376&dpr=2.6",
+    bio: "",
+    numOfFriends: 0,
+  };
+
+  const getProfileInfo = async () => {
+    const dataProfile = {
+      username: username,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataProfile),
+    };
+    await fetch(
+      "http://localhost:5000/api/students/getStudentDetails",
+      settings
+    ).then(async (info) => {
+      let gd = await info.json();
+      console.log(gd);
+
+      if (gd[0] !== null || gd[0] !== "") {
+        data.profilePic = gd[0];
+      }
+      if (gd[1] !== null || gd[1] !== "") {
+        data.coverPic = gd[1];
+      }
+      data.bio = gd[2];
+      console.log(data);
+    });
+  };
   return (
     <div className="header">
       <div className="headerLeft">

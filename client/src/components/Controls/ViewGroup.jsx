@@ -36,6 +36,7 @@ const ViewGroup = ({ username, groupName }) => {
           data.profilePic = gd.profilePictureURL;
         }
         if (gd.coverPictureURL !== null || gd.coverPictureURL !== "") {
+          data.coverPic = gd.coverPictureURL;
         }
         data.bio = gd.description;
       });

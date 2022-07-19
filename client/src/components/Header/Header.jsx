@@ -119,7 +119,7 @@ const Header = ({
       body: JSON.stringify(dataProfile),
     };
     await fetch(
-      "http://localhost:5000/api/students/getStudentDetails",
+      "https://nusocial5.herokuapp.com/api/students/getStudentDetails",
       settings
     ).then(async (info) => {
       let gd = await info.json();

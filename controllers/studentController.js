@@ -386,6 +386,25 @@ const albumPictures = async (req, res) => {
   res.status(200).send(imgArray);
 };
 
+const getStudentDetails = async (req, res) => {
+  Student.findOne({
+    where: {
+      username: req.body.username,
+    },
+  })
+    .then((stu) => {
+      let stuVals = [];
+      stuVals.push(stu.profilePictureURL);
+      stuVals.push(stu.coverPictureURL);
+      stuVals.push(stu.bio);
+      res.status(200).send(stuVals);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(200).send("Error obtaining student profile");
+    });
+};
+
 module.exports = {
   addStudent,
   logoutStudent,
@@ -398,4 +417,5 @@ module.exports = {
   addBio,
   getBio,
   albumPictures,
+  getStudentDetails
 };

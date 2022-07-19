@@ -7,6 +7,7 @@ import AddProfilePic from "../Controls/AddProfilePic";
 import JoinGroup from "../Controls/JoinGroup";
 import SendFriendRequest from "../Controls/SendFriendRequest";
 import AddTestOrDeadline from "../Controls/AddTestOrDeadline";
+import ViewGroup from "../Controls/ViewGroup";
 
 const RightBar = ({ username }) => {
   const navigate = useNavigate();
@@ -224,23 +225,20 @@ const RightBar = ({ username }) => {
         <div className="containerTitle">
           Public Groups:
           {Groups.map((u) => (
-            <div className="friendSuggestionRequest">
-              <div className="friendSuggestionLeft">
-                <div className="friendSuggestionAvatar">
-                  <Avatar src={u[1]} />
-                </div>
-                <div className="friendSuggestionName">{u[0]}</div>
+            <div className="group">
+              <div className="groupAvatar">
+                <Avatar
+                  src={u[1]}
+                  onClick={() => navigate("/group", { state: { group: u[0] } })}
+                />
               </div>
+              <div className="groupContainerRight">
+                <div className="groupName">{u[0]}</div>
+              </div>
+
+              <ViewGroup username={username} groupName={u[0]} />
             </div>
           ))}
-        </div>
-        <div className="upcomingDeadline">
-          <div className="rightbarComponentContainer">
-            <div className="containerTitle">Upcoming Tests & Deadlines</div>
-          </div>
-        </div>
-        <div className="rightbarComponentContainer">
-          <div className="containerTitle">Friends & Recent Chat</div>
         </div>
       </div>
     );

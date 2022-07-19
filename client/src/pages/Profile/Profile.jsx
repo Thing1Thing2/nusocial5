@@ -55,6 +55,7 @@ const Profile = () => {
   window.onload = function () {
     albumImages();
   };
+
   const location = useLocation();
   return (
     <div className="profile">
@@ -74,7 +75,11 @@ const Profile = () => {
         <div className="profileBodyMid">
           Images
           {Images}
-          <ProfileMid username={location.state.username} Images={Images} />
+          <ProfileMid
+            username={location.state.username}
+            data={location.state.data}
+            Images={Images}
+          />
         </div>
       </div>
     </div>

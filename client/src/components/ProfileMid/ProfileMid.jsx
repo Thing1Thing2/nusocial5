@@ -16,7 +16,7 @@ function srcset(image, size, rows = 1, cols = 1) {
   };
 }
 
-const ProfileMid = ({ username, Images }) => {
+const ProfileMid = ({ username, data, Images }) => {
   const [bioData, setBioData] = useState({
     bio: "",
   });
@@ -52,7 +52,6 @@ const ProfileMid = ({ username, Images }) => {
     )
       .then((response) => response.text())
       .then((data) => {
-        console.log(data);
         url = data;
       });
     setProfilePic(url);
@@ -132,7 +131,6 @@ const ProfileMid = ({ username, Images }) => {
       settings
     );
     let arr = await res.json();
-    console.log(arr.length);
     setNumOfFriends(arr.length);
   };
 
@@ -171,19 +169,20 @@ const ProfileMid = ({ username, Images }) => {
       settings
     );
     dataBio = await dataBio.text();
-    console.log(dataBio);
     setBio(dataBio);
   };
 
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
-        <img className="profileCoverImg" src={coverPic} alt="" />
+        <img className="profileCoverImg" src={data.coverPic} alt="" />
         <div className="profileAvatarInfoContainer">
-          <img className="profileAvatar" src={profilePic} alt="" />
+          <img className="profileAvatar" src={data.profilePic} alt="" />
           <div className="profileInfoContainer">
             <div className="profileName">{username}</div>
-            <div className="profileFriendsNumber">{numOfFriends} Friend(s)</div>
+            <div className="profileFriendsNumber">
+              {data.numOfFriends} Friend(s)
+            </div>
           </div>
         </div>
       </div>
@@ -204,7 +203,7 @@ const ProfileMid = ({ username, Images }) => {
                 />
               </form>
             </div>
-            <div className="bioDetails">{bio}</div>
+            <div className="bioDetails">{data.bio}</div>
           </div>
           <div className="profileAlbum">
             <form onSubmit={(e) => addCoverPicture(e)}>

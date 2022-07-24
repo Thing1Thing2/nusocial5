@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./news.css";
 import NewsFeed from "./NewsFeed";
 import Post from "../Post/Post";
@@ -91,10 +91,15 @@ const News = ({ username }) => {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    getAllPosts;
+    getNews;
+  })
+  
   if (guest) {
     return (
       <>
-        <button onClick={getNews}>Get News</button>
         <div className="News">
           {News.map((news) => (
             <NewsFeed
@@ -111,7 +116,6 @@ const News = ({ username }) => {
     return (
       <>
         <AddNews username={username} />
-        <button onClick={getNews}>Get News</button>
         <div className="News">
           {News.map((news) => (
             <NewsFeed
@@ -123,12 +127,6 @@ const News = ({ username }) => {
           ))}
         </div>
         <AddPost username={username} />
-        <input
-          type="submit"
-          placeholder="refresh feed"
-          onClick={getAllPosts}
-          value="refresh suggestion"
-        />
 
         <div className="newsFeed">
           {PostList.map((post) => (

@@ -97,7 +97,7 @@ const Post = ({ post, username }) => {
 
   const deletePost = () => {
     const data = {
-      postID: post[1],
+      postID: post[2],
       username: username,
     };
     const settings = {

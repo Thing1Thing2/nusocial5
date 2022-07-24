@@ -78,7 +78,6 @@ const AddPost = ({ username }) => {
                 </div>
                 <div className="postContextContainer">
                     <input 
-                        type="text"
                         className="postContext"
                         placeholder="Write something to share with your friends here"
                         id="body"

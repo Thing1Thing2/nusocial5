@@ -1,5 +1,5 @@
 import './addPost.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "@mui/material";
 import { Avatar } from '@mui/material'
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto'
@@ -14,9 +14,40 @@ const AddPost = ({ username }) => {
   const [msg, setMsg] = useState("");
   const [open, setOpen] = useState(false);
   const [severity, setSeverity] = useState("info");
-  const [postData, setPostData] = useState({
-    body: "",
+  const [postBody, setPostBody] = useState("");
+
+  const [profilePic, setProfilePic] = useState(
+    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+  );
+
+  const getProfilePicture = async (name) => {
+    let url;
+    const data = {
+      username: name,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        url = data;
+      });
+    setProfilePic(url);
+  };
+
+  useEffect(() => {
+    getProfilePicture(username);
   });
+
   const [showPicker, setShowPicker] = useState(false);
   const onEmojiClick = (event, emojiObj) => {
     setShowPicker(false);
@@ -29,7 +60,7 @@ const AddPost = ({ username }) => {
     const formData = new FormData();
     formData.append("username", username);
     formData.append("image", fileField.files[0]);
-    formData.append("body", postData.body);
+    formData.append("body", postBody);
     const settings = {
       method: "POST",
       body: formData,
@@ -40,12 +71,6 @@ const AddPost = ({ username }) => {
         setMsg(msg);
         setOpen(true);
       });
-  }
-
-  function handle(e) {
-    const newdata = { ...postData };
-    newdata[e.target.id] = e.target.value;
-    setPostData(newdata);
   }
 
   return (
@@ -74,7 +99,7 @@ const AddPost = ({ username }) => {
       <div className="posting">
             <div>
                 <div className="avatar">
-                    <Avatar src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg" />
+                    <Avatar src={profilePic} />
                 </div>
                 <div className="postContextContainer">
                     <input 
@@ -82,7 +107,7 @@ const AddPost = ({ username }) => {
                         placeholder="Write something to share with your friends here"
                         id="body"
                         onChange={
-                          (e) => handle(e)
+                          (e) => setPostBody(e.target.value)
                         }
 
                     />

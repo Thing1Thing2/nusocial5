@@ -93,8 +93,8 @@ const News = ({ username }) => {
   };
 
   useEffect(() => {
-    getAllPosts();
-    getNews();
+    getAllPosts;
+    getNews;
   }, []);
   
   if (guest) {

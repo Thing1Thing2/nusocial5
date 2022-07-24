@@ -16,6 +16,7 @@ const AddPost = ({ username }) => {
   const [severity, setSeverity] = useState("info");
   const [postData, setPostData] = useState({
     body: "",
+    title: "",
   });
   const [showPicker, setShowPicker] = useState(false);
   const onEmojiClick = (event, emojiObj) => {
@@ -30,6 +31,7 @@ const AddPost = ({ username }) => {
     formData.append("username", username);
     formData.append("image", fileField.files[0]);
     formData.append("body", postData.body);
+    formData.append("title", postData.title);
     const settings = {
       method: "POST",
       body: formData,
@@ -41,7 +43,6 @@ const AddPost = ({ username }) => {
         setOpen(true);
       });
   }
-
   function handle(e) {
     const newdata = { ...postData };
     newdata[e.target.id] = e.target.value;
@@ -50,27 +51,6 @@ const AddPost = ({ username }) => {
 
   return (
     <div>
-      <Collapse in={open}>
-        <Alert
-          severity={severity}
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              {" "}
-              <CloseIcon fontSize="inherit" />{" "}
-            </IconButton>
-          }
-          sx={{ mb: 2 }}
-        >
-          {msg}
-        </Alert>
-      </Collapse>
       <div className="AddPost">
         <Collapse in={open}>
           <Alert
@@ -96,6 +76,12 @@ const AddPost = ({ username }) => {
         <form onSubmit={(e) => submitPost(e)}>
           <input
             type="text"
+            placeholder="Entre message title"
+            id="title"
+            onChange={(e) => handle(e)}
+          />
+          <input
+            type="text"
             placeholder="Enter message body"
             id="body"
             onChange={(e) => handle(e)}
@@ -112,5 +98,3 @@ const AddPost = ({ username }) => {
     </div>
   );
 };
-
-export default AddPost;

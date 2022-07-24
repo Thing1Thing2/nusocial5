@@ -95,7 +95,7 @@ const News = ({ username }) => {
   useEffect(() => {
     getAllPosts();
     getNews();
-  });
+  }, []);
   
   if (guest) {
     return (
@@ -115,7 +115,7 @@ const News = ({ username }) => {
   } else {
     return (
       <>
-        <AddNews username={username} />
+
         <div className="News">
           {News.map((news) => (
             <NewsFeed
@@ -125,6 +125,7 @@ const News = ({ username }) => {
               link={news[2]}
             />
           ))}
+            <AddNews username={username} />
         </div>
         <AddPost username={username} />
 

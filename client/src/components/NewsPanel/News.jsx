@@ -56,7 +56,6 @@ const News = ({ username }) => {
             useAvatar,
             post.from,
             post.createdAt,
-            post.title,
             post.body,
             post.image,
             post.likesCount,

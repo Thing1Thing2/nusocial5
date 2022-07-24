@@ -16,7 +16,6 @@ const AddPost = ({ username }) => {
   const [severity, setSeverity] = useState("info");
   const [postData, setPostData] = useState({
     body: "",
-    title: "",
   });
   const [showPicker, setShowPicker] = useState(false);
   const onEmojiClick = (event, emojiObj) => {
@@ -81,16 +80,18 @@ const AddPost = ({ username }) => {
                     <input 
                         className="postContext"
                         placeholder="Write something to share with your friends here"
+                        id="body"
                         onChange={
                           (e) => handle(e)
                         }
+
                     />
                 </div>
             </div>
             <div className="postingBottom">
                 <div className="postingAdditional">
                     <div className="postImage">
-                        <input type="file"/>
+                        <input type="file" id="photo" name="filename" />
                         <InsertPhotoIcon sx={{ fontSize: 40 }} className ="icon" />
                     </div>
                     <div className="postEmoji">

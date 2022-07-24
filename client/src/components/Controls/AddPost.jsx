@@ -51,6 +51,7 @@ const AddPost = ({ username }) => {
 
   return (
     <div>
+<<<<<<< HEAD
       <div className="AddPost">
         <Collapse in={open}>
           <Alert
@@ -95,6 +96,65 @@ const AddPost = ({ username }) => {
           <input type="submit" placeholder="submit post" />
         </form>
       </div>
+=======
+      <Collapse in={open}>
+        <Alert
+          severity={severity}
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              {" "}
+              <CloseIcon fontSize="inherit" />{" "}
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          {msg}
+        </Alert>
+      </Collapse>
+      <div className="posting">
+            <div>
+                <div className="avatar">
+                    <Avatar src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg" />
+                </div>
+                <div className="postContextContainer">
+                    <input 
+                        className="postContext"
+                        placeholder="Write something to share with your friends here"
+                        id="body"
+                        onChange={
+                          (e) => handle(e)
+                        }
+
+                    />
+                </div>
+            </div>
+            <div className="postingBottom">
+                <div className="postingAdditional">
+                    <div className="postImage">
+                        <input type="file" id="photo" name="filename" />
+                        <InsertPhotoIcon sx={{ fontSize: 40 }} className ="icon" />
+                    </div>
+                    <div className="postEmoji">
+                        <InsertEmoticonIcon sx={{ fontSize: 40 }} className="icon" onClick = {() => setShowPicker(val => !val)}/>
+                        <i>
+                            {showPicker && <Picker onEmojiClick={ onEmojiClick}/> }
+                        </i>
+                    </div>
+                </div>
+                <button className="postingButton" onClick={(e) => submitPost(e)}>
+                    Post
+                </button>
+            </div>  
+        </div>
+>>>>>>> parent of d800595 (fix Posting (2))
     </div>
   );
 };
+export default AddPost;

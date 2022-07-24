@@ -17,6 +17,39 @@ const AddPost = ({ username }) => {
   const [postData, setPostData] = useState({
     body: "",
   });
+
+  const [profilePic, setProfilePic] = useState(
+    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+  );
+
+  const getProfilePicture = async (name) => {
+    let url;
+    const data = {
+      username: name,
+    };
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch(
+      "https://nusocial5.herokuapp.com/api/students/getProfilePicture",
+      settings
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        url = data;
+      });
+    setProfilePic(url);
+  };
+
+  useEffect(() => {
+    getProfilePicture(username);
+  });
+
   const [showPicker, setShowPicker] = useState(false);
   const onEmojiClick = (event, emojiObj) => {
     setShowPicker(false);
@@ -74,7 +107,7 @@ const AddPost = ({ username }) => {
       <div className="posting">
             <div>
                 <div className="avatar">
-                    <Avatar src="https://is5-ssl.mzstatic.com/image/thumb/Purple113/v4/ec/83/3a/ec833a37-1e6f-958e-9e60-4f358795405f/source/512x512bb.jpg" />
+                    <Avatar src={profilePic} />
                 </div>
                 <div className="postContextContainer">
                     <input 

@@ -10,7 +10,6 @@ const News = ({ username }) => {
   const [PostList, setPostList] = useState([]);
 
   const getAllPosts = async () => {
-    setPostList([]);
     let useAvatar = "";
 
     const info = {
@@ -70,7 +69,6 @@ const News = ({ username }) => {
   const [News, setNews] = useState([]);
 
   const getNews = () => {
-    setNews([]);
     const data = {
       username: username,
     };
@@ -93,10 +91,10 @@ const News = ({ username }) => {
   };
 
   useEffect(() => {
-    getAllPosts;
-    getNews;
+    getAllPosts();
+    getNews();
   }, []);
-  
+
   if (guest) {
     return (
       <>

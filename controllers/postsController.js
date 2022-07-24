@@ -1,16 +1,20 @@
 const db = require("../models");
 var cloudinary = require("cloudinary").v2;
+
 const { Op } = require("sequelize");
 const sequelize = require("sequelize");
+
 cloudinary.config({
   cloud_name: "nusocial5",
   api_key: "829672847473966",
   api_secret: "EmSoixOPZ2b8u7Ot6xc1YR1oJmk",
 });
+
 // create main Model
 const Student = db.students;
 const Posts = db.posts;
 const Friends = db.friends;
+
 const addPost = async (req, res) => {
   if (req.files) {
     if (req.files.image) {
@@ -29,10 +33,8 @@ const addPost = async (req, res) => {
             if (postC) {
               postsCountp1 = postC.postsCount + 1;
               console.log("updatedPostsCount is : " + postsCountp1);
-              const title = req.body.title;
               let info = {
                 from: username,
-                title: title,
                 postID: username + postsCountp1,
                 body: body,
                 image: imageURL,
@@ -68,7 +70,7 @@ const addPost = async (req, res) => {
 };
 
 const deletePost = async (req, res) => {
-  Posts.destroy({ where: { title: req.body.title, from: req.body.username } })
+  Posts.destroy({ where: { postID: req.body.postID, from: req.body.username } })
     .then((del) => {
       res.status(200).send("Deleted post");
     })
@@ -77,6 +79,7 @@ const deletePost = async (req, res) => {
       res.status(200).send("error occurred");
     });
 };
+
 const getMyPosts = async (req, res) => {
   Posts.findAll({
     attributes: [
@@ -104,6 +107,7 @@ const getMyPosts = async (req, res) => {
       res.status(200).send("error occured");
     });
 };
+
 const getAllPosts = async (req, res) => {
   let username = req.body.username;
   let stu = await Student.findOne({
@@ -129,7 +133,9 @@ const getAllPosts = async (req, res) => {
       });
       confirmed.push(username);
       console.log("CONFIRMED ARE: " + confirmed);
+
       //finally got all confirmed friends in confirmed
+
       Posts.findAll({
         where: {
           from: confirmed,
@@ -150,6 +156,7 @@ const getAllPosts = async (req, res) => {
       .send("Create an account to make friends and see their posts");
   }
 };
+
 const addLike = async (req, res) => {
   Posts.findOne({ where: { postID: req.body.postID } }).then((post) => {
     Posts.update(
@@ -165,6 +172,7 @@ const addLike = async (req, res) => {
       });
   });
 };
+
 const removeLike = async (req, res) => {
   Posts.findOne({ where: { postID: req.body.postID } }).then((post) => {
     Posts.update(
@@ -180,6 +188,7 @@ const removeLike = async (req, res) => {
       });
   });
 };
+
 module.exports = {
   addPost,
   deletePost,

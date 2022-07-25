@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./profile.css";
 import { ImageList, ImageListItem } from "@mui/material";
 import News from "../NewsPanel/News";
@@ -26,12 +26,20 @@ const ProfileMid = ({ username, data, Images }) => {
     newdata[e.target.id] = e.target.value;
     setBioData(newdata);
   }
-  window.onload = () => {
+  
+  useEffect(() => {
     getProfilePicture(username);
+  }, []);
+  useEffect(() => {
     getCoverPicture(username);
+  }, []);
+  useEffect(() => {
     showConfirmedFriends();
+  }, []);
+  useEffect(() => {
     getBio();
-  };
+  }, []);
+
   const getProfilePicture = async (name) => {
     let url;
     console.log("getting profile pic");

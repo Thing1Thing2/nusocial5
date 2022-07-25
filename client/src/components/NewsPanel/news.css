@@ -2,8 +2,8 @@
   display: flex;
   overflow: auto;
   max-width: 800px;
-  padding-left: 7%;
 }
+
 .newsFeed {
   width: 100%;
 }

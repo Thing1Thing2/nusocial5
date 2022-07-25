@@ -73,9 +73,9 @@ const LaunchPage = () => {
   };
 
   const [dataReg, setDataReg] = useState({
-    username: "",
+    regUsername: "",
     nus_email: "",
-    password: "",
+    regPassword: "",
   });
 
   function handleReg(e) {
@@ -241,7 +241,7 @@ const LaunchPage = () => {
                 <input
                   type="text"
                   placeholder="Username"
-                  id="username"
+                  id="regUsername"
                   onChange={(e) => handleReg(e)}
                   onKeyDown={(e) => {
                     if (e.key.toLowerCase() === "enter") {
@@ -269,7 +269,7 @@ const LaunchPage = () => {
                 <input
                   type="password"
                   placeholder="Password"
-                  id="password"
+                  id="regPassword"
                   onChange={(e) => handleReg(e)}
                   onKeyDown={(e) => {
                     if (e.key.toLowerCase() === "enter") {

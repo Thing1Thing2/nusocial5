@@ -1,4 +1,4 @@
-form {
+.form {
     position: relative;
     background-position: center center;
     background-size: cover;
@@ -12,11 +12,11 @@ form {
     cursor: pointer;
   }
   
-  form:hover {
+  .form:hover {
     transform: scale(1.07);
   }
   
-  form > h4 {
+  .form > h4 {
     position: absolute;
     bottom: 20px;
     left: 20px;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./addNews.css";
 import { Alert } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -63,7 +64,7 @@ const AddNews = ({ username }) => {
             {msg}
           </Alert>
         </Collapse>
-        <form onSubmit={(e) => addNews(e)}>
+        <form className="form" onSubmit={(e) => addNews(e)}>
           <input
             type="text"
             placeholder="Enter title"

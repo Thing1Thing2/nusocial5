@@ -1,7 +1,8 @@
 .News {
   display: flex;
   overflow: auto;
-  width: 100%;
+  max-width: 800px;
+  padding-left: 7%;
 }
 .newsFeed {
   width: 100%;

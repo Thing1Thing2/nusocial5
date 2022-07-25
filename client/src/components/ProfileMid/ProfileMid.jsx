@@ -57,7 +57,7 @@ const ProfileMid = ({ username, data, Images }) => {
     setProfilePic(url);
   };
   const [profilePic, setProfilePic] = useState(
-    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+    "https://minervastrategies.com/wp-content/uploads/2016/03/default-avatar.jpg"
   );
 
   function addCoverPicture(e) {
@@ -110,7 +110,7 @@ const ProfileMid = ({ username, data, Images }) => {
   };
 
   const [coverPic, setCoverPic] = useState(
-    "http://res.cloudinary.com/nusocial5/image/upload/v1657007433/k15gvt1qasici1xyi0vo.jpg"
+    "https://www.facebook.com/106558717708937/photos/a.106559117708897/106559104375565/?type=3"
   );
 
   const showConfirmedFriends = async () => {

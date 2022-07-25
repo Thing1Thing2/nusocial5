@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./addNews.css";
 import { Alert } from "@mui/material";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";

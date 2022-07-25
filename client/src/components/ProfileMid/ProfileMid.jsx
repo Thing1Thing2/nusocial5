@@ -175,9 +175,9 @@ const ProfileMid = ({ username, data, Images }) => {
   return (
     <div className="profileMid">
       <div className="profileTopContainer">
-        <img className="profileCoverImg" src={data.coverPic} alt="" />
+        <img className="profileCoverImg" src={coverPic} alt="" />
         <div className="profileAvatarInfoContainer">
-          <img className="profileAvatar" src={data.profilePic} alt="" />
+          <img className="profileAvatar" src={profilePic} alt="" />
           <div className="profileInfoContainer">
             <div className="profileName">{username}</div>
             <div className="profileFriendsNumber">

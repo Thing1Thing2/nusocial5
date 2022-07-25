@@ -91,12 +91,6 @@ const News = ({ username }) => {
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    getAllPosts();
-    getNews();
-  }, []);
-  
   if (guest) {
     return (
       <>

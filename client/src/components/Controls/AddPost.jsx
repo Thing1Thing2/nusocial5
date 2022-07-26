@@ -60,6 +60,7 @@ const AddPost = ({ username }) => {
     const formData = new FormData();
     formData.append("username", username);
     formData.append("image", fileField.files[0]);
+    console.log(fileField.files[0]);
     formData.append("body", postBody);
     const settings = {
       method: "POST",

@@ -118,7 +118,6 @@ const AddPost = ({ username }) => {
                 <div className="postingAdditional">
                     <div className="postImage">
                         <input type="file" id="photo" name="filename" />
-                        <InsertPhotoIcon sx={{ fontSize: 40 }} className ="icon" />
                     </div>
                     <div className="postEmoji">
                         <InsertEmoticonIcon sx={{ fontSize: 40 }} className="icon" onClick = {() => setShowPicker(val => !val)}/>

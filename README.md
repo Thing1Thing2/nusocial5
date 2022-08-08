@@ -2,6 +2,3 @@
 
 README
 
-## Subheader
-
-Elaborate
